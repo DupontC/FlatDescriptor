@@ -1,6 +1,6 @@
 [
 {
-    "enLigne" : "true",
+    "enLigne" : false,
     "ville" : "Caen",
     "titre1" : "Lemon drops",
     "texte1" : "Fruitcake toffee jujubes. Topping biscuit sesame snaps jelly caramels jujubes tiramisu fruitcake. Marzipan tart lemon drops chocolate sesame snaps jelly beans.",
@@ -23,9 +23,9 @@
     "contacts":"Cake cotton candy lollipop. Cake croissant cheesecake candy sugar plum icing apple pie wafer. Pie sugar plum tiramisu tiramisu pie fruitcake candy icing. Candy icing gummies gummies cheesecake brownie lemon drops chocolate gingerbread."
   },
   {
-    "enLigne" : "false",
+    "enLigne" : true,
     "ville" : "Caen",
-    "localisation" : "45.7593, 4.8431",
+    "localisation" : "15 rue de la Part-Dieu",
     "titre1" : "Lemon drops",
     "texte1" : "Fruitcake toffee jujubes. Topping biscuit sesame snaps jelly caramels jujubes tiramisu fruitcake. Marzipan tart lemon drops chocolate sesame snaps jelly beans.",
     "image1": "images/1.png",

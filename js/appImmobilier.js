@@ -11,7 +11,7 @@ FlatApp.controller('FlatFrontOfficeCtrl',function($scope, $http, $location) {
         var id = param[1].split("=");
 
         if(null != data && null != id){
-          if(isNumeric(id[1]) && id[1] <= data.length-1 && data[id[1]]["enLigne"] == "true"){
+          if(isNumeric(id[1]) && id[1] <= data.length-1 && data[id[1]]["enLigne"] == true){
             $scope.appartement = data[id[1]];
             latitude = $scope.appartement.latitude;
             longitude = $scope.appartement.longitude;
