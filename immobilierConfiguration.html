@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" ng-app="immoApp">
     <head>
 		<meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -19,7 +19,7 @@
 			</style>
 		<![endif]-->
     </head>
-    <body>
+    <body ng-controller="FlatBackOfficeCtrl">
 
 			<section class="af-wrapper">
 	      <h1>Description de l'appartement</h1>
@@ -99,8 +99,6 @@
             </div>
           </div>
           <hr>
-
-
 
 
           <div class="af-outer af-required">
@@ -195,4 +193,7 @@
 			</section>
 
     </body>
+
+    <script src="js/appImmobilierConfiguration.js"></script>
+
 </html>
