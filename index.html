@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" ng-app="immoApp">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Logement</title>
+		<meta name="description" content="Vous trouverez les descriptions d'appartements localisés à Lyon ou bien Caen." />
+		<meta name="keywords" content="appartement logement meublé Lyon Caen" />
+		<meta name="author" content="Codrops" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+	</head>
+	<body ng-controller="FlatFrontOfficeCtrl">
+
+		<div class="container">
+			<div class="cbp-af-header">
+				<div class="cbp-af-inner">
+					<h1>{{appartement.ville}}</h1>
+					<nav>
+						<a id="link-home" href="#home">Appartement</a>
+						<a id="link-photos"href="#photos">Photos</a>
+						<a id="link-map" href="#map">Localisation</a>
+						<a id="link-contacts" href="#contacts">Contacts</a>
+					</nav>
+				</div>
+			</div>
+
+			<header class="clearfix">
+				<span>Blueprint <span class="bp-icon bp-icon-about" data-content="appartement, logement, Lyon, meublé, Caen"></span></span>
+				<h1></h1>
+				<nav>
+			</nav>
+			</header>
+			<br>
+			<div id="cbp-so-scroller" class="cbp-so-scroller">
+				<section class="cbp-so-section">
+					<article class="cbp-so-side cbp-so-side-left">
+						<h2>{{appartement.titre1}}</h2>
+						<p>{{appartement.texte1}}</p>
+					</article>
+					<figure class="cbp-so-side cbp-so-side-right">
+						<img src={{appartement.image1}} alt="img01">
+					</figure>
+				</section>
+				<section id="home" class="cbp-so-section">
+					<figure class="cbp-so-side cbp-so-side-left">
+						<img src={{appartement.image2}} alt="img02">
+					</figure>
+					<article class="cbp-so-side cbp-so-side-right">
+						<h2>{{appartement.titre2}}</h2>
+						<p>{{appartement.texte2}}</p>
+					</article>
+				</section>
+				<section class="cbp-so-section">
+					<article class="cbp-so-side cbp-so-side-left">
+						<h2>{{appartement.titre3}}</h2>
+						<p>{{appartement.texte3}}</p>
+					</article>
+					<figure class="cbp-so-side cbp-so-side-right">
+						<img src="{{appartement.image3}}" alt="img03">
+					</figure>
+				</section>
+				<section class="cbp-so-section">
+					<figure class="cbp-so-side cbp-so-side-left">
+						<img src="{{appartement.image4}}" alt="img04">
+					</figure>
+					<article class="cbp-so-side cbp-so-side-right">
+						<h2>{{appartement.titre4}}</h2>
+						<p>{{appartement.texte4}}</p>
+					</article>
+				</section>
+			</div>
+
+			<!--Emplacement de la map -->
+			<div id="map">
+				<section class="cbp-so-section">
+					<article class="cbp-so-side cbp-so-side-left">
+						<h2>Emplacement</h2>
+						<p>{{appartement.emplacement}}</p>
+					</article>
+					<figure id="map-canvas" class="cbp-so-side-maps cbp-so-side-right">
+					</figure>
+				</section>
+			</div>
+
+			<!-- enplacment pour les photos flirck -->
+			<div id="photos">
+				<section class="cbp-so-section">
+					<figure class="cbp-so-side cbp-so-side-left">
+						<iframe id="album" src="{{appartement.albumPhotos}}" height="400" width="500"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen style="margin-top: 80px;">
+						</iframe>
+					</figure>
+					<article class="cbp-so-side cbp-so-side-right">
+						<h2>Photos</h2>
+						<p>{{appartement.photos}}</p>
+					</article>
+				</section>
+			</div>
+
+			<!--Contacts -->
+			<div id="contacts">
+				<section class="cbp-so-section">
+					<article style="margin-left: 10%; margin-rigth: 10%">
+						<h2>Contacts</h2>
+						<p>{{appartement.contacts}}</p>
+					</article>
+				</section>
+			</div>
+
+		</div>
+		<script src="js/modernizr.custom.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>-->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/classie.js"></script>
+		<script src="js/cbpScroller.js"></script>
+		<script src="js/classie.js"></script>
+		<script src="js/cbpAnimatedHeader.min.js"></script>
+		<script>
+			new cbpScroller( document.getElementById( 'cbp-so-scroller' ) );
+		</script>
+
+	</body>
+</html>
