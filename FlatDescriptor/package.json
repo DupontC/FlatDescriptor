@@ -1,0 +1,35 @@
+{
+  "name": "FlatDescriptor",
+  "version": "1.0.0",
+  "description": "Vous trouverez les descriptions d'appartements localisés à Lyon ou bien Caen porposé pour des locations",
+  "main": "serveurNodeJS.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exponentiel/FlatDescriptor.git"
+  },
+  "keywords": [
+    "immobilier",
+    "appartement",
+    "Caen",
+    "Lyon",
+    "logement",
+    "meuble"
+  ],
+  "author": "Cyril Dupont",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/exponentiel/FlatDescriptor/issues"
+  },
+  "homepage": "https://github.com/exponentiel/FlatDescriptor",
+  "dependencies": {
+    "express": ">=3.0.0rc1",
+    "socket.io": ">=0.9.10",
+    "mongodb": "*"
+  },
+  "scripts": {
+    "start": "serveurNodeJS.js"
+  }
+}
