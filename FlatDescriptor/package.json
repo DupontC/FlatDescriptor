@@ -27,8 +27,10 @@
   "dependencies": {
     "express": ">=3.0.0rc1",
     "socket.io": ">=0.9.10",
-    "mongodb": "*"
+    "mongodb": "*",
+    "mongoskin": "*"
   },
+  "web": "node serveurNodeJS.js",
   "scripts": {
     "start": "serveurNodeJS.js"
   }

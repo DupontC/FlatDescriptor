@@ -1,6 +1,8 @@
 //declaration des librairies
 var express = require('express');
+var db = require('mongoskin').db('localhost:27017/rockband'); 
 var app = express();
+
 
 
 //utile pour permettre à nos page HTML de
