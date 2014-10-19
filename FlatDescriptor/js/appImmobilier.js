@@ -2,86 +2,39 @@ var FlatApp = angular.module('immoApp', []);
 var longitude = null;
 var latitude = null;
 var urlAlbum = null;
+
 FlatApp.controller('FlatFrontOfficeCtrl',function($scope, $http, $location) {
 
-    $http({method: 'GET', url: './immo.json'}).
-      success(function(data, status, headers, config) {
+  //on recupére l'id de l'annonce
+  var url = $location.absUrl();
+  var param = url.split("/");
+  var indiceID = param[param.length-1];
 
-        data = [
-        {
-            "enLigne" : false,
-            "ville" : "Caen",
-            "titre1" : "Lemon drops",
-            "texte1" : "Fruitcake toffee jujubes. Topping biscuit sesame snaps jelly caramels jujubes tiramisu fruitcake. Marzipan tart lemon drops chocolate sesame snaps jelly beans.",
-            "image1": "../images/1.png",
-            "titre2" : "Plum caramels",
-            "texte2" : "Lollipop powder danish sugar plum caramels liquorice sweet cookie. Gummi bears caramels gummi bears candy canes cheesecake sweet roll icing dragée. Gummies jelly-o tart. Cheesecake unerdwear.com candy canes apple pie halvah chocolate tiramisu.",
-            "image2" : "../images/2.png",
-            "titre3" : "Marzipan gingerbread",
-            "texte3" : "Soufflé bonbon jelly cotton candy liquorice dessert jelly bear claw candy canes. Pudding halvah bonbon marzipan powder. Marzipan gingerbread sweet jelly.",
-            "image3" : "../images/3.png",
-            "titre4" : "Carrot cake",
-            "texte4" : "Sesame snaps sweet wafer danish. Chupa chups carrot cake icing donut halvah bonbon. Chocolate cake candy marshmallow pudding dessert marzipan jujubes sugar plum.",
-            "image4" : "../images/4.png",
-            "emplacement":"Sesame snaps sweet wafer danish. Chupa chups carrot cake icing donut halvah bonbon. Chocolate cake candy marshmallow pudding dessert marzipan jujubes sugar plum.",
-            "latitude" : "45.7593",
-            "longitude" : "4.8431",
-            "adresse" : "15 rue de la Part-Dieu 69003 LYON",
-            "photos":"Cake cotton candy lollipop. Cake croissant cheesecake candy sugar plum icing apple pie wafer. Pie sugar plum tiramisu tiramisu pie fruitcake candy icing. Candy icing gummies gummies cheesecake brownie lemon drops chocolate gingerbread.",
-            "albumPhotos" : "https://www.flickr.com/photos/125729062@N07/14522173061/player/3931c36915",
-            "contacts":"Cake cotton candy lollipop. Cake croissant cheesecake candy sugar plum icing apple pie wafer. Pie sugar plum tiramisu tiramisu pie fruitcake candy icing. Candy icing gummies gummies cheesecake brownie lemon drops chocolate gingerbread."
-          },
-          {
-            "enLigne" : true,
-            "ville" : "Caen",
-            "localisation" : "15 rue de la Part-Dieu",
-            "titre1" : "Lemon drops",
-            "texte1" : "Fruitcake toffee jujubes. Topping biscuit sesame snaps jelly caramels jujubes tiramisu fruitcake. Marzipan tart lemon drops chocolate sesame snaps jelly beans.",
-            "image1": "../images/1.png",
-            "titre2" : "Plum caramels",
-            "texte2" : "Lollipop powder danish sugar plum caramels liquorice sweet cookie. Gummi bears caramels gummi bears candy canes cheesecake sweet roll icing dragée. Gummies jelly-o tart. Cheesecake unerdwear.com candy canes apple pie halvah chocolate tiramisu.",
-            "image2" : "../images/2.png",
-            "titre3" : "Marzipan gingerbread",
-            "texte3" : "Soufflé bonbon jelly cotton candy liquorice dessert jelly bear claw candy canes. Pudding halvah bonbon marzipan powder. Marzipan gingerbread sweet jelly.",
-            "image3" : "../images/3.png",
-            "titre4" : "Carrot cake",
-            "texte4" : "Sesame snaps sweet wafer danish. Chupa chups carrot cake icing donut halvah bonbon. Chocolate cake candy marshmallow pudding dessert marzipan jujubes sugar plum.",
-            "image4" : "../images/4.png",
-            "titre5" : "Pudding lollipop",
-            "texte5" : "Chupa chups pudding lollipop gummi bears gummies cupcake pie. Cookie cotton candy caramels. Oat cake dessert applicake. Sweet roll tiramisu sweet roll sweet roll.",
-            "image5" : "../images/5.png",
-            "titre6" : "Soufflé bonbon",
-            "texte6" : "Cake cotton candy lollipop. Cake croissant cheesecake candy sugar plum icing apple pie wafer. Pie sugar plum tiramisu tiramisu pie fruitcake candy icing. Candy icing gummies gummies cheesecake brownie lemon drops chocolate gingerbread.",
-            "image6" : "../images/6.png",
-            "emplacement":"Sesame snaps sweet wafer danish. Chupa chups carrot cake icing donut halvah bonbon. Chocolate cake candy marshmallow pudding dessert marzipan jujubes sugar plum.",
-            "latitude" : "45.7593",
-            "longitude" : "4.8431",
-            "photos":"Cake cotton candy lollipop. Cake croissant cheesecake candy sugar plum icing apple pie wafer. Pie sugar plum tiramisu tiramisu pie fruitcake candy icing. Candy icing gummies gummies cheesecake brownie lemon drops chocolate gingerbread.",
-            "albumPhotos" : "https://www.flickr.com/photos/125729062@N07/14522173061/player/3931c36915",
-            "contacts":"Cake cotton candy lollipop. Cake croissant cheesecake candy sugar plum icing apple pie wafer. Pie sugar plum tiramisu tiramisu pie fruitcake candy icing. Candy icing gummies gummies cheesecake brownie lemon drops chocolate gingerbread."
+  if(isNumeric(indiceID)) {
+      //on demande au serveur les informations sur l'annonce en ajax
+      $http({method: 'GET', url: 'data/'+indiceID}).
+        success(function(data, status, headers, config) {
+          //si les données sont retourée au match avec notre object Angular
+          if(null != data && null != indiceID){
+           if(isNumeric(indiceID) && indiceID <= data.length-1 && data[indiceID]["enLigne"] == true){
+              $scope.appartement = data[indiceID];
+              latitude = $scope.appartement.latitude;
+              longitude = $scope.appartement.longitude;
+              urlAlbum = $scope.appartement.albumPhotos;
+            }else{
+              alert("Désolé ,annonce non disponible");
+            }
           }
+        }).
+        error(function(data, status, headers, config) {
+          alert("Bada Bom !"+status[0]+" "+headers[0]);
+      });
+  }
+});
 
-          ]
-
-        var url = $location.absUrl();
-        var param = url.split("/");
-        var indiceID = param[param.length-1];
-        if(null != data && null != indiceID){
-         if(isNumeric(indiceID) && indiceID <= data.length-1 && data[indiceID]["enLigne"] == true){
-            $scope.appartement = data[indiceID];
-            latitude = $scope.appartement.latitude;
-            longitude = $scope.appartement.longitude;
-            urlAlbum = $scope.appartement.albumPhotos;
-          }else{
-            //alert("Désolé ,annonce non disponible");
-          }
-        }
-      }).
-      error(function(data, status, headers, config) {
-        alert("Bada Bom !"+status[0]+" "+headers[0]);
-    });
-  });
-
+/**
+* Fonction que vérifie si la variable passé en parametres est de type numérique
+**/
 function isNumeric(obj) {
     return !isNaN(parseFloat(obj)) && isFinite(obj);
 }
@@ -139,4 +92,5 @@ function loadScript() {
     document.body.appendChild(script);
 }
 
+//On precise que quand la page est charge, on initialise la map Google 
 window.onload = loadScript;
