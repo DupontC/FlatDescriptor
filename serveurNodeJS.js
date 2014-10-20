@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 
-
+app.set('port', (process.env.PORT || 5000))
 
 //utile pour permettre à nos page HTML de
 //charger des ressources (JavaScript, CSS,...)
@@ -85,7 +85,7 @@ app.get('/data/:id', function (req, res) {
 
 
 //on mettre notre serveur en ecoute
-var server = app.listen(3000, function () {
+var server = app.listen(app.get('port'), function () {
   console.log("start");
   var host = server.address().address;
   var port = server.address().port;
