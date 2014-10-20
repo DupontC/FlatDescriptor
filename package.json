@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Vous trouverez les descriptions d'appartements localisés à Lyon ou bien Caen porposé pour des locations",
   "main": "serveurNodeJS.js",
+  "author": "Cyril Dupont",
+  "license": "ISC",
+  "homepage": "https://github.com/exponentiel/FlatDescriptor",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,20 +21,18 @@
     "logement",
     "meuble"
   ],
-  "author": "Cyril Dupont",
-  "license": "ISC",
+  "engines": {
+    "node": "0.10.x"
+  },
   "bugs": {
     "url": "https://github.com/exponentiel/FlatDescriptor/issues"
   },
-  "homepage": "https://github.com/exponentiel/FlatDescriptor",
   "dependencies": {
     "express": ">=3.0.0rc1",
     "socket.io": ">=0.9.10",
-    "mongodb": "*",
-    "mongoskin": "*"
+    "mongodb": "*"
   },
-  "web": "node serveurNodeJS.js",
   "scripts": {
-    "start": "serveurNodeJS.js"
+    "start": "node serveurNodeJS.js"
   }
 }

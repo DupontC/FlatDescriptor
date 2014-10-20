@@ -1,6 +1,5 @@
 //declaration des librairies
 var express = require('express');
-var db = require('mongoskin').db('localhost:27017/rockband'); 
 var app = express();
 
 
@@ -87,7 +86,7 @@ app.get('/data/:id', function (req, res) {
 
 //on mettre notre serveur en ecoute
 var server = app.listen(3000, function () {
-
+  console.log("start");
   var host = server.address().address;
   var port = server.address().port;
 
