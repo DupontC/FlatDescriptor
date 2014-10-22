@@ -1,5 +1,4 @@
 mongoose = require("mongoose");
-//mongoose.connect(process.env.MONGOHQ_URL);
 db = mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
 
@@ -32,6 +31,15 @@ var flatSchema = new Schema({
 // Use the schema to register a model with MongoDb
 mongoose.model('flat', flatSchema);
 var flat = mongoose.model('flat');
+
+
+flat.find({'id_annonce':0}, function (err, flats) {
+ if(err){
+  onErr(err,callback);
+ }else{
+  console.log(flats);
+ }
+})
 /*
 var appart1 = new flat({
     "id_annonce": 1,
@@ -96,6 +104,8 @@ var appart2 = new flat({
 
 appart2.save();
 */
+
+// end Team.find
 /*
 var appart3 = flat.findOne({'id_annonce': 0} ,function(err,docs){
   console.log("erreur");
