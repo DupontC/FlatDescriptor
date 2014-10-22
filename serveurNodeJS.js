@@ -2,7 +2,6 @@
 var express = require('express');
 var mongoose = require("mongoose");
 var app = express();
-var MONGOHQ_URL="mongodb://heroku:qx1L3V6QpV8Xtt1BDdn_CcHMFGkF3iMUhUXUm3x_7S37DqK7HjZVfTRB4rjiTXdehHdWeuBlNym5oMmHG2VKEg@linus.mongohq.com:10085/app30838243";
 
 db = mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
