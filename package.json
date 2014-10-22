@@ -5,6 +5,7 @@
   "main": "serveurNodeJS.js",
   "author": "Cyril Dupont",
   "license": "ISC",
+  "web": "node serveurNodeJS.js",
   "homepage": "https://github.com/exponentiel/FlatDescriptor",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -30,7 +31,7 @@
   "dependencies": {
     "express": ">=3.0.0rc1",
     "socket.io": ">=0.9.10",
-    "mongodb": "*"
+    "mongoose": "*"
   },
   "scripts": {
     "start": "node serveurNodeJS.js"
