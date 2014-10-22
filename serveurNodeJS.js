@@ -2,9 +2,10 @@
 var app = express();
 var express = require('express');
 mongoose = require("mongoose");
-
-// Create a schema for our flats data
+db = mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
+
+// Create a schema for our data
 var flatSchema = new Schema({
   id_annonce : Number,
   enLigne : Boolean,
@@ -62,7 +63,6 @@ app.get('/data/:id', function (req, res) {
   //on redirige vers page avec les infos
   req.query.id = idAnnonce;
 
-  db = mongoose.connect(MONGOHQ_URL);
   flat.find({'id_annonce':id_annonce}, function (err, flats) {
    if(err){
     onErr(err,callback);
@@ -70,7 +70,6 @@ app.get('/data/:id', function (req, res) {
     data = flats;
    }
   })
-  mongoose.connection.close();
   console.log("search add number "+idAnnonce);
   //on retourne les données trouvé au clients
   res.send(data);
