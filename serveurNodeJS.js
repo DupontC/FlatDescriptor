@@ -1,7 +1,8 @@
 //declaration des librairies
-var app = express();
 var express = require('express');
-mongoose = require("mongoose");
+var mongoose = require("mongoose");
+var app = express();
+
 db = mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
 
@@ -63,9 +64,10 @@ app.get('/data/:id', function (req, res) {
   //on redirige vers page avec les infos
   req.query.id = idAnnonce;
 
-  flat.find({'id_annonce':id_annonce}, function (err, flats) {
+  //on recherche l'annonce demander par le client
+  flat.find({'id_annonce':idAnnonce}, function (err, flats) {
    if(err){
-    onErr(err,callback);
+    onErr(err,"erreur data");
    }else{
     data = flats;
    }
