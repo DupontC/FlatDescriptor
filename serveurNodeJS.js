@@ -2,6 +2,7 @@
 var express = require('express');
 var mongoose = require("mongoose");
 var app = express();
+var MONGOHQ_URL="mongodb://heroku:qx1L3V6QpV8Xtt1BDdn_CcHMFGkF3iMUhUXUm3x_7S37DqK7HjZVfTRB4rjiTXdehHdWeuBlNym5oMmHG2VKEg@linus.mongohq.com:10085/app30838243";
 
 db = mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
@@ -61,20 +62,16 @@ app.get('/data/:id', function (req, res) {
   //on recupére l'id de l'annonce rechercher
   var data = null;
   var idAnnonce = req.params.id
-  //on redirige vers page avec les infos
-  req.query.id = idAnnonce;
 
   //on recherche l'annonce demander par le client
   flat.find({'id_annonce':idAnnonce}, function (err, flats) {
    if(err){
     onErr(err,"erreur data");
    }else{
-    data = flats;
+    //on envoie les données aux clients
+    res.send(flats);
    }
   })
-  console.log("search add number "+idAnnonce);
-  //on retourne les données trouvé au clients
-  res.send(data);
 })
 
 

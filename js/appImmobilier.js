@@ -16,8 +16,8 @@ FlatApp.controller('FlatFrontOfficeCtrl',function($scope, $http, $location) {
         success(function(data, status, headers, config) {
           //si les données sont retourée au match avec notre object Angular
           if(null != data && null != indiceID){
-           if(isNumeric(indiceID) && indiceID <= data.length-1 && data[indiceID]["enLigne"] == true){
-              $scope.appartement = data[indiceID];
+          if(isNumeric(indiceID) && data[0]["enLigne"] == true){
+              $scope.appartement = data[0];
               latitude = $scope.appartement.latitude;
               longitude = $scope.appartement.longitude;
               urlAlbum = $scope.appartement.albumPhotos;
@@ -92,5 +92,5 @@ function loadScript() {
     document.body.appendChild(script);
 }
 
-//On precise que quand la page est charge, on initialise la map Google 
+//On precise que quand la page est charge, on initialise la map Google
 window.onload = loadScript;
