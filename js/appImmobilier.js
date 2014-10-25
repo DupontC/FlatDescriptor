@@ -21,6 +21,7 @@ FlatApp.controller('FlatFrontOfficeCtrl',function($scope, $http, $location) {
               latitude = $scope.appartement.latitude;
               longitude = $scope.appartement.longitude;
               urlAlbum = $scope.appartement.albumPhotos;
+              loadScript();
             }else{
               alert("Désolé ,annonce non disponible");
             }
@@ -29,8 +30,8 @@ FlatApp.controller('FlatFrontOfficeCtrl',function($scope, $http, $location) {
         error(function(data, status, headers, config) {
           alert("Bada Bom !"+status[0]+" "+headers[0]);
       });
-  }
-});
+  }//END IS NUMERIC
+});//END CONTROLER
 
 /**
 * Fonction que vérifie si la variable passé en parametres est de type numérique
@@ -91,6 +92,3 @@ function loadScript() {
     'callback=initialize';
     document.body.appendChild(script);
 }
-
-//On precise que quand la page est charge, on initialise la map Google
-window.onload = loadScript;

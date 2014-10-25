@@ -53,7 +53,12 @@ app.get('/:id', function (req, res) {
 
 //route pas défaut qui redirige vers l'annonce
 app.get('/ImmoConfig/:id', function (req, res) {
-  res.sendFile(__dirname+'/html/index.html');
+  res.sendFile(__dirname+'/html/immobilierConfiguration.html');
+})
+
+//route pas défaut qui redirige vers l'annonce
+app.post('/ImmoConfig/:id', function (req, res) {
+  res.sendFile(__dirname+'/html/immobilierConfiguration.html');
 })
 
 

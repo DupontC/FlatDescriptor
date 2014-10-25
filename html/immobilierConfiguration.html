@@ -32,6 +32,12 @@
 							<input type="checkbox" ng-model="appartement.enLigne">
 						</div>
 					</div>
+          <div class="af-outer">
+            <div class="af-inner">
+              <label for="input-title">Couleur du fond</label>
+              <input type="color" ng-model="appartement.color">
+            </div>
+          </div>
 
           <h2>Descriptions</h2>
 					<div class="af-outer af-required">
@@ -43,8 +49,7 @@
           <div class="af-outer af-required">
             <div class="af-inner">
               <label for="desc1">Description 1</label>
-              <textarea cols="53" ng-model="appartement.texte1">
-              </textarea>
+              <textarea rows="4" cols="53" ng-model="appartement.texte1"></textarea>
             </div>
           </div>
           <div class="af-outer af-required">
@@ -64,8 +69,7 @@
           <div class="af-outer af-required">
             <div class="af-inner">
               <label for="desc2">Description 2</label>
-              <textarea cols="53" ng-model="appartement.texte2">
-              </textarea>
+              <br><textarea rows="4" cols="53" ng-model="appartement.texte2"></textarea>
             </div>
           </div>
           <div class="af-outer af-required">
@@ -88,8 +92,7 @@
           <div class="af-outer af-required">
             <div class="af-inner">
               <label for="desc3">Description 3</label>
-              <textarea cols="53" ng-model="appartement.texte3">
-              </textarea>
+              <br><textarea rows="4" cols="53" ng-model="appartement.texte3"></textarea>
             </div>
           </div>
           <div class="af-outer af-required">
@@ -110,8 +113,7 @@
           <div class="af-outer af-required">
             <div class="af-inner">
               <label for="desc4">Description 4</label>
-              <textarea cols="53" required ng-model="appartement.texte4">
-              </textarea>
+              <br><textarea class="" rows="4" cols="53" required ng-model="appartement.texte4"></textarea>
             </div>
           </div>
           <div class="af-outer af-required">
@@ -140,8 +142,7 @@
           <div class="af-outer af-required">
             <div class="af-inner">
               <label for="descLocalisation">Description localisation</label>
-              <textarea cols="53" ng-model="appartement.emplacement">
-              </textarea>
+              <br><textarea  rows="4"cols="53" ng-model="appartement.emplacement"></textarea>
             </div>
           </div>
 
@@ -165,8 +166,7 @@
           <div class="af-outer af-required">
             <div class="af-inner">
               <label for="descPhotos">Description photos</label>
-              <textarea cols="53" ng-model="appartement.photos">
-              </textarea>
+              <br><textarea rows="4" cols="53" ng-model="appartement.photos"></textarea>
             </div>
           </div>
           <div class="af-outer af-required">
@@ -182,14 +182,14 @@
           <div class="af-outer af-required">
             <div class="af-inner">
               <label for="contact">Descriptions du contact</label>
-              <textarea cols="53" ng-model="appartement.contacts">
-              </textarea>
+              <br><textarea rows="4" cols="53" ng-model="appartement.contacts"></textarea>
             </div>
           </div>
 
 					<input type="submit" value="Valider les informations" />
 
 				</form>
+        <a href="{{linkAnnonce}}">[Voir l'annonce]</a>
 			</section>
 
     </body>
