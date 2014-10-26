@@ -22,6 +22,7 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
         if(isNumeric(indiceID) && null != data){
             $scope.appartement = data[0];
             $scope.linkAnnonce = param[0]+"/"+indiceID;
+            $scope.linkLogout  = param[0]+"/logout";
           }else{
             alert("Désolé ,annonce non disponible");
           }

@@ -110,7 +110,11 @@ app.post('/ImmoConfig/:id', function (req, res) {
   }
 })
 
-
+//route pas défaut qui redirige vers l'annonce si user logger
+app.get('/logout', function (req, res) {
+  req.session_state.reset();
+  res.sendFile(__dirname+'/html/login.html');
+})
 
 //web service qui retourne les informations lors des appels ajax
 app.get('/data/:id', function (req, res) {
