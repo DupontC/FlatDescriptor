@@ -28,11 +28,21 @@ var flatSchema = new Schema({
   contacts :String,
   color : String
 });
+
+var userSchema = new Schema({
+  id :String,
+  nom :String,
+  prenom :String,
+  mpd : String
+});
 // Use the schema to register a model with MongoDb
 mongoose.model('flat', flatSchema);
 var flat = mongoose.model('flat');
 
+mongoose.model('user', userSchema);
+var flat = mongoose.model('user');
 
+/*
 flat.find({'id_annonce':0}, function (err, flats) {
  if(err){
   onErr(err,callback);
@@ -40,6 +50,7 @@ flat.find({'id_annonce':0}, function (err, flats) {
   console.log(flats);
  }
 })
+*/
 /*
 var appart1 = new flat({
     "id_annonce": 1,
@@ -66,9 +77,17 @@ var appart1 = new flat({
     "contacts":"Cake cotton candy lollipop. Cake croissant cheesecake candy sugar plum icing apple pie wafer. Pie sugar plum tiramisu tiramisu pie fruitcake candy icing. Candy icing gummies gummies cheesecake brownie lemon drops chocolate gingerbread.",
     "color": "ici la couleur"
   });
+var user1 = new flat({
+  "id" :"",
+  "nom" :"",
+  "prenom" :"",
+  "mpd" : ""
+});
+
+user1.save();
+
 
 appart1.save();
-
 
 var appart2 = new flat({
     "id_annonce": 0,

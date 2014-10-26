@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "express": ">=3.0.0rc1",
-    "passport": "*",
+    "client-sessions": "*",
+    "body-parser": "*",
     "mongoose": "*"
   },
   "scripts": {
