@@ -10,7 +10,10 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
 
   var webS = null;
   if(param.length > 2){
-    webS= param[0] + param[1];
+    //webS= param[0] + param[1];
+    for(i=0 ; i < param.length-1 ;i++){
+      webS += param[i];
+    }
   }
 
   if(isNumeric(indiceID) && null != webS) {
