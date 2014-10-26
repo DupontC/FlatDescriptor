@@ -10,10 +10,11 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
 
   var webS = null;
   if(param.length > 2){
-    //webS= param[0] + param[1];
+    webS= param[0] + param[1];
+    /*
     for(i=0 ; i < param.length-2 ;i++){
       webS += param[i]+"/";
-    }
+    }*/
   }
   console.log(webS);
 
