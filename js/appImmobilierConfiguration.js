@@ -8,26 +8,17 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
   var indiceID = param[param.length-1];
 
 
-  var webS = null;
-  if(param.length > 2){
-    webS= param[0] + param[1];
-    /*
-    for(i=0 ; i < param.length-2 ;i++){
-      webS += param[i]+"/";
-    }*/
-  }
-  console.log(webS);
-
+  var webS = window.location.protocol + "//" + window.location.host ;
   if(isNumeric(indiceID) && null != webS) {
     //on demande au serveur les informations sur l'annonce en ajax
-    $http({method: 'GET', url: webS+'data/'+indiceID}).
+    $http({method: 'GET', url: webS+'/data/'+indiceID}).
       success(function(data, status, headers, config) {
         //si les données sont retourée au match avec notre object Angular
         if(null != data && null != indiceID){
         if(isNumeric(indiceID) && null != data){
             $scope.appartement = data[0];
             $scope.linkAnnonce = webS+"/"+indiceID;
-            //$scope.linkLogout  = webS+"logout";
+            $scope.linkLogout  = webS+"/logout/0";
           }else{
             alert("Désolé ,annonce non disponible");
           }

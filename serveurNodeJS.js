@@ -12,7 +12,9 @@ app.use(bodyParser.json());
 
 
 var mongoose = require("mongoose");
-db = mongoose.connect(process.env.MONGOHQ_URL);
+var MONGOHQ_URL="mongodb://heroku:qx1L3V6QpV8Xtt1BDdn_CcHMFGkF3iMUhUXUm3x_7S37DqK7HjZVfTRB4rjiTXdehHdWeuBlNym5oMmHG2VKEg@linus.mongohq.com:10085/app30838243";
+
+db = mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
 
 const clientSessions = require("client-sessions");
@@ -111,7 +113,8 @@ app.post('/ImmoConfig/:id', function (req, res) {
 })
 
 //route pas défaut qui redirige vers l'annonce si user logger
-app.get('/logout', function (req, res) {
+app.get('/logout/:id', function (req, res) {
+  console.log("déconnexion");
   req.session_state.reset();
   res.sendFile(__dirname+'/html/login.html');
 })
