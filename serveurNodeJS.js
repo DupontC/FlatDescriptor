@@ -136,6 +136,29 @@ app.get('/data/:id', function (req, res) {
   })
 })
 
+//web service qui maj les informations lors des appels ajax
+app.post('/data/:id', function (req, res) {
+  var flatMAJ =  JSON.parse(req.body.majData);
+  var indice = flatMAJ["_id"];
+  delete flatMAJ["_id"];
+  delete flatMAJ["__v"];
+  if(req.session_state.username && null != flatMAJ){
+    console.info(JSON.stringify(flatMAJ));
+    console.info(indice);
+
+    flat.update({_id:indice}, flatMAJ, {upsert: true}, function(err){
+      if(null != err){
+        res.send("mise à jour");
+      }else{
+        res.send("Erreur : mise à jour "+err);
+      }
+    })
+  }else{
+    res.send("Erreur : mise à jour non permise");
+  }
+})
+
+
 
 //on mettre notre serveur en ecoute
 var server = app.listen(app.get('port'), function () {

@@ -3,7 +3,7 @@
 	max-width: 700px;
 	min-width: 280px;
 	margin: 0 auto 30px auto;
-	background: #fff url(../images/try.jpg) no-repeat 99% 30px;
+	background: #fff;
 	position: relative;
 	padding: 20px;
 	box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
@@ -92,7 +92,7 @@
 	display: block;
 	display: -webkit-box;
 	display: -moz-box;
-	display: box;	
+	display: box;
 	-moz-box-orient: horizontal;
 	-moz-box-pack: end;
 	-moz-box-align: center;
@@ -120,7 +120,7 @@
 .af-form input[type=text],
 .af-form input[type=email],
 .af-form input[type=date] {
-	
+
 	border: 1px solid #ddd;
 	padding: 10px;
 	font-weight: bold;

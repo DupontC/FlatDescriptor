@@ -9,9 +9,10 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
 
 
   var webS = window.location.protocol + "//" + window.location.host ;
+  var urlInfo =  webS+'/data/'+indiceID;
   if(isNumeric(indiceID) && null != webS) {
     //on demande au serveur les informations sur l'annonce en ajax
-    $http({method: 'GET', url: webS+'/data/'+indiceID}).
+    $http({method: 'GET', url: urlInfo}).
       success(function(data, status, headers, config) {
         //si les données sont retourée au match avec notre object Angular
         if(null != data && null != indiceID){
@@ -28,6 +29,26 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
         alert("Bada Bom !"+status[0]+" "+headers[0]);
     });
   }//END ISNUMERIC
+
+
+  //function call to update data
+  $scope.majData = function() {
+    console.log("mise à jour des données");
+   	var jdata = 'majData='+JSON.stringify($scope.appartement); // The data is to be string.
+    $http({ // Accessing the Angular $http Service to send data via REST Communication to Node Server.
+            method: "post",
+            url: urlInfo,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            data:  jdata
+    }).success(function(response) {
+        console.log("success"); // Getting Success Response in Callback
+                 console.log("maj ok");
+
+        }).error(function(response) {
+                 console.log("maj ko "+$scope.codeStatus);
+    });//END HTTP
+  }//END MAJDATA FUNCTION
+
 });//END CONTROLER
 
 
