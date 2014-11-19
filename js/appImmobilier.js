@@ -18,6 +18,7 @@ FlatApp.controller('FlatFrontOfficeCtrl',function($scope, $http, $location) {
           if(null != data && null != indiceID){
           if(isNumeric(indiceID) && data[0]["enLigne"] == true){
               $scope.appartement = data[0];
+              $("body").css('background-color', $scope.appartement.color);
               latitude = $scope.appartement.latitude;
               longitude = $scope.appartement.longitude;
               urlAlbum = $scope.appartement.albumPhotos;

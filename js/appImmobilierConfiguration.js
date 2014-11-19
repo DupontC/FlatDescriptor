@@ -43,9 +43,11 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
     }).success(function(response) {
         console.log("success"); // Getting Success Response in Callback
                  console.log("maj ok");
+                 toastr.success("Données mise à jour !")
 
         }).error(function(response) {
                  console.log("maj ko "+$scope.codeStatus);
+                 toastr.error("Erreur de mise à jour !")
     });//END HTTP
   }//END MAJDATA FUNCTION
 
