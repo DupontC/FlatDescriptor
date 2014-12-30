@@ -88,29 +88,25 @@ app.get('/ImmoConfig/:id', function (req, res) {
     res.sendFile(__dirname+'/html/login.html');
   }
 })
-
-
 //on teste la connexion au BackOffice
 app.post('/ImmoConfig/:id', function (req, res) {
-  ///console.info('POST id %s mdp %s',req.body.login, req.body.password);
-  var id = req.body.login
-  var mdp = req.body.password
-  if(id && mdp){
-    user.find({'id':id,'mpd':mdp}, function (err, user) {
-     if(err){
-       onErr(err,"erreur data");
-     }else if(user.length > 0) {
-      req.session_state.username = user[0].id;
-      console.info("Connexion BackOffice");
-      res.sendFile(__dirname+'/html/immobilierConfiguration.html');
-    }
-     else{
-       console.error("Erreur de tentative de connexion au BackOffice");
-       res.sendFile(__dirname+'/html/login.html');
-     }
-    })
+  _testingLogin("immobilierConfiguration.html", req, res);
+})
+
+//route pas défaut qui redirige vers l'annonce si user logger
+app.get('/listFlats/:id', function (req, res) {
+  if(req.session_state.username){
+    res.sendFile(__dirname+'/html/listFlats.html');
+  }else{
+    res.sendFile(__dirname+'/html/login.html');
   }
 })
+
+//on teste la connexion au BackOffice
+app.post('/listFlats/:id', function (req, res) {
+  _testingLogin("listFlats.html", req, res);
+})
+
 
 //route pas défaut qui redirige vers l'annonce si user logger
 app.get('/logout/:id', function (req, res) {
@@ -119,7 +115,8 @@ app.get('/logout/:id', function (req, res) {
   res.sendFile(__dirname+'/html/login.html');
 })
 
-//web service qui retourne les informations lors des appels ajax
+/*web service qui retourne les informations
+ d'un appartement lors des appels ajax */
 app.get('/data/:id', function (req, res) {
   //on recupére l'id de l'annonce rechercher
   var data = null;
@@ -133,6 +130,24 @@ app.get('/data/:id', function (req, res) {
     //on envoie les données aux clients
     res.send(flats);
    }
+  })
+})
+
+/* web service qui retourne les informations
+de tout les appartements lors des appels ajax*/
+app.get('/data/:id', function (req, res) {
+  //on recupére l'id de l'annonce rechercher
+  var data = null;
+  var idAnnonce = req.params.id
+
+  //on recherche l'annonce demander par le client
+  flat.find({'id_annonce':idAnnonce}, function (err, flats) {
+    if(err){
+      onErr(err,"erreur data");
+    }else{
+      //on envoie les données aux clients
+      res.send(flats);
+    }
   })
 })
 
@@ -170,3 +185,29 @@ var server = app.listen(app.get('port'), function () {
   console.log('Server is starting and listen on http://%s:%s', host, port);
 
 })
+
+
+/**
+* Fonction qui vérifie si les informations de connexion
+* données par l'utilisateur son valide
+**/
+function _testingLogin(goToInSucess, req, res){
+  ///console.info('POST id %s mdp %s',req.body.login, req.body.password);
+  var id = req.body.login
+  var mdp = req.body.password
+  if(id && mdp){
+    user.find({'id':id,'mpd':mdp}, function (err, user) {
+      if(err){
+        onErr(err,"erreur data");
+      }else if(user.length > 0) {
+        req.session_state.username = user[0].id;
+        console.info("Connexion BackOffice");
+        res.sendFile(__dirname+'/html/'+goToInSucess);
+      }
+      else{
+        console.error("Erreur de tentative de connexion au BackOffice");
+        res.sendFile(__dirname+'/html/login.html');
+      }
+    })
+  }
+}
