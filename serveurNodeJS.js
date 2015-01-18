@@ -224,7 +224,7 @@ function _testingLogin(goToInSucess, req, res){
 }
 
 /**
-* Fonction qui crypte la string passer en parametre
+* Fonction qui crypte la chaine passè en parametre
 * et retourne son hash.
 **/
 function _hashPassword(stringForHash){
