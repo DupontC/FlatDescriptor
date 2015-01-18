@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Vous trouverez les descriptions d'appartements localisés à Lyon ou bien Caen porposé pour des locations",
   "main": "serveurNodeJS.js",
-  "author": "Cyril Dupont",
+  "author": "Dupont Cyril",
   "license": "ISC",
   "web": "node serveurNodeJS.js",
   "homepage": "https://github.com/exponentiel/FlatDescriptor",
@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "express": ">=3.0.0rc1",
+    "crypto":"*",
     "client-sessions": "*",
     "body-parser": "*",
     "mongoose": "*"

@@ -1,6 +1,7 @@
 //declaration des librairies
 var bodyParser = require('body-parser');
 var express = require('express');
+var crypto = require('crypto');
 var app = express();
 
 
@@ -83,8 +84,10 @@ app.get('/:id', function (req, res) {
 //route pas défaut qui redirige vers l'annonce si user logger
 app.get('/ImmoConfig/:id', function (req, res) {
   if(req.session_state.username){
+    console.info("GET immobilierConfiguration");
     res.sendFile(__dirname+'/html/immobilierConfiguration.html');
   }else{
+    console.info("GET login");
     res.sendFile(__dirname+'/html/login.html');
   }
 })
@@ -96,8 +99,10 @@ app.post('/ImmoConfig/:id', function (req, res) {
 //route pas défaut qui redirige vers l'annonce si user logger
 app.get('/listFlats/:id', function (req, res) {
   if(req.session_state.username){
+    console.info("GET listeFlats");
     res.sendFile(__dirname+'/html/listFlats.html');
   }else{
+    console.info("GET login");
     res.sendFile(__dirname+'/html/login.html');
   }
 })
@@ -115,11 +120,12 @@ app.get('/logout/:id', function (req, res) {
   res.sendFile(__dirname+'/html/login.html');
 })
 
-/*web service qui retourne les informations
- d'un appartement lors des appels ajax */
+/**
+*web service qui retourne les informations
+*d'un appartement lors des appels ajax
+**/
 app.get('/data/:id', function (req, res) {
   //on recupére l'id de l'annonce rechercher
-  var data = null;
   var idAnnonce = req.params.id
 
   //on recherche l'annonce demander par le client
@@ -133,22 +139,26 @@ app.get('/data/:id', function (req, res) {
   })
 })
 
-/* web service qui retourne les informations
-de tout les appartements lors des appels ajax*/
-app.get('/data/:id', function (req, res) {
-  //on recupére l'id de l'annonce rechercher
-  var data = null;
-  var idAnnonce = req.params.id
-
-  //on recherche l'annonce demander par le client
-  flat.find({'id_annonce':idAnnonce}, function (err, flats) {
-    if(err){
-      onErr(err,"erreur data");
-    }else{
-      //on envoie les données aux clients
-      res.send(flats);
-    }
-  })
+/**
+* web service qui retourne les informations
+*de tout les appartements lors des appels ajax
+**/
+app.get('/Alldata/:id', function (req, res) {
+  //on vérifie si l'utilisateur a un droit
+  //d'accée sur ces fonctions
+  if(req.session_state.username){
+    //on recherche l'annonce demander par le client
+    flat.find( function (err, flats) {
+      if(err){
+        onErr(err,"erreur data");
+      }else{
+        //on envoie les données aux clients
+        res.send(flats);
+      }
+    })
+  }else{
+    res.send('Hého !! :@');
+  }
 })
 
 //web service qui maj les informations lors des appels ajax
@@ -194,7 +204,8 @@ var server = app.listen(app.get('port'), function () {
 function _testingLogin(goToInSucess, req, res){
   ///console.info('POST id %s mdp %s',req.body.login, req.body.password);
   var id = req.body.login
-  var mdp = req.body.password
+  var mdp = req.body.password;
+  mdp = _hashPassword(mdp);
   if(id && mdp){
     user.find({'id':id,'mpd':mdp}, function (err, user) {
       if(err){
@@ -210,4 +221,14 @@ function _testingLogin(goToInSucess, req, res){
       }
     })
   }
+}
+
+/**
+* Fonction qui crypte la string passer en parametre
+* et retourne son hash.
+**/
+function _hashPassword(stringForHash){
+  var shasum = crypto.createHash('sha1');
+  shasum.update(stringForHash);
+  return shasum.digest('base64');
 }

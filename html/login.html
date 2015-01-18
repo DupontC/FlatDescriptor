@@ -7,6 +7,7 @@
         <title>Login Flatdescriptor</title>
         <meta name="description" content="Page de login du flatdescriptor" />
         <meta name="keywords" content="login flatdescriptor appartement immeuble" />
+        <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha3.js"></script>
         <meta name="author" content="Cyril Dupont" />
         <link rel="shortcut icon" href="../favicon.ico">
         <link rel="stylesheet" type="text/css" href="../css/css-login/style.css" />
@@ -15,13 +16,13 @@
     <body>
         <div class="container">
 			<section class="main">
-				<form class="form-1" action="" method="post">
+				<form class="form-1" action="" onsubmit="jcmm();" method="post">
 					<p class="field">
 						<input type="text" name="login" placeholder="Identifiant">
 						<i class="icon-user icon-large"></i>
 					</p>
 						<p class="field">
-							<input type="password" name="password" placeholder="Mot de passe">
+							<input type="password" name="password" id="password" placeholder="Mot de passe">
 							<i class="icon-lock icon-large"></i>
 					</p>
 					<p class="submit">
@@ -31,5 +32,13 @@
 			</section>
         </div>
     </body>
+
+    <script type="text/javascript">
+      function jcmm(){
+        var mmc = document.getElementById("password");
+        var mh = CryptoJS.SHA3("mmc", { outputLength: 512 });
+        document.getElementById("password").value = mh;
+      }
+    </script>
 
 </html>

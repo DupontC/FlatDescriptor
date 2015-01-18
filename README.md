@@ -14,3 +14,11 @@ Technologies mises en avant :
  • Angular Js
  • Node Js: express, passeport
  • Mongodb
+
+
+DEPLOYEMENT
+===========
+
+1)installer node
+2)$ npm install
+2)node serveurNodeJS.js
