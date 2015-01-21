@@ -40,6 +40,7 @@ var flatSchema = new Schema({
   titre4  : String,
   texte4  : String,
   image4  : String,
+  photosphere  : String,
   emplacement :String,
   latitude : String,
   longitude : String,
@@ -134,6 +135,7 @@ app.get('/data/:id', function (req, res) {
     onErr(err,"erreur data");
    }else{
     //on envoie les données aux clients
+    //console.info(flats);
     res.send(flats);
    }
   })

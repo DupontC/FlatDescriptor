@@ -2,6 +2,7 @@ var FlatApp = angular.module('immoApp', []);
 var longitude = null;
 var latitude = null;
 var urlAlbum = null;
+var photosphere = null;
 
 FlatApp.controller('FlatFrontOfficeCtrl',function($scope, $http, $location) {
 
@@ -22,6 +23,13 @@ FlatApp.controller('FlatFrontOfficeCtrl',function($scope, $http, $location) {
               latitude = $scope.appartement.latitude;
               longitude = $scope.appartement.longitude;
               urlAlbum = $scope.appartement.albumPhotos;
+              urlPS = $scope.appartement.photosphere;
+
+              //on maj les info sur la photosphere si present
+              if(urlPS != null && urlPS != ""){
+                photosphere = urlPS;
+              }
+
               loadScript();
             }else{
               alert("Désolé ,annonce non disponible");
@@ -45,6 +53,10 @@ function isNumeric(obj) {
 *Initilisation de la cartographie et du carousel
 **/
 function initialize() {
+
+  /**
+  * CONFIGURATION GOOGLE MAP
+  **/
   //variables pour la mise en place des variable pour la direction
   if(null != longitude && null != latitude && null != urlAlbum){
 
@@ -81,7 +93,21 @@ function initialize() {
       this['infowindow'].open(map, this);
     });
   }
+
+  /**
+  * CONFIGURATION DE LA PHOTOSPHERE
+  **/
+  if(photosphere != null){
+    var divPS = document.getElementById('photosphere');
+    var PSV = new PhotoSphereViewer({
+      panorama: photosphere,
+      container: divPS,
+      anim_speed: '1rpm',
+      loading_img: "Chargement de l'image"
+    });
+  }
 }
+
 
 /**
 * Fonction de chargement de l'api Google Map

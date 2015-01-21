@@ -19,6 +19,7 @@ var flatSchema = new Schema({
   titre4  : String,
   texte4  : String,
   image4  : String,
+  photosphere : String,
   emplacement :String,
   latitude : String,
   longitude : String,
@@ -68,6 +69,7 @@ var appart1 = new flat({
     "titre4" : "Carrot cake",
     "texte4" : "Sesame snaps sweet wafer danish. Chupa chups carrot cake icing donut halvah bonbon. Chocolate cake candy marshmallow pudding dessert marzipan jujubes sugar plum.",
     "image4" : "../images/4.png",
+    "photosphere": "qdsdq"
     "emplacement":"Sesame snaps sweet wafer danish. Chupa chups carrot cake icing donut halvah bonbon. Chocolate cake candy marshmallow pudding dessert marzipan jujubes sugar plum.",
     "latitude" : "45.7593",
     "longitude" : "4.8431",
