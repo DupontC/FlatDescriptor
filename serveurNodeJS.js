@@ -207,7 +207,7 @@ function _testingLogin(goToInSucess, req, res){
   ///console.info('POST id %s mdp %s',req.body.login, req.body.password);
   var id = req.body.login
   var mdp = req.body.password;
-  console.info("["+md+"]");
+  console.info("["+mdp+"]");
   mdp = _hashPassword(mdp);
   console.info("["+mdp+"]");
   if(id && mdp){
