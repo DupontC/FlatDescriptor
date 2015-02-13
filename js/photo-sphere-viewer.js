@@ -1,4 +1,5 @@
 /*
+ * THANK TO THE FRENCH JÉRÉMY HELEINE
  * Photo Sphere Viewer v1.3
  * http://jeremyheleine.com/#photo-sphere-viewer
  *
