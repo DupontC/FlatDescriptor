@@ -3,8 +3,9 @@ var longitude = null;
 var latitude = null;
 var urlAlbum = null;
 var photosphere = null;
+var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i};
 
-FlatApp.controller('FlatFrontOfficeCtrl',function($scope, $http, $location) {
+FlatApp.controller('FlatFrontOfficeCtrl',function($browser ,$scope, $http, $location, $window) {
 
   //on recupére l'id de l'annonce
   var url = $location.absUrl();
@@ -27,7 +28,18 @@ FlatApp.controller('FlatFrontOfficeCtrl',function($scope, $http, $location) {
 
               //on maj les info sur la photosphere si present
               if(urlPS != null && urlPS != ""){
-                photosphere = urlPS;
+                navigateur = null;
+                userAgent = $window.navigator.userAgent;
+
+                for(var key in browsers) {
+                    if (browsers[key].test(userAgent)){
+                      navigateur = key;
+                    }
+                 };
+                console.log("nav "+navigateur);
+                if(navigateur != "Chrome"){
+                  photosphere = urlPS;
+                }
               }
 
               loadScript();
