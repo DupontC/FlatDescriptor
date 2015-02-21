@@ -2,7 +2,6 @@
 var bodyParser = require('body-parser');
 var express = require('express');
 var crypto = require('crypto');
-var cors = require('cors');
 var app = express();
 
 
