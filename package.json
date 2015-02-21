@@ -31,7 +31,6 @@
   "dependencies": {
     "express": ">=3.0.0rc1",
     "crypto":"*",
-    "cors" : "*",
     "client-sessions": "*",
     "body-parser": "*",
     "mongoose": "*"

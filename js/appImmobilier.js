@@ -36,12 +36,11 @@ FlatApp.controller('FlatFrontOfficeCtrl',function($browser ,$scope, $http, $loca
                       navigateur = key;
                     }
                  };
-                console.log("nav "+navigateur);
-                if(navigateur != "Chrome"){
+                if(navigateur != "chrome"){
                   photosphere = urlPS;
                 }
               }
-
+              //on recharge la page avec les données  pour la map et flirk
               loadScript();
             }else{
               alert("Désolé ,annonce non disponible");
