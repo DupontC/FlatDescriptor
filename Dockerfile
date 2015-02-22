@@ -1,3 +1,3 @@
-FROM node:0.10-onbuild
-EXPOSE 8888
+FROM google/nodejs-runtime
+EXPOSE 3000
 
