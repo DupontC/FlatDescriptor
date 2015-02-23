@@ -29,15 +29,22 @@ DEPLOYEMENT
 POUR DOCKER
 ===========
 $ boot2docker start //lancement de la VM docker
+
 $ export ...;export ...;export //on fixe les variables d'environnment
+
 $ docker build -t flatdescriptor .  //on build notre applciation sous le nom de  'flatdescriptor'
-$ docker run -it --rm --name conteneurDockerFlatDescriptor flatdescriptor // on demande a docker de lancer l'application dans le conteneurdockerflatdescriptor et d'executer flatdescriptor
+
+$ docker run -it -p 8888:3000 -P --rm --name conteneurDockerFlatDescriptor flatdescriptor // on demande a docker de lancer l'application dans le conteneurdockerflatdescriptor et d'executer flatdescriptor
+
 $ boot2docker ip //on recupere l'ip du conteneurs
+
 $ docker ps -a //liste les informations sur les conteneurs
 
 Ensuite dans le navigateur se rendre a l'adresse du conteneur  et prendre le port indique par la cmd docker ps -a
 
 $ docker stop conteneurdockerflatdescriptor //arrete le conteneur
+
 $ docker rm conteneurdockerflatdescriptor //supprime le conteneur
+
 $ boot2docker stop //arrete la VM
 
