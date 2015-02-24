@@ -129,4 +129,17 @@ function loadScript() {
     script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
     'callback=initialize';
     document.body.appendChild(script);
+    setUpCheet();
+}
+
+/**
+* Fonction d'initialisation des cheets ;-)
+**/
+function setUpCheet(){
+  cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
+    document.location.href="https://www.youtube.com/v/gr4IxMgHdDY"
+  });
+  cheet('g r o s n o u n o u r s', function () {
+    alert('Gloire à Gros Nounours');
+  });
 }
