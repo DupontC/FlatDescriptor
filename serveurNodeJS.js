@@ -21,8 +21,6 @@ Schema = mongoose.Schema;
 const clientSessions = require("client-sessions");
 
 
-
-
 // Create a schema for our data
 var flatSchema = new Schema({
   id_annonce : Number,
