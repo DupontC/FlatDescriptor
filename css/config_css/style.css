@@ -13,47 +13,6 @@
 	color: #444;
 	padding: 10px;
 }
-.af-show {
-	position: absolute;
-	top: 30px;
-	right: 155px;
-	cursor: pointer;
-	padding: 3px 0px;
-	width: 190px;
-	text-align: center;
-	font-weight: bold;
-	border: 1px solid #A8BC65;
-	color: #6d7649;
-	border-radius: 4px;
-	background: #e4efc0;
-	text-shadow: 0px 1px 1px rgba(255,255,255,0.4);
-	background: #cae082;
-	background: -moz-linear-gradient(top, #cae082 0%, #abbd73 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cae082), color-stop(100%,#abbd73));
-	background: -webkit-linear-gradient(top, #cae082 0%,#abbd73 100%);
-	background: -o-linear-gradient(top, #cae082 0%,#abbd73 100%);
-	background: -ms-linear-gradient(top, #cae082 0%,#abbd73 100%);
-	background: linear-gradient(top, #cae082 0%,#abbd73 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cae082', endColorstr='#abbd73',GradientType=0 );
-	box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-}
-.af-show:hover {
-	color: #535B31;
-}
-.af-show-input {
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	cursor: pointer;
-	width: 190px;
-	height: 24px;
-	opacity: 0;
-}
-.af-show-input:checked ~ .af-show {
-	background: #cae082;
-	color: #535B31;
-	box-shadow: 0 1px 2px rgba(255,255,255,0.6);
-}
 
 .af-form {
 	padding: 10px 0px;
