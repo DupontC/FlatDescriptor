@@ -13,7 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var mongoose = require("mongoose");
-var MONGOHQ_URL="mongodb://heroku:qx1L3V6QpV8Xtt1BDdn_CcHMFGkF3iMUhUXUm3x_7S37DqK7HjZVfTRB4rjiTXdehHdWeuBlNym5oMmHG2VKEg@linus.mongohq.com:10085/app30838243";
+var SGBD = "mongodb";
+var key = "qx1L3V6QpV8Xtt1BDdn_CcHMFGkF3iMUhUXUm3x_7S37DqK7HjZVfTRB4rjiTXdehHdWeuBlNym5oMmHG2VKEg";
+var MONGOHQ_URL= SGBD+"://heroku:"+key+"@linus.mongohq.com:10085/app30838243";
 
 db = mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
@@ -77,7 +79,6 @@ app.use(express.static(__dirname + '/'));
 
 //route pas défaut qui redirige vers l'annonce
 app.get('/:id', function (req, res) {
-  console.info("["+Date()+"] consultation d'une annonce");
   res.sendFile(__dirname+'/html/index.html');
 })
 
