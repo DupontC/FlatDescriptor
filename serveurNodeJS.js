@@ -77,7 +77,7 @@ app.use(express.static(__dirname + '/'));
 
 //route pas défaut qui redirige vers l'annonce
 app.get('/:id', function (req, res) {
-  console.info("["+Date()+"] consultation d'une annonce";
+  console.info("["+Date()+"] consultation d'une annonce");
   res.sendFile(__dirname+'/html/index.html');
 })
 
@@ -194,12 +194,10 @@ app.get('*', function(req, res){
 
 //on mettre notre serveur en ecoute
 var server = app.listen(app.get('port'), function () {
-  console.log("start");
+  console.log("Starting NodeJS serveur ");
 
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('Server is starting and listen on http://%s:%s', host, port);
+  var hostInformation = JSON.stringify(server.address());
+  console.log('Information for connexion on : %s', hostInformation);
 
 })
 
