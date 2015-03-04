@@ -77,6 +77,7 @@ app.use(express.static(__dirname + '/'));
 
 //route pas défaut qui redirige vers l'annonce
 app.get('/:id', function (req, res) {
+  console.info("["+Date()+"] consultation d'une annonce";
   res.sendFile(__dirname+'/html/index.html');
 })
 
@@ -182,6 +183,12 @@ app.post('/data/:id', function (req, res) {
     res.send("Erreur : mise à jour non permise");
   }
 })
+
+//route vers la page 404 not found (toujours placer cette routea la fin)
+app.get('*', function(req, res){
+  res.status(404);
+  res.sendFile(__dirname+'/html/404.html');
+});
 
 
 
