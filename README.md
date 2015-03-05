@@ -1,6 +1,8 @@
-Immobilier
+FlatDescriptor
 ==========
 
+Immobilier
+--------------
 
 Projet qui a pour but de présenter des biens immobiliers à travers un site web qui se veut simple de configuration.
 Le site dispose :
@@ -17,17 +19,22 @@ Technologies mises en avant :
 
 
 DEPLOYEMENT
-===========
+--------------
 
-1) installer node
+1) Installer NodeJS
 
-2) $ npm install
+2) Dans un terminal
 
-2) $ node serveurNodeJS.js
+```
+$ npm install
 
+$ node serveurNodeJS.js
+```
 
 POUR DOCKER
-===========
+--------------
+
+```
 $ boot2docker start //lancement de la VM docker
 
 $ export ...;export ...;export //on fixe les variables d'environnment
@@ -47,4 +54,4 @@ $ docker stop conteneurdockerflatdescriptor //arrete le conteneur
 $ docker rm conteneurdockerflatdescriptor //supprime le conteneur
 
 $ boot2docker stop //arrete la VM
-
+```
