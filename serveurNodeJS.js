@@ -168,9 +168,9 @@ app.get('/Alldata/:id', function (req, res) {
 *de tout les appartements lors des appels ajax
 **/
 app.get('/AllDataOnLigne/:id', function (req, res) {
-
+    console.info("Recherche des logements en ligne");
     //on recherche l'annonce en ligne
-    flat.find( function (err, flats) {
+    flat.find({'enLigne':true},function (err, flats) {
       if(err){
         onErr(err,"erreur data");
       }else{
