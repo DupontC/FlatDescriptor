@@ -14,7 +14,7 @@ Technologies mises en avant :
 
  • HTML/CSS/JavaScript
  • Angular Js
- • Node Js: express, passeport
+ • Node Js: express, passeport, log4js
  • Mongodb
 
 

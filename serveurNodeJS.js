@@ -2,8 +2,9 @@
 var bodyParser = require('body-parser');
 var express = require('express');
 var crypto = require('crypto');
+var log4js = require('log4js');
 var app = express();
-
+const clientSessions = require("client-sessions");
 
 
 // configure app to use bodyParser()
@@ -20,7 +21,24 @@ var MONGOHQ_URL= SGBD+"://heroku:"+key+"@linus.mongohq.com:10085/app30838243";
 db = mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
 
-const clientSessions = require("client-sessions");
+//configuration du system de log
+var logger = log4js.getLogger();
+log4js.configure({
+  appenders: [
+    { type: 'console' },
+    {
+      type: 'file',
+      filename: 'logs/log_serveur.log',
+      maxLogSize: 20480,
+      backups: 3,
+      category: 'cheese'
+    }
+  ]
+});
+//on fix le niveau de log
+logger.setLevel('DEBUG');
+
+
 
 
 // Create a schema for our data
@@ -89,10 +107,10 @@ app.get('/:id', function (req, res) {
 //route pas défaut qui redirige vers l'annonce si user logger
 app.get('/ImmoConfig/:id', function (req, res) {
   if(req.session_state.username){
-    console.info("GET immobilierConfiguration");
+    logger.info("GET immobilierConfiguration");
     res.sendFile(__dirname+'/html/immobilierConfiguration.html');
   }else{
-    console.info("GET login");
+    logger.info("GET login");
     res.sendFile(__dirname+'/html/login.html');
   }
 })
@@ -104,10 +122,10 @@ app.post('/ImmoConfig/:id', function (req, res) {
 //route pas défaut qui redirige vers l'annonce si user logger
 app.get('/listFlats/:id', function (req, res) {
   if(req.session_state.username){
-    console.info("GET listeFlats");
+    logger.info("GET listeFlats");
     res.sendFile(__dirname+'/html/listFlats.html');
   }else{
-    console.info("GET login");
+    logger.info("GET login");
     res.sendFile(__dirname+'/html/login.html');
   }
 })
@@ -120,7 +138,7 @@ app.post('/listFlats/:id', function (req, res) {
 
 //route pas défaut qui redirige vers l'annonce si user logger
 app.get('/logout/:id', function (req, res) {
-  console.log("déconnexion");
+  logger.log("déconnexion");
   req.session_state.reset();
   res.sendFile(__dirname+'/html/login.html');
 })
@@ -172,7 +190,7 @@ app.get('/Alldata/:id', function (req, res) {
 *de tout les appartements lors des appels ajax
 **/
 app.get('/AllDataOnLigne/:id', function (req, res) {
-    console.info("Recherche des logements en ligne");
+    logger.info("Recherche des logements en ligne");
     //on recherche l'annonce en ligne
     flat.find({'enLigne':true},function (err, flats) {
       if(err){
@@ -191,17 +209,19 @@ app.post('/data/:id', function (req, res) {
   delete flatMAJ["_id"];
   delete flatMAJ["__v"];
   if(req.session_state.username && null != flatMAJ){
-    console.info(JSON.stringify(flatMAJ));
-    console.info(indice);
+    logger.debug(JSON.stringify(flatMAJ));
+    logger.debug(indice);
 
     flat.update({_id:indice}, flatMAJ, {upsert: true}, function(err){
       if(null != err){
         res.send("mise à jour");
       }else{
+        logger.error("Erreur : mise à jour ",err);
         res.send("Erreur : mise à jour "+err);
       }
     })
   }else{
+    logger.error("Mise à jour non permise..");
     res.send("Erreur : mise à jour non permise");
   }
 })
@@ -221,10 +241,10 @@ app.get('*', function(req, res){
 
 //on mettre notre serveur en ecoute
 var server = app.listen(app.get('port'), function () {
-  console.log("Starting NodeJS serveur ");
+  logger.info("Starting NodeJS serveur ");
 
   var hostInformation = JSON.stringify(server.address());
-  console.log('Information for connexion on : %s', hostInformation);
+  logger.info('Information for connexion on : %s', hostInformation);
 
 })
 
@@ -244,11 +264,11 @@ function _testingLogin(goToInSucess, req, res){
         onErr(err,"erreur data");
       }else if(user.length > 0) {
         req.session_state.username = user[0].id;
-        console.info("Connexion BackOffice");
+        logger.info("Connexion BackOffice");
         res.sendFile(__dirname+'/html/'+goToInSucess);
       }
       else{
-        console.error("Erreur de tentative de connexion au BackOffice");
+        logger.error("Erreur de tentative de connexion au BackOffice");
         res.sendFile(__dirname+'/html/login.html');
       }
     })

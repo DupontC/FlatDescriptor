@@ -33,7 +33,8 @@
     "crypto":"*",
     "client-sessions": "*",
     "body-parser": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "log4js": "*"
   },
   "scripts": {
     "start": "node serveurNodeJS.js"
