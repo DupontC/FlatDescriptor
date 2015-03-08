@@ -163,6 +163,23 @@ app.get('/Alldata/:id', function (req, res) {
   }
 })
 
+/**
+* web service qui retourne les informations
+*de tout les appartements lors des appels ajax
+**/
+app.get('/AllDataOnLigne/:id', function (req, res) {
+
+    //on recherche l'annonce en ligne
+    flat.find( function (err, flats) {
+      if(err){
+        onErr(err,"erreur data");
+      }else{
+        //on envoie les données aux clients
+        res.send(flats);
+      }
+    })
+})
+
 //web service qui maj les informations lors des appels ajax
 app.post('/data/:id', function (req, res) {
   var flatMAJ =  JSON.parse(req.body.majData);
