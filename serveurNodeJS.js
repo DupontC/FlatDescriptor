@@ -27,6 +27,8 @@ const clientSessions = require("client-sessions");
 var flatSchema = new Schema({
   id_annonce : Number,
   enLigne : Boolean,
+  surface : Number,
+  nbPiece : Number,
   ville   : String,
   titre1  : String,
   texte1  : String,
@@ -48,6 +50,7 @@ var flatSchema = new Schema({
   photos: String,
   albumPhotos : String,
   contacts :String,
+  niveauDroit: Number,
   color : String
 });
 
@@ -55,6 +58,7 @@ var userSchema = new Schema({
   id :String,
   nom :String,
   prenom :String,
+  niveauDroit: Number,
   mpd : String
 });
 
