@@ -23,10 +23,11 @@
 <body ng-controller="FlatBackOfficeCtrl">
 
   <section class="af-wrapper">
-    <h1>Description de l'appartement</h1>
+
 
     <form novalidate class="af-form" id="af-form" novalidate method="POST">
-
+      <input ng-click="majData()" type="submit" id="validé" value="Valider les informations" /><br/>
+      <h1>Description de l'appartement</h1>
       <div class="af-outer">
         <div class="af-inner">
           <label for="input-title">Annonce en ligne</label>
