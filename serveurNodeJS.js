@@ -96,6 +96,7 @@ app.get('/ImmoConfig/:id', function (req, res) {
     res.sendFile(__dirname+'/html/login.html');
   }
 })
+
 //on teste la connexion au BackOffice
 app.post('/ImmoConfig/:id', function (req, res) {
   _testingLogin("immobilierConfiguration.html", req, res);
@@ -154,7 +155,7 @@ app.get('/Alldata/:id', function (req, res) {
   //d'accée sur ces fonctions
   if(req.session_state.username){
     //on recherche l'annonce demander par le client
-    flat.find( function (err, flats) {
+    flat.find({"_id":{$ne:null}}, function (err, flats) {
       if(err){
         onErr(err,"erreur data");
       }else{
@@ -174,7 +175,7 @@ app.get('/Alldata/:id', function (req, res) {
 app.get('/AllDataOnLigne/:id', function (req, res) {
   console.info("Recherche des logements en ligne");
   //on recherche l'annonce en ligne
-  flat.find({'enLigne':true},function (err, flats) {
+  flat.find({"_id":{$ne:null},'enLigne':true},function (err, flats) {
     if(err){
       onErr(err,"erreur data");
     }else{
