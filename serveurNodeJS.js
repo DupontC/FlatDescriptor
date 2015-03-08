@@ -135,13 +135,13 @@ app.get('/data/:id', function (req, res) {
 
   //on recherche l'annonce demander par le client
   flat.find({'id_annonce':idAnnonce}, function (err, flats) {
-   if(err){
-    onErr(err,"erreur data");
-   }else{
-    //on envoie les données aux clients
-    //console.info(flats);
-    res.send(flats);
-   }
+    if(err){
+      onErr(err,"erreur data");
+    }else{
+      //on envoie les données aux clients
+      //console.info(flats);
+      res.send(flats);
+    }
   })
 })
 
@@ -172,16 +172,16 @@ app.get('/Alldata/:id', function (req, res) {
 *de tout les appartements lors des appels ajax
 **/
 app.get('/AllDataOnLigne/:id', function (req, res) {
-    console.info("Recherche des logements en ligne");
-    //on recherche l'annonce en ligne
-    flat.find({'enLigne':true},function (err, flats) {
-      if(err){
-        onErr(err,"erreur data");
-      }else{
-        //on envoie les données aux clients
-        res.send(flats);
-      }
-    })
+  console.info("Recherche des logements en ligne");
+  //on recherche l'annonce en ligne
+  flat.find({'enLigne':true},function (err, flats) {
+    if(err){
+      onErr(err,"erreur data");
+    }else{
+      //on envoie les données aux clients
+      res.send(flats);
+    }
+  })
 })
 
 //web service qui maj les informations lors des appels ajax
