@@ -185,6 +185,11 @@ app.post('/data/:id', function (req, res) {
   }
 })
 
+//route vers la page d'accueil
+app.get('/', function(req, res){
+  res.sendFile(__dirname+'/html/accueil.html');
+});
+
 //route vers la page 404 not found (toujours placer cette routea la fin)
 app.get('*', function(req, res){
   res.status(404);
