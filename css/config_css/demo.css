@@ -145,7 +145,6 @@ a{
 	font-size: 100px;
 	display: none;
 }
-
 .btn1 {
 	padding-top: 20px;
 	background: #3498db;
@@ -163,7 +162,6 @@ a{
 	padding: 10px 20px 10px 20px;
 	text-decoration: none;
 }
-
 .btn1:hover {
 	background: #793cfc;
 	background-image: -webkit-linear-gradient(top, #793cfc, #8134d9);
