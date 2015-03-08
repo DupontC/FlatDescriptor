@@ -1,6 +1,5 @@
 /* General Demo Style */
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
-
 @font-face {
   font-family: "FontAwesome";
   src: url('../../fonts/font-login/fontawesome-webfont.eot');
@@ -11,7 +10,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 /*  Font Awesome styles
     ------------------------------------------------------- */
 [class^="icon-"]:before, [class*=" icon-"]:before {
@@ -32,18 +30,14 @@ a [class^="icon-"], a [class*=" icon-"] {
 }
 .btn [class^="icon-"], .btn [class*=" icon-"] {
   /* keeps button heights with and without icons the same */
-
   line-height: .9em;
 }
 /*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
     readers do not read off random characters that represent icons */
-
     .icon-arrow-right:before          { content: "\f061"; }
     .icon-lock:before                 { content: "\f023"; }
     .icon-user:before                 { content: "\f007"; }
-
 html { height: 100%; }
-
 body {
     font-family: 'Lato', Calibri, Arial, sans-serif;
     background: #ddd url(../../images/images-login/bg.jpg) repeat top left;
@@ -54,30 +48,25 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
 }
-
 a {
 	color: #555;
 	text-decoration: none;
 }
-
 .container {
 	width: 100%;
 	position: relative;
 }
-
 .clr {
 	clear: both;
 	padding: 0;
 	height: 0;
 	margin: 0;
 }
-
 .main {
 	width: 90%;
 	margin: 0 auto;
 	position: relative;
 }
-
 .container > header {
 	margin: 10px;
 	padding: 20px 10px 10px 10px;
@@ -86,10 +75,7 @@ a {
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
     text-align: center;
 }
-
-
 /* GLOBALS */
-
 *,
 *:after,
 *:before {
@@ -101,15 +87,12 @@ a {
     padding: 0;
     margin: 0;
 }
-
-
 .form-1 {
     /* Size & position */
     width: 300px;
     margin: 60px auto 30px;
     padding: 10px;
     position: relative; /* For the submit button positioning */
-
     /* Styles */
     box-shadow:
         0 0 1px rgba(0, 0, 0, 0.3),
@@ -125,11 +108,9 @@ a {
     background: -webkit-linear-gradient(#eeefef, #ffffff 10%);
     background: linear-gradient(#eeefef, #ffffff 10%);
 }
-
 .form-1 .field {
     position: relative; /* For the icon positioning */
 }
-
 .form-1 .field i {
     /* Size and position */
     left: 0px;
@@ -137,11 +118,9 @@ a {
     position: absolute;
     height: 36px;
     width: 36px;
-
     /* Line */
     border-right: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 1px 0 0 rgba(255, 255, 255, 0.7);
-
     /* Styles */
     color: #777777;
     text-align: center;
@@ -153,7 +132,6 @@ a {
     transition: all 0.3s ease-out;
     pointer-events: none;
 }
-
 .form-1 input[type=text],
 .form-1 input[type=password] {
     font-family: 'Lato', Calibri, Arial, sans-serif;
@@ -163,7 +141,6 @@ a {
     /* Size and position */
     width: 100%;
     padding: 10px 18px 10px 45px;
-
     /* Styles */
     border: none; /* Remove the default border */
     box-shadow:
@@ -178,27 +155,22 @@ a {
     -o-transition: color 0.3s ease-out;
     transition: color 0.3s ease-out;
 }
-
 .form-1 input[type=text] {
     margin-bottom: 10px;
 }
-
 .form-1 input[type=text]:hover ~ i,
 .form-1 input[type=password]:hover ~ i {
     color: #52cfeb;
 }
-
 .form-1 input[type=text]:focus ~ i,
 .form-1 input[type=password]:focus ~ i {
     color: #42A2BC;
 }
-
 .form-1 input[type=text]:focus,
 .form-1 input[type=password]:focus,
 .form-1 button[type=submit]:focus {
     outline: none;
 }
-
 .form-1 .submit {
     /* Size and position */
     width: 65px;
@@ -217,7 +189,6 @@ a {
         0 3px 2px rgba(0,0,0,0.1),
         inset 0 -3px 2px rgba(0,0,0,0.2);
 }
-
 .form-1 .submit:after {
     /* Size and position */
     content: "";
@@ -226,25 +197,20 @@ a {
     position: absolute;
     top: -2px;
     left: 30px;
-
     /* Styles */
     background: #ffffff;
-
     /* Other masks trick */
     box-shadow: 0 62px white, -32px 31px white;
 }
-
 .form-1 button {
     /* Size and position */
     width: 100%;
     height: 100%;
     margin-top: -1px;
-
     /* Icon styles */
     font-size: 1.4em;
     line-height: 1.75;
     color: white;
-
     /* Styles */
     border: none; /* Remove the default border */
     border-radius: inherit;
@@ -260,10 +226,8 @@ a {
         0 1px 2px rgba(0,0,0,0.35),
         inset 0 3px 2px rgba(255,255,255,0.2),
         inset 0 -3px 2px rgba(0,0,0,0.1);
-
     cursor: pointer;
 }
-
 .form-1 button:hover,
 .form-1 button[type=submit]:focus {
     background: #52cfeb;
@@ -273,7 +237,6 @@ a {
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
 }
-
 .form-1 button:active {
     background: #42A2BC;
     box-shadow:

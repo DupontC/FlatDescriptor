@@ -12,21 +12,21 @@ Le site dispose :
 
 Technologies mises en avant :
 
- • HTML/CSS/JavaScript
- • Angular Js
- • Node Js: express, passeport, log4js
- • Mongodb
+ • HTML/CSS/JavaScript.
+ • Angular Js.
+ • Node Js: express, mongoose, log4js.
+ • Mongodb.
 
 
 DEPLOYEMENT
 --------------
 
-1) Installer NodeJS
+1) [Installer NodeJS](https://nodejs.org/)
 
 2) Dans un terminal
 
 ```
-$ npm install
+$ sudo npm install
 
 $ node serveurNodeJS.js
 ```
