@@ -21,8 +21,8 @@ var MONGOHQ_URL= SGBD+"://heroku:"+key+"@linus.mongohq.com:10085/app30838243";
 db = mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
 
-//configuration du system de log
-var logger = log4js.getLogger();
+//var logger = log4js.getLogger("cheese");//write in log_serveur file
+var logger = log4js.getLogger(); //log in  console
 log4js.configure({
   appenders: [
     { type: 'console' },
@@ -35,14 +35,11 @@ log4js.configure({
     }
   ]
 });
-//on fix le niveau de log
 logger.setLevel('DEBUG');
 
 
-
-
-// Create a schema for our data
-var flatSchema = new Schema({
+// Create a schema for our database
+flatSchema = new Schema({
   id_annonce : Number,
   enLigne : Boolean,
   surface : Number,
@@ -114,7 +111,6 @@ app.get('/ImmoConfig/:id', function (req, res) {
     res.sendFile(__dirname+'/html/login.html');
   }
 })
-
 //on teste la connexion au BackOffice
 app.post('/ImmoConfig/:id', function (req, res) {
   _testingLogin("immobilierConfiguration.html", req, res);
@@ -172,16 +168,22 @@ app.get('/Alldata/:id', function (req, res) {
   //on vérifie si l'utilisateur a un droit
   //d'accée sur ces fonctions
   if(req.session_state.username){
+    logger.info("Demande de recherche des logements ");
     //on recherche l'annonce demander par le client
     flat.find({"_id":{$ne:null}}, function (err, flats) {
       if(err){
+        logger.error("erreur lors de la recherche des annonces");
         onErr(err,"erreur data");
       }else{
+        logger.debug("Envoi des données sur les annonces");
         //on envoie les données aux clients
+        res.status(200);
         res.send(flats);
       }
     })
   }else{
+    logger.debug("Recherche annonce non permise (pas d'identification)");
+    res.status(401);
     res.send('Hého !! :@');
   }
 })
@@ -191,16 +193,18 @@ app.get('/Alldata/:id', function (req, res) {
 *de tout les appartements lors des appels ajax
 **/
 app.get('/AllDataOnLigne/:id', function (req, res) {
-    logger.info("Recherche des logements en ligne");
-    //on recherche l'annonce en ligne
-    flat.find("_id":{$ne:null},{'enLigne':true},function (err, flats) {
-      if(err){
-        onErr(err,"erreur data");
-      }else{
-        //on envoie les données aux clients
-        res.send(flats);
-      }
-    })
+  logger.info("Demande de recherche des logements en ligne");
+  //on recherche l'annonce en ligne
+  flat.find({"_id":{$ne:null},"enLigne":true},function (err, flats) {
+    if(err){
+      logger.error("erreur lors de la recherche des annonces en ligne");
+      onErr(err,"erreur data");
+    }else{
+      logger.debug("Envoi des données sur les annonces en ligne");
+      //on envoie les données aux clients
+      res.send(flats);
+    }
+  })
 })
 
 //web service qui maj les informations lors des appels ajax
@@ -212,21 +216,23 @@ app.post('/data/:id', function (req, res) {
   if(req.session_state.username && null != flatMAJ){
     logger.debug(JSON.stringify(flatMAJ));
     logger.debug(indice);
-
     flat.update({_id:indice}, flatMAJ, {upsert: true}, function(err){
-      if(null != err){
-        res.send("mise à jour");
+      if(err){
+        logger.error("erreur lors de la m-a-j de l'annonce "+indice);
+        res.status(424);
+        res.send("Erreur : mise à jour ");
       }else{
-        logger.error("Erreur : mise à jour ",err);
-        res.send("Erreur : mise à jour "+err);
+        logger.debug("mise a jour de l'annonce "+indice);
+        res.status(200);
+        res.send("mise à jour");
       }
     })
   }else{
-    logger.error("Mise à jour non permise..");
+    res.status(401);
+    logger.debug("m-a-j annonce non permise");
     res.send("Erreur : mise à jour non permise");
   }
 })
-
 //route vers la page d'accueil
 app.get('/', function(req, res){
   res.sendFile(__dirname+'/html/accueil.html');
@@ -245,7 +251,7 @@ var server = app.listen(app.get('port'), function () {
   logger.info("Starting NodeJS serveur ");
 
   var hostInformation = JSON.stringify(server.address());
-  logger.info('Information for connexion on : %s', hostInformation);
+  logger.info('Information for connexion on : '+ hostInformation);
 
 })
 
