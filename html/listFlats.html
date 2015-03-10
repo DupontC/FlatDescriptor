@@ -9,6 +9,7 @@
 	<meta name="keywords" content="lite de Logements, Appartements" />
 	<meta name="author" content="Cyril Dupont" />
 	<link rel="shortcut icon" href="../favicon.ico">
+	<link rel="stylesheet" type="text/css" href="../css/config_css/demo.css" />
 	<link rel="stylesheet" type="text/css" href="../css/config_css/normalize.css" />
 	<link rel="stylesheet" type="text/css" href="../css/css-listFlats/componentList.css" />
 	<!--[if IE]>
@@ -26,13 +27,16 @@
 						<th>Ville</th>
 						<th>Adresse</th>
 						<th>En ligne</th>
-						<th>Configurer</th>
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="appartement in appartements" ><td class="user-name">{{appartement.ville}}</td><td class="user-email">{{appartement.adresse}}</td><td class="user-phone">{{appartement.enLigne}}</td><td class="user-mobile"><a href="/ImmoConfig/{{appartement.id_annonce}}">configurer</a></td></tr>
 				</tbody>
 			</table>
+		</div>
+		<div style="text-align : center">
+			<a class="btn1" href="/addAnnonce/">Ajouter une annonce</a>
 		</div>
 	</div><!-- /container -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
