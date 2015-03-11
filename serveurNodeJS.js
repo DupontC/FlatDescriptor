@@ -127,6 +127,19 @@ app.get('/listFlats/:id', function (req, res) {
   }
 })
 
+//route pas défaut qui redirige la page
+//d'ajout des annonces
+app.get('/addAnnonce/:id', function (req, res) {
+  if(req.session_state.username){
+    logger.info("GET ADD ANNONCE");
+    res.sendFile(__dirname+'/html/addAnnonce.html');
+  }else{
+    logger.info("GET login");
+    res.sendFile(__dirname+'/html/login.html');
+  }
+})
+
+
 //on teste la connexion au BackOffice
 app.post('/listFlats/:id', function (req, res) {
   _testingLogin("listFlats.html", req, res);
