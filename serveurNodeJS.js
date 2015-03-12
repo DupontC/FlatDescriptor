@@ -246,6 +246,29 @@ app.post('/data/:id', function (req, res) {
     res.send("Erreur : mise à jour non permise");
   }
 })
+
+//web service qui ajoute les informations lors des appels ajax
+app.post('/AddData/:id', function (req, res) {
+
+  var flatMAJ =  JSON.parse(req.body.majData);
+  if(req.session_state.username && null != flatMAJ){
+    logger.debug(JSON.stringify(flatMAJ));
+    logger.debug(indice);
+
+    // Use the schema to register a model with MongoDb
+    mongoose.model('flat', flatSchema);
+    var flat = mongoose.model('flat');
+
+    var appart1 = new flat({});
+    appart2.save();
+
+  }else{
+    res.status(401);
+    logger.debug("add annonce non permise");
+    res.send("Erreur : add non permise");
+  }
+})
+
 //route vers la page d'accueil
 app.get('/', function(req, res){
   res.sendFile(__dirname+'/html/accueil.html');
