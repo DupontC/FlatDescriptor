@@ -4,7 +4,7 @@ var express = require('express');
 var crypto = require('crypto');
 var log4js = require('log4js');
 var app = express();
-const clientSessions = require("client-sessions");
+var clientSessions = require("client-sessions");
 
 
 // configure app to use bodyParser()
@@ -89,7 +89,7 @@ app.use(clientSessions({
 }));
 
 
-app.set('port', (process.env.PORT || 3000))
+app.set('port', (process.env.PORT || 3000));
 
 //utile pour permettre à nos page HTML de
 //charger des ressources (JavaScript, CSS,...)
@@ -99,7 +99,7 @@ app.use(express.static(__dirname + '/'));
 //route pas défaut qui redirige vers l'annonce
 app.get('/:id', function (req, res) {
   res.sendFile(__dirname+'/html/index.html');
-})
+});
 
 //route pas défaut qui redirige vers l'annonce si user logger
 app.get('/ImmoConfig/:id', function (req, res) {
@@ -110,11 +110,12 @@ app.get('/ImmoConfig/:id', function (req, res) {
     logger.info("GET login");
     res.sendFile(__dirname+'/html/login.html');
   }
-})
+});
+
 //on teste la connexion au BackOffice
 app.post('/ImmoConfig/:id', function (req, res) {
   _testingLogin("immobilierConfiguration.html", req, res);
-})
+});
 
 //route pas défaut qui redirige vers l'annonce si user logger
 app.get('/listFlats/:id', function (req, res) {
@@ -125,7 +126,7 @@ app.get('/listFlats/:id', function (req, res) {
     logger.info("GET login");
     res.sendFile(__dirname+'/html/login.html');
   }
-})
+});
 
 //route pas défaut qui redirige la page
 //d'ajout des annonces
@@ -137,13 +138,13 @@ app.get('/addAnnonce/:id', function (req, res) {
     logger.info("GET login");
     res.sendFile(__dirname+'/html/login.html');
   }
-})
+});
 
 
 //on teste la connexion au BackOffice
 app.post('/listFlats/:id', function (req, res) {
   _testingLogin("listFlats.html", req, res);
-})
+});
 
 
 //route pas défaut qui redirige vers l'annonce si user logger
@@ -151,7 +152,7 @@ app.get('/logout/:id', function (req, res) {
   logger.log("déconnexion");
   req.session_state.reset();
   res.sendFile(__dirname+'/html/login.html');
-})
+});
 
 /**
 *web service qui retourne les informations
@@ -159,7 +160,7 @@ app.get('/logout/:id', function (req, res) {
 **/
 app.get('/data/:id', function (req, res) {
   //on recupére l'id de l'annonce rechercher
-  var idAnnonce = req.params.id
+  var idAnnonce = req.params.id;
 
   //on recherche l'annonce demander par le client
   flat.find({'id_annonce':idAnnonce}, function (err, flats) {
@@ -170,8 +171,8 @@ app.get('/data/:id', function (req, res) {
       //console.info(flats);
       res.send(flats);
     }
-  })
-})
+  });
+});
 
 /**
 * web service qui retourne les informations
@@ -193,13 +194,13 @@ app.get('/Alldata/:id', function (req, res) {
         res.status(200);
         res.send(flats);
       }
-    })
+    });
   }else{
     logger.debug("Recherche annonce non permise (pas d'identification)");
     res.status(401);
     res.send('Hého !! :@');
   }
-})
+});
 
 /**
 * web service qui retourne les informations
@@ -217,16 +218,16 @@ app.get('/AllDataOnLigne/:id', function (req, res) {
       //on envoie les données aux clients
       res.send(flats);
     }
-  })
-})
+  });
+});
 
 //web service qui maj les informations lors des appels ajax
 app.post('/data/:id', function (req, res) {
   var flatMAJ =  JSON.parse(req.body.majData);
-  var indice = flatMAJ["_id"];
-  delete flatMAJ["_id"];
-  delete flatMAJ["__v"];
-  if(req.session_state.username && null != flatMAJ){
+  var indice = flatMAJ._id;
+  delete flatMAJ._id;
+  delete flatMAJ.__v;
+  if(req.session_state.username && null !== flatMAJ){
     logger.debug(JSON.stringify(flatMAJ));
     logger.debug(indice);
     flat.update({_id:indice}, flatMAJ, {upsert: true}, function(err){
@@ -239,19 +240,19 @@ app.post('/data/:id', function (req, res) {
         res.status(200);
         res.send("mise à jour");
       }
-    })
+    });
   }else{
     res.status(401);
     logger.debug("m-a-j annonce non permise");
     res.send("Erreur : mise à jour non permise");
   }
-})
+});
 
 //web service qui ajoute les informations lors des appels ajax
 app.post('/AddData/:id', function (req, res) {
 
   var flatAdd =  JSON.parse(req.body.majData);
-  if(req.session_state.username && null != flatAdd){
+  if(req.session_state.username && null !== flatAdd){
     logger.debug(JSON.stringify(flatAdd));
 
     // Use the schema to register a model with MongoDb
@@ -275,7 +276,7 @@ app.post('/AddData/:id', function (req, res) {
     logger.debug("add annonce non permise");
     res.send("Erreur : add non permise");
   }
-})
+});
 
 //route vers la page d'accueil
 app.get('/', function(req, res){
@@ -297,7 +298,7 @@ var server = app.listen(app.get('port'), function () {
   var hostInformation = JSON.stringify(server.address());
   logger.info('Information for connexion on : '+ hostInformation);
 
-})
+});
 
 
 /**
@@ -306,7 +307,7 @@ var server = app.listen(app.get('port'), function () {
 **/
 function _testingLogin(goToInSucess, req, res){
   ///console.info('POST id %s mdp %s',req.body.login, req.body.password);
-  var id = req.body.login
+  var id = req.body.login;
   var mdp = req.body.password;
   mdp = _hashPassword(mdp);
   if(id && mdp){
@@ -322,7 +323,7 @@ function _testingLogin(goToInSucess, req, res){
         logger.error("Erreur de tentative de connexion au BackOffice");
         res.sendFile(__dirname+'/html/login.html');
       }
-    })
+    });
   }
 }
 

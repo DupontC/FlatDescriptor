@@ -21,7 +21,7 @@ if (navigator.geolocation)
 }
 else
 {
-  alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
+  alert('Votre navigateur ne prend pas en compte la géolocalisation HTML5');
 }
 //a la fin du chargement de la page html on lance la fonction initialize()
 google.maps.event.addDomListener(window, 'load', initialize);

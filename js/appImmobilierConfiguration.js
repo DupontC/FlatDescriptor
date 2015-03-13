@@ -10,13 +10,13 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
 
   var webS = window.location.protocol + "//" + window.location.host ;
   var urlInfo =  webS+'/data/'+indiceID;
-  if(isNumeric(indiceID) && null != webS) {
+  if(isNumeric(indiceID) && null !== webS) {
     //on demande au serveur les informations sur l'annonce en ajax
     $http({method: 'GET', url: urlInfo}).
       success(function(data, status, headers, config) {
         //si les données sont retourée au match avec notre object Angular
-        if(null != data && null != indiceID){
-        if(isNumeric(indiceID) && null != data){
+        if(null !== data && null !== indiceID){
+        if(isNumeric(indiceID) && null !== data){
             $scope.appartement = data[0];
             $scope.linkAnnonce = webS+"/"+indiceID;
             $scope.linkLogout  = webS+"/logout/0";
@@ -43,13 +43,13 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
     }).success(function(response) {
         console.log("success"); // Getting Success Response in Callback
                  console.log("maj ok");
-                 toastr.success("Données mise à jour !")
+                 toastr.success('Données mise à jour !');
 
         }).error(function(response) {
                  console.log("maj ko "+$scope.codeStatus);
-                 toastr.error("Erreur de mise à jour !")
+                 toastr.error('Erreur de mise à jour !');
     });//END HTTP
-  }//END MAJDATA FUNCTION
+  };//END MAJDATA FUNCTION
 
 });//END CONTROLER
 

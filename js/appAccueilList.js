@@ -9,7 +9,7 @@ ListAppBack.controller('FlatAccueilListCtrl',function($scope, $http, $location) 
   $http({method: 'GET', url: urlInfo}).
     success(function(data, status, headers, config) {
       //si les données sont retourée au match avec notre object Angular
-      if(null != data && data != ""){
+      if(null !== data && data !== ""){
           $scope.appartements = data;
           $scope.linkLogout  = webS+"/logout/0";
       }else{

@@ -17,8 +17,8 @@ FlatApp.controller('FlatFrontOfficeCtrl',function($browser ,$scope, $http, $loca
       $http({method: 'GET', url: 'data/'+indiceID}).
         success(function(data, status, headers, config) {
           //si les données sont retourée au match avec notre object Angular
-          if(null != data && null != indiceID){
-          if(isNumeric(indiceID) && data[0]["enLigne"] == true){
+          if(null !== data && null !== indiceID){
+          if(isNumeric(indiceID) && data[0].enLigne === true){
               $scope.appartement = data[0];
               $("body").css('background-color', $scope.appartement.color);
               latitude = $scope.appartement.latitude;
@@ -27,7 +27,7 @@ FlatApp.controller('FlatFrontOfficeCtrl',function($browser ,$scope, $http, $loca
               urlPS = $scope.appartement.photosphere;
 
               //on maj les info sur la photosphere si present
-              if(urlPS != null && urlPS != ""){
+              if(urlPS !== null && urlPS !== ""){
                 navigateur = null;
                 userAgent = $window.navigator.userAgent;
 
@@ -35,7 +35,7 @@ FlatApp.controller('FlatFrontOfficeCtrl',function($browser ,$scope, $http, $loca
                     if (browsers[key].test(userAgent)){
                       navigateur = key;
                     }
-                 };
+                 }
                 if(navigateur != "chrome"){
                   photosphere = urlPS;
                 }
@@ -69,7 +69,7 @@ function initialize() {
   * CONFIGURATION GOOGLE MAP
   **/
   //variables pour la mise en place des variable pour la direction
-  if(null != longitude && null != latitude && null != urlAlbum){
+  if(null !== longitude && null !== latitude && null !== urlAlbum){
 
     //on place l'adresse url de notre album photo
     document.getElementById("album").src = urlAlbum;
@@ -97,18 +97,18 @@ function initialize() {
     });
 
     //on lui ajoute une infowindow lors du clic sur le point rouge
-    marker['infowindow'] = new google.maps.InfoWindow({
+    marker.infowindow = new google.maps.InfoWindow({
       content: "<span style='color : black'>Ici l'adress</span>"
     });
     google.maps.event.addListener(marker, 'click', function() {
-      this['infowindow'].open(map, this);
+      this.infowindow.open(map, this);
     });
   }
 
   /**
   * CONFIGURATION DE LA PHOTOSPHERE
   **/
-  if(photosphere != null){
+  if(photosphere !== null){
     var divPS = document.getElementById('photosphere');
     var PSV = new PhotoSphereViewer({
       panorama: photosphere,
@@ -137,7 +137,7 @@ function loadScript() {
 **/
 function setUpCheet(){
   cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
-    document.location.href="https://www.youtube.com/v/gr4IxMgHdDY"
+    document.location.href='https://www.youtube.com/v/gr4IxMgHdDY';
   });
   cheet('g r o s n o u n o u r s', function () {
     alert('Gloire à Gros Nounours');
