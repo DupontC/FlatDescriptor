@@ -41,7 +41,7 @@ var PhotoSphereViewer = function(args) {
 	var isCanvasSupported = function() {
 		var canvas = document.createElement('canvas');
 		return !!(canvas.getContext && canvas.getContext('2d'));
-	}
+	};
 
 	/**
 	 * Detects whether WebGL is supported
@@ -50,7 +50,7 @@ var PhotoSphereViewer = function(args) {
 	var isWebGLSupported = function() {
 		var canvas = document.createElement('canvas');
 		return !!(window.WebGLRenderingContext && canvas.getContext('webgl'));
-	}
+	};
 
 	/**
 	 * Attaches an event handler function to an elemnt
@@ -64,7 +64,7 @@ var PhotoSphereViewer = function(args) {
 			elt.addEventListener(evt, f, false);
 		else
 			elt.attachEvent('on'+evt, f);
-	}
+	};
 
 	/**
 	 * Start loading panorama
@@ -72,7 +72,7 @@ var PhotoSphereViewer = function(args) {
 	 **/
 	var startLoading = function() {
 		// Loading indicator (text or image if given)
-		if (m_loading_img != null) {
+		if (m_loading_img !== null) {
 			var loading = document.createElement('img');
 			loading.setAttribute('src', m_loading_img);
 			loading.setAttribute('alt', 'Loading...');
@@ -100,7 +100,7 @@ var PhotoSphereViewer = function(args) {
 
 		// EXIF data
 		loadEXIF();
-	}
+	};
 
 	/**
 	 * Returns the value of a given attribute in the panorama metadata
@@ -111,7 +111,7 @@ var PhotoSphereViewer = function(args) {
 	var getAttribute = function(data, attr) {
 		var a = data.indexOf('GPano:'+attr) + attr.length + 8, b = data.indexOf('"', a);
 		return data.substring(a, b);
-	}
+	};
 
 	/**
 	 * Loads the EXIF data with AJAX
@@ -161,7 +161,7 @@ var PhotoSphereViewer = function(args) {
 
 		xhr.open('GET', m_panorama, true);
 		xhr.send(null);
-	}
+	};
 
 	/**
 	 * Creates an image in the right dimensions
@@ -194,14 +194,14 @@ var PhotoSphereViewer = function(args) {
 				var buffer = document.createElement('canvas');
 				buffer.width = full_width;
 				buffer.height = full_height;
-				var ctx = buffer.getContext('2d');
+				var ctx2 = buffer.getContext('2d');
 
-				ctx.drawImage(img, cropped_x, cropped_y, cropped_width, cropped_height);
+				ctx2.drawImage(img, cropped_x, cropped_y, cropped_width, cropped_height);
 				loadTexture(buffer.toDataURL('image/png'));
 			};
 
 		img.src = m_panorama;
-	}
+	};
 
 	/**
 	 * Loads the sphere texture
@@ -216,9 +216,9 @@ var PhotoSphereViewer = function(args) {
 			texture.needsUpdate = true;
 			texture.image = img;
 			createScene(texture);
-		}
+		};
 		loader.load(path, onLoad);
-	}
+	};
 
 	/**
 	 * Creates the 3D scene
@@ -261,7 +261,7 @@ var PhotoSphereViewer = function(args) {
 
 		// Animation?
 		anim();
-	}
+	};
 
 	/**
 	 * Resize the canvas when the window is resized
@@ -278,7 +278,7 @@ var PhotoSphereViewer = function(args) {
 
 			m_renderer.setSize(m_width, m_height);
 		}
-	}
+	};
 
 	/**
 	 * The user wants to move
@@ -288,7 +288,7 @@ var PhotoSphereViewer = function(args) {
 	var onMouseDown = function(evt) {
 		evt.preventDefault();
 		startMove(parseInt(evt.clientX), parseInt(evt.clientY));
-	}
+	};
 
 	/**
 	 * The user wants to move (mobile version)
@@ -301,7 +301,7 @@ var PhotoSphereViewer = function(args) {
 			evt.preventDefault();
 			startMove(parseInt(touch.clientX), parseInt(touch.clientY));
 		}
-	}
+	};
 
 	/**
 	 * Initializes the movement
@@ -314,7 +314,7 @@ var PhotoSphereViewer = function(args) {
 		m_mouse_y = y;
 		clearTimeout(m_timeout);
 		m_mousedown = true;
-	}
+	};
 
 	/**
 	 * The user wants to stop moving
@@ -325,7 +325,7 @@ var PhotoSphereViewer = function(args) {
 		evt.preventDefault();
 		m_mousedown = false;
 		anim();
-	}
+	};
 
 	/**
 	 * The user moves the image
@@ -335,7 +335,7 @@ var PhotoSphereViewer = function(args) {
 	var onMouseMove = function(evt) {
 		evt.preventDefault();
 		move(parseInt(evt.clientX), parseInt(evt.clientY));
-	}
+	};
 
 	/**
 	 * The user moves the image (mobile version)
@@ -348,7 +348,7 @@ var PhotoSphereViewer = function(args) {
 			evt.preventDefault();
 			move(parseInt(touch.clientX), parseInt(touch.clientY));
 		}
-	}
+	};
 
 	/**
 	 * Movement
@@ -367,7 +367,7 @@ var PhotoSphereViewer = function(args) {
 			m_mouse_y = y;
 			render();
 		}
-	}
+	};
 
 	/**
 	 * The user wants to zoom
@@ -376,7 +376,7 @@ var PhotoSphereViewer = function(args) {
 	 **/
 	var onMouseWheel = function(evt) {
 		var delta = (evt.detail) ? -evt.detail : evt.wheelDelta;
-		if (delta != 0) {
+		if (delta !== 0) {
 			var direction = parseInt(delta / Math.abs(delta));
 			m_fov -= direction;
 			m_fov = Math.min(90, Math.max(30, m_fov));
@@ -385,7 +385,7 @@ var PhotoSphereViewer = function(args) {
 			m_camera.updateProjectionMatrix();
 			render();
 		}
-	}
+	};
 
 	/**
 	 * Renders an image
@@ -399,7 +399,7 @@ var PhotoSphereViewer = function(args) {
 
 		m_camera.lookAt(point);
 		m_renderer.render(m_scene, m_camera);
-	}
+	};
 
 	/**
 	 * Automatically animates the panorama
@@ -410,7 +410,7 @@ var PhotoSphereViewer = function(args) {
 			clearTimeout(m_timeout);
 			m_timeout = setTimeout(rotate, m_anim);
 		}
-	}
+	};
 
 	/**
 	 * Rotates the panorama
@@ -426,7 +426,7 @@ var PhotoSphereViewer = function(args) {
 
 		render();
 		m_timeout = setTimeout(rotate, PSV_ANIM_TIMEOUT);
-	}
+	};
 
 	/**
 	 * Sets the animation speed
@@ -485,7 +485,7 @@ var PhotoSphereViewer = function(args) {
 
 		// Theta offset
 		m_theta_offset = rad_per_second * PSV_ANIM_TIMEOUT / 1000;
-	}
+	};
 
 	// Required parameters
 	if (args === undefined || args.panorama === undefined || args.container === undefined) {
@@ -533,4 +533,4 @@ var PhotoSphereViewer = function(args) {
 	var m_timeout = null;
 
 	startLoading();
-}
+};
