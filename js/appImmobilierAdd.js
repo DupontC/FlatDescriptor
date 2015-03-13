@@ -12,7 +12,7 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
   //function call to update data
   $scope.addData = function() {
     console.log("ajout d'une annonce");
-    $scope.appartement["id_annonce"] =  Math.floor((Math.random() * 9999) + 2);
+    $scope.appartement.id_annonce =  Math.floor((Math.random() * 9999) + 2);
     var jdata = 'majData='+JSON.stringify($scope.appartement); // The data is to be string.
     console.log(jdata);
     $http({ // Accessing the Angular $http Service to send data via REST Communication to Node Server.
@@ -22,13 +22,13 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
       data:  jdata
     }).success(function(response) {
       console.log("success"); // Getting Success Response in Callback
-      toastr.success("Annonce ajouté !")
+      toastr.success("Annonce ajouté !");
 
     }).error(function(response) {
       console.log("maj ko "+$scope.codeStatus);
-      toastr.error("Erreur lors de l'insertion!")
+      toastr.error("Erreur lors de l'insertion!");
     });//END HTTP
-  }//END MAJDATA FUNCTION
+  };//END MAJDATA FUNCTION
 
 });//END CONTROLER
 
