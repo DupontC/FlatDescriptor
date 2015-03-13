@@ -250,17 +250,25 @@ app.post('/data/:id', function (req, res) {
 //web service qui ajoute les informations lors des appels ajax
 app.post('/AddData/:id', function (req, res) {
 
-  var flatMAJ =  JSON.parse(req.body.majData);
-  if(req.session_state.username && null != flatMAJ){
-    logger.debug(JSON.stringify(flatMAJ));
-    logger.debug(indice);
+  var flatAdd =  JSON.parse(req.body.majData);
+  if(req.session_state.username && null != flatAdd){
+    logger.debug(JSON.stringify(flatAdd));
 
     // Use the schema to register a model with MongoDb
     mongoose.model('flat', flatSchema);
     var flat = mongoose.model('flat');
-
-    var appart1 = new flat({});
-    appart2.save();
+    var newAppart = new flat(flatAdd);
+    newAppart.save(function(err){
+      if(err){
+        logger.error("erreur lors de la m-a-j de l'annonce "+indice);
+        res.status(424);
+        res.send("Erreur : add annonce ");
+      }else{
+        logger.debug("ajout d'une annonce ");
+        res.status(200);
+        res.send("add annonce");
+      }
+    });
 
   }else{
     res.status(401);

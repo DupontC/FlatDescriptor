@@ -19,7 +19,7 @@ Technologies mises en avant :
 
 
 DEPLOYEMENT
---------------
+-------------
 
 1) [Installer NodeJS](https://nodejs.org/)
 
