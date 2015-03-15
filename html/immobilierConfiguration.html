@@ -25,51 +25,86 @@
   <section class="af-wrapper">
 
 
-    <form novalidate class="af-form" id="af-form" novalidate method="POST">
-      <input ng-click="majData()" type="submit" id="validé" value="Valider les informations" /><br/>
+    <form class="af-form" name="myForm" id="af-form" method="POST">
+      <input ng-click="majData()" type="submit" id="validé" value="Valider les informations" />
       <h1>Description de l'appartement</h1>
       <div class="af-outer">
         <div class="af-inner">
           <label for="input-title">Annonce en ligne</label>
-          <input type="checkbox" ng-model="appartement.enLigne">
+          <input name="enLigne" type="checkbox" ng-model="appartement.enLigne">
         </div>
       </div>
       <div class="af-outer">
         <div class="af-inner">
           <label for="input-title">Couleur du fond</label>
-          <input type="color" ng-model="appartement.color">
+          <input name="color" type="color" ng-model="appartement.color">
         </div>
       </div>
+      <!-- Description Localisation -->
+      <h2>Localisation</h2>
+      <div class="af-outer af-required">
+        <div class="af-inner">
+          <label for="ville">Ville</label>
+          <input name="ville" type="text" ng-model="appartement.ville" required="true">
+        </div>
+      </div>
+      <div class="af-outer af-required">
+        <div class="af-inner">
+          <label for="adresse">Adresse</label>
+          <input name="adresse" type="text" ng-model="appartement.adresse" required="true">
+        </div>
+      </div>
+      <div class="af-outer af-required">
+        <div class="af-inner">
+          <label for="descLocalisation">Description localisation</label>
+          <br><textarea  ng-trim="true" name="emplacement" rows="4"cols="53" ng-model="appartement.emplacement"></textarea>
+        </div>
+      </div>
+
+
+      <div class="af-outer af-required">
+        <div class="af-inner">
+          <label for="latitude">latitude</label>
+          <input name="latitude" type="text" ng-model="appartement.latitude" required="true">
+        </div>
+      </div>
+      <div class="af-outer af-required">
+        <div class="af-inner">
+          <label for="longitude">longitude</label>
+          <input name="longitude" type="text" ng-model="appartement.longitude" required="true">
+        </div>
+      </div>
+
 
       <h2>Descriptions</h2>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="input-email">Titre 1</label>
-          <input type="text" ng-model=appartement.titre1>
+          <input name="titre1" type="text" ng-model=appartement.titre1>
         </div>
       </div>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="desc1">Description 1</label>
-          <textarea rows="4" cols="53" ng-model="appartement.texte1"></textarea>
+          <textarea ng-trim="true" name="texte1" rows="4" cols="53" ng-model="appartement.texte1"></textarea>
         </div>
       </div>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="input-surface">Surface en m2</label>
-          <input type="text" ng-model=appartement.surface>
+          <input name="surface" type="number" ng-model=appartement.surface>
         </div>
       </div>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="input-nbPiece">Nombre de piéce(s)</label>
-          <input type="text" ng-model=appartement.nbPiece>
+          <input name="nbPiece" type="number" ng-model=appartement.nbPiece>
         </div>
       </div>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="image1">Image 1</label>
-          <input type="text" ng-model="appartement.image1">
+          <input name="image1" type="text" ng-model="appartement.image1">
         </div>
       </div>
       <hr>
@@ -77,19 +112,19 @@
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="titre2">Titre 2</label>
-          <input type="text" ng-model="appartement.titre2">
+          <input name="titre2" type="text" ng-model="appartement.titre2">
         </div>
       </div>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="desc2">Description 2</label>
-          <br><textarea rows="4" cols="53" ng-model="appartement.texte2"></textarea>
+          <br><textarea ng-trim="true" name="texte2" rows="4" cols="53" ng-model="appartement.texte2"></textarea>
         </div>
       </div>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="image2">Image 2</label>
-          <input type="text" ng-model="appartement.image2">
+          <input name="image2" type="text" ng-model="appartement.image2">
         </div>
       </div>
       <hr>
@@ -100,19 +135,19 @@
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="titre3">Titre 3</label>
-          <input type="text" ng-model="appartement.titre3">
+          <input name="titre3" type="text" ng-model="appartement.titre3">
         </div>
       </div>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="desc3">Description 3</label>
-          <br><textarea rows="4" cols="53" ng-model="appartement.texte3"></textarea>
+          <br><textarea ng-trim="true" name="texte3" rows="4" cols="53" ng-model="appartement.texte3"></textarea>
         </div>
       </div>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="image3">Image 3</label>
-          <input type="text" ng-model="appartement.image3">
+          <input name="image3" type="text" ng-model="appartement.image3">
         </div>
       </div>
       <hr>
@@ -121,56 +156,19 @@
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="titre3">Titre 4</label>
-          <input type="text" ng-model="appartement.titre4">
+          <input name="titre4" type="text" ng-model="appartement.titre4">
         </div>
       </div>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="desc4">Description 4</label>
-          <br><textarea class="" rows="4" cols="53" required ng-model="appartement.texte4"></textarea>
+          <br><textarea ng-trim="true" name="texte4" class="" rows="4" cols="53" ng-model="appartement.texte4"></textarea>
         </div>
       </div>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="image4">Image 4</label>
-          <input type="text" ng-model="appartement.image4">
-        </div>
-      </div>
-
-
-
-      <!-- Description Localisation -->
-      <h2>Localisation</h2>
-      <div class="af-outer af-required">
-        <div class="af-inner">
-          <label for="ville">Ville</label>
-          <input type="text" ng-model="appartement.ville">
-        </div>
-      </div>
-      <div class="af-outer af-required">
-        <div class="af-inner">
-          <label for="adresse">Adresse</label>
-          <input type="text" ng-model="appartement.adresse">
-        </div>
-      </div>
-      <div class="af-outer af-required">
-        <div class="af-inner">
-          <label for="descLocalisation">Description localisation</label>
-          <br><textarea  rows="4"cols="53" ng-model="appartement.emplacement"></textarea>
-        </div>
-      </div>
-
-
-      <div class="af-outer af-required">
-        <div class="af-inner">
-          <label for="latitude">latitude</label>
-          <input type="text" ng-model="appartement.latitude">
-        </div>
-      </div>
-      <div class="af-outer af-required">
-        <div class="af-inner">
-          <label for="longitude">longitude</label>
-          <input type="text" ng-model="appartement.longitude">
+          <input name="image4" type="text" ng-model="appartement.image4">
         </div>
       </div>
 
@@ -180,22 +178,21 @@
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="descPhotos">Description photos</label>
-          <br><textarea rows="4" cols="53" ng-model="appartement.photos"></textarea>
+          <br><textarea ng-trim="true" name="photos" rows="4" cols="53" ng-model="appartement.photos"></textarea>
         </div>
       </div>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="album">Liens vers l'album</label>
-          <input type="text" ng-model="appartement.albumPhotos">
+          <input name="albumPhotos" type="text" ng-model="appartement.albumPhotos">
         </div>
       </div>
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="photosphere">Liens vers une photo sphére</label>
-          <input type="text" ng-model="appartement.photosphere">
+          <input name="photosphere" type="text" ng-model="appartement.photosphere">
         </div>
       </div>
-
 
 
       <!-- Description du contacts-->
@@ -203,7 +200,7 @@
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="contact">Descriptions du contact</label>
-          <br><textarea rows="4" cols="53" ng-model="appartement.contacts"></textarea>
+          <br><textarea ng-trim="true" name="contacts" rows="4" cols="53" ng-model="appartement.contacts" required></textarea>
         </div>
       </div>
 

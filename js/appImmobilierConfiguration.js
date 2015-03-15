@@ -33,22 +33,26 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
 
   //function call to update data
   $scope.majData = function() {
-    console.log("mise à jour des données");
-   	var jdata = 'majData='+JSON.stringify($scope.appartement); // The data is to be string.
-    $http({ // Accessing the Angular $http Service to send data via REST Communication to Node Server.
-            method: "post",
-            url: urlInfo,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            data:  jdata
-    }).success(function(response) {
-        console.log("success"); // Getting Success Response in Callback
-                 console.log("maj ok");
-                 toastr.success('Données mise à jour !');
+    if($scope.myForm.$valid){//on verifie que le formulaire est valide
+      console.log("mise à jour des données");
+     	var jdata = 'majData='+JSON.stringify($scope.appartement); // The data is to be string.
+      $http({ // Accessing the Angular $http Service to send data via REST Communication to Node Server.
+              method: "post",
+              url: urlInfo,
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+              data:  jdata
+      }).success(function(response) {
+          console.log("success"); // Getting Success Response in Callback
+                   console.log("maj ok");
+                   toastr.success('Données mise à jour !');
 
-        }).error(function(response) {
-                 console.log("maj ko "+$scope.codeStatus);
-                 toastr.error('Erreur de mise à jour !');
-    });//END HTTP
+          }).error(function(response) {
+                   console.log("maj ko "+$scope.codeStatus);
+                   toastr.error('Erreur de mise à jour !');
+      });//END HTTP
+    }else{
+      toastr.warning('Formulaire invalide');
+    }
   };//END MAJDATA FUNCTION
 
 });//END CONTROLER

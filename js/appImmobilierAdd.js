@@ -11,7 +11,7 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
 
   //function call to update data
   $scope.addData = function() {
-    if($scope.myForm.$valid){
+    if($scope.myForm.$valid){//on teste si le formulaire est valide
       console.log("ajout d'une annonce");
       $scope.appartement.id_annonce =  Math.floor((Math.random() * 9999) + 2);
       var jdata = 'majData='+JSON.stringify($scope.appartement); // The data is to be string.
