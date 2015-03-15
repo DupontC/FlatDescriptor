@@ -1,25 +1,18 @@
-//declaration des librairies
+/****************************************/
+/***      DECLARATION LIBRAIRIES      ***/
+/****************************************/
+
 var bodyParser = require('body-parser');
 var express = require('express');
 var crypto = require('crypto');
 var log4js = require('log4js');
 var app = express();
 var clientSessions = require("client-sessions");
-
-
-// configure app to use bodyParser()
-// this will let us get the data from a POST
-// utiliser pour recuperer les parametres POST
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
 var mongoose = require("mongoose");
-var SGBD = "mongodb";
-var key = "qx1L3V6QpV8Xtt1BDdn_CcHMFGkF3iMUhUXUm3x_7S37DqK7HjZVfTRB4rjiTXdehHdWeuBlNym5oMmHG2VKEg";
-var MONGOHQ_URL= SGBD+"://heroku:"+key+"@linus.mongohq.com:10085/app30838243";
 
-db = mongoose.connect(MONGOHQ_URL);
-Schema = mongoose.Schema;
+/************************/
+/***      LOGGER      ***/
+/************************/
 
 //var logger = log4js.getLogger("cheese");//write in log_serveur file
 var logger = log4js.getLogger(); //log in  console
@@ -37,6 +30,17 @@ log4js.configure({
 });
 logger.setLevel('DEBUG');
 
+
+/****************************/
+/***      DATA MODEL      ***/
+/****************************/
+
+var SGBD = "mongodb";
+var key = "qx1L3V6QpV8Xtt1BDdn_CcHMFGkF3iMUhUXUm3x_7S37DqK7HjZVfTRB4rjiTXdehHdWeuBlNym5oMmHG2VKEg";
+var MONGOHQ_URL= SGBD+"://heroku:"+key+"@linus.mongohq.com:10085/app30838243";
+
+db = mongoose.connect(MONGOHQ_URL);
+Schema = mongoose.Schema;
 
 // Create a schema for our database
 flatSchema = new Schema({
@@ -83,18 +87,91 @@ var flat = mongoose.model('flat');
 mongoose.model('user', userSchema);
 var user = mongoose.model('user');
 
+
+/***********************************/
+/***      CONFIGURE SESSION      ***/
+/***********************************/
+
 //cle des variables de session
 app.use(clientSessions({
   secret: '224c4a16a42716e410fcd78b5564bbc8d7e9c7eea3733a342c4bc100f5ed3b0518f4a0dd132e567af10043281e437bba0acdd792a6c4e45ac319d13999c6b019' // set this to a long random string!
 }));
-
-
-app.set('port', (process.env.PORT || 3000));
-
 //utile pour permettre à nos page HTML de
 //charger des ressources (JavaScript, CSS,...)
 app.use(express.static(__dirname + '/'));
+// utiliser pour recuperer les parametres POST
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
+/****************************/
+/***      POST ROUTE      ***/
+/****************************/
+
+//on teste la connexion au BackOffice
+app.post('/listFlats/:id', function (req, res) {
+  _testingLogin("listFlats.html", req, res);
+});
+
+//web service qui maj les informations lors des appels ajax
+app.post('/data/:id', function (req, res) {
+  var flatMAJ =  JSON.parse(req.body.majData);
+  var indice = flatMAJ._id;
+  delete flatMAJ._id;
+  delete flatMAJ.__v;
+  if(req.session_state.username && null !== flatMAJ){
+    logger.debug(JSON.stringify(flatMAJ));
+    logger.debug(indice);
+    flat.update({_id:indice}, flatMAJ, {upsert: true}, function(err){
+      if(err){
+        logger.error("erreur lors de la m-a-j de l'annonce "+indice);
+        res.status(424);
+        res.send("Erreur : mise à jour ");
+      }else{
+        logger.debug("mise a jour de l'annonce "+indice);
+        res.status(200);
+        res.send("mise à jour");
+      }
+    });
+  }else{
+    res.status(401);
+    logger.debug("m-a-j annonce non permise");
+    res.send("Erreur : mise à jour non permise");
+  }
+});
+
+//web service qui ajoute les informations lors des appels ajax
+app.post('/AddData/:id', function (req, res) {
+
+  var flatAdd =  JSON.parse(req.body.majData);
+  if(req.session_state.username && null !== flatAdd){
+    logger.debug(JSON.stringify(flatAdd));
+
+    // Use the schema to register a model with MongoDb
+    mongoose.model('flat', flatSchema);
+    var flat = mongoose.model('flat');
+    var newAppart = new flat(flatAdd);
+    newAppart.save(function(err){
+      if(err){
+        logger.error("erreur lors de la m-a-j de l'annonce "+indice);
+        res.status(424);
+        res.send("Erreur : add annonce ");
+      }else{
+        logger.debug("ajout d'une annonce ");
+        res.status(200);
+        res.send("add annonce");
+      }
+    });
+
+  }else{
+    res.status(401);
+    logger.debug("add annonce non permise");
+    res.send("Erreur : add non permise");
+  }
+});
+
+/****************************/
+/***      GET ROUTE       ***/
+/****************************/
 
 //route pas défaut qui redirige vers l'annonce
 app.get('/:id', function (req, res) {
@@ -140,16 +217,9 @@ app.get('/addAnnonce/:id', function (req, res) {
   }
 });
 
-
-//on teste la connexion au BackOffice
-app.post('/listFlats/:id', function (req, res) {
-  _testingLogin("listFlats.html", req, res);
-});
-
-
 //route pas défaut qui redirige vers l'annonce si user logger
 app.get('/logout/:id', function (req, res) {
-  logger.log("déconnexion");
+  logger.info("déconnexion");
   req.session_state.reset();
   res.sendFile(__dirname+'/html/login.html');
 });
@@ -221,62 +291,6 @@ app.get('/AllDataOnLigne/:id', function (req, res) {
   });
 });
 
-//web service qui maj les informations lors des appels ajax
-app.post('/data/:id', function (req, res) {
-  var flatMAJ =  JSON.parse(req.body.majData);
-  var indice = flatMAJ._id;
-  delete flatMAJ._id;
-  delete flatMAJ.__v;
-  if(req.session_state.username && null !== flatMAJ){
-    logger.debug(JSON.stringify(flatMAJ));
-    logger.debug(indice);
-    flat.update({_id:indice}, flatMAJ, {upsert: true}, function(err){
-      if(err){
-        logger.error("erreur lors de la m-a-j de l'annonce "+indice);
-        res.status(424);
-        res.send("Erreur : mise à jour ");
-      }else{
-        logger.debug("mise a jour de l'annonce "+indice);
-        res.status(200);
-        res.send("mise à jour");
-      }
-    });
-  }else{
-    res.status(401);
-    logger.debug("m-a-j annonce non permise");
-    res.send("Erreur : mise à jour non permise");
-  }
-});
-
-//web service qui ajoute les informations lors des appels ajax
-app.post('/AddData/:id', function (req, res) {
-
-  var flatAdd =  JSON.parse(req.body.majData);
-  if(req.session_state.username && null !== flatAdd){
-    logger.debug(JSON.stringify(flatAdd));
-
-    // Use the schema to register a model with MongoDb
-    mongoose.model('flat', flatSchema);
-    var flat = mongoose.model('flat');
-    var newAppart = new flat(flatAdd);
-    newAppart.save(function(err){
-      if(err){
-        logger.error("erreur lors de la m-a-j de l'annonce "+indice);
-        res.status(424);
-        res.send("Erreur : add annonce ");
-      }else{
-        logger.debug("ajout d'une annonce ");
-        res.status(200);
-        res.send("add annonce");
-      }
-    });
-
-  }else{
-    res.status(401);
-    logger.debug("add annonce non permise");
-    res.send("Erreur : add non permise");
-  }
-});
 
 //route vers la page d'accueil
 app.get('/', function(req, res){
@@ -291,6 +305,12 @@ app.get('*', function(req, res){
 
 
 
+
+/*********************************/
+/***      STRATING SERVER      ***/
+/*********************************/
+
+app.set('port', (process.env.PORT || 3000));
 //on mettre notre serveur en ecoute
 var server = app.listen(app.get('port'), function () {
   logger.info("Starting NodeJS serveur ");
@@ -301,10 +321,13 @@ var server = app.listen(app.get('port'), function () {
 });
 
 
-/**
-* Fonction qui vérifie si les informations de connexion
-* données par l'utilisateur son valide
-**/
+
+/**********************************/
+/***      FONCTIONS UTILES      ***/
+/**********************************/
+
+//Fonction qui vérifie si les informations de connexion
+//données par l'utilisateur son valide
 function _testingLogin(goToInSucess, req, res){
   ///console.info('POST id %s mdp %s',req.body.login, req.body.password);
   var id = req.body.login;
@@ -327,10 +350,9 @@ function _testingLogin(goToInSucess, req, res){
   }
 }
 
-/**
-* Fonction qui crypte la chaine passè en parametre
-* et retourne son hash.
-**/
+
+//Fonction qui crypte la chaine passè en parametre
+//et retourne son hash.
 function _hashPassword(stringForHash){
   var shasum = crypto.createHash('sha1');
   shasum.update(stringForHash);
