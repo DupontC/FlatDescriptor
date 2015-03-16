@@ -6,9 +6,15 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var crypto = require('crypto');
 var log4js = require('log4js');
-var app = express();
+var helmet = require('helmet');
 var clientSessions = require("client-sessions");
 var mongoose = require("mongoose");
+var app = express();
+app.use(helmet.frameguard());
+app.use(helmet.ieNoOpen());
+app.use(helmet.noSniff());
+app.use(helmet.xssFilter());
+app.use(helmet.hidePoweredBy());
 
 /************************/
 /***      LOGGER      ***/
@@ -302,8 +308,6 @@ app.get('*', function(req, res){
   res.status(404);
   res.sendFile(__dirname+'/html/404.html');
 });
-
-
 
 
 /*********************************/

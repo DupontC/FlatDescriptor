@@ -34,7 +34,8 @@
     "client-sessions": "*",
     "body-parser": "*",
     "mongoose": "*",
-    "log4js": "*"
+    "log4js": "*",
+    "helmet":"*"
   },
   "scripts": {
     "start": "node serveurNodeJS.js"
