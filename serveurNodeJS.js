@@ -10,11 +10,15 @@ var helmet = require('helmet');
 var clientSessions = require("client-sessions");
 var mongoose = require("mongoose");
 var app = express();
+var ninetyDaysInMilliseconds = 7776000000;
 app.use(helmet.frameguard());
 app.use(helmet.ieNoOpen());
 app.use(helmet.noSniff());
 app.use(helmet.xssFilter());
 app.use(helmet.hidePoweredBy());
+app.use(helmet.hsts({maxAge: ninetyDaysInMilliseconds,includeSubdomains: true}));
+app.use(helmet.publicKeyPins({maxAge: ninetyDaysInMilliseconds,sha256s: ['AbCdEf123=', 'ZyXwVu456='],includeSubdomains: true }));
+//app.use(helmet.noCache());
 
 /************************/
 /***      LOGGER      ***/
