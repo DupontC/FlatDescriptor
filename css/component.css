@@ -76,7 +76,33 @@ a:hover {
 	float: right;
 	text-align: center;
 }
-
+.container > header nav a {
+	display: inline-block;
+	position: relative;
+	text-align: left;
+	width: 2.5em;
+	height: 2.5em;
+	background: #47a3da;
+	border-radius: 50%;
+	margin: 0 0.1em;
+	border: 4px solid #fff;
+}
+.container > header nav a > span {
+	display: none;
+}
+.container > header nav a:hover:before {
+	content: attr(data-info);
+	color: #fff;
+	position: absolute;
+	width: 600%;
+	top: 120%;
+	text-align: right;
+	right: 0;
+	pointer-events: none;
+}
+.container > header nav a:hover {
+	background: #fff;
+}
 .bp-icon:after {
 	font-family: 'bpicons';
 	speak: none;
@@ -88,8 +114,32 @@ a:hover {
 	color: #fff;
 	-webkit-font-smoothing: antialiased;
 }
+.container > header nav .bp-icon:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	line-height: 2;
+	text-indent: 0;
+}
+.container > header nav a:hover:after {
+	color: #47a3da;
+}
+.bp-icon-next:after {
+	content: "\e000";
+}
+.bp-icon-drop:after {
+	content: "\e001";
+}
+.bp-icon-archive:after {
+	content: "\e002";
+}
 .bp-icon-about:after {
 	content: "\e003";
+}
+.bp-icon-prev:after {
+	content: "\e004";
 }
 @media screen and (max-width: 55em) {
 	.container > header h1,
@@ -166,6 +216,16 @@ a:hover {
 	-moz-transition: all 0.3s;
 	transition: all 0.3s;
 }
+.cbp-af-header.cbp-af-header-shrink {
+	height: 90px;
+}
+.cbp-af-header.cbp-af-header-shrink h1,
+.cbp-af-header.cbp-af-header-shrink nav a {
+	line-height: 90px;
+}
+.cbp-af-header.cbp-af-header-shrink h1 {
+	font-size: 2em;
+}
 /* Example Media Queries */
 @media screen and (max-width: 55em) {
 	.cbp-af-header .cbp-af-inner {
@@ -185,6 +245,16 @@ a:hover {
 	.cbp-af-header nav a {
 		margin: 0 10px;
 	}
+	.cbp-af-header.cbp-af-header-shrink h1,
+	.cbp-af-header.cbp-af-header-shrink nav a {
+		line-height: 45px;
+	}
+	.cbp-af-header.cbp-af-header-shrink h1 {
+		font-size: 2em;
+	}
+	.cbp-af-header.cbp-af-header-shrink nav a {
+		font-size: 1em;
+	}
 }
 @media screen and (max-width: 32.25em) {
 	.cbp-af-header nav a {
@@ -193,6 +263,9 @@ a:hover {
 }
 @media screen and (max-width: 24em) {
 	.cbp-af-header nav a,
+	.cbp-af-header.cbp-af-header-shrink nav a {
+		line-height: 1;
+	}
 }
 .cbp-so-scroller {
 	margin-top: 3em;
@@ -281,6 +354,13 @@ a:hover {
 }
 /* Animated state */
 /* add you final states (transition) or your effects (animations) for each side */
+.cbp-so-section.cbp-so-animate .cbp-so-side-left,
+.cbp-so-section.cbp-so-animate .cbp-so-side-right {
+	-webkit-transform: translateX(0px);
+	-moz-transform: translateX(0px);
+	transform: translateX(0px);
+	opacity: 1;
+}
 /* Example media queries */
 @media screen and (max-width: 73.5em) {
 	.cbp-so-scroller {
