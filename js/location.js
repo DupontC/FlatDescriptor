@@ -1,5 +1,5 @@
 
-function initialize() {
+initialize = function() {
  //on initialise directionsDisplay afin de pourvoir utiliser l'affichage d'itineraire
  directionsDisplay = new google.maps.DirectionsRenderer();
 
@@ -11,7 +11,7 @@ function initialize() {
       });
       directionsDisplay.setMap(map);
     alert(map);
-}
+};
 
 
  //on teste le service de geolocation du navigateur

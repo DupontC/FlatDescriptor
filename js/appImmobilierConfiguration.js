@@ -58,6 +58,6 @@ FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
 });//END CONTROLER
 
 
-function isNumeric(obj) {
+isNumeric = function(obj) {
     return !isNaN(parseFloat(obj)) && isFinite(obj);
-}
+};

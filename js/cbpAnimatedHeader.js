@@ -15,16 +15,16 @@ var cbpAnimatedHeader = (function() {
 		didScroll = false,
 		changeHeaderOn = 300;
 
-	function init() {
+	init = function() {
 		window.addEventListener( 'scroll', function( event ) {
 			if( !didScroll ) {
 				didScroll = true;
 				setTimeout( scrollPage, 250 );
 			}
 		}, false );
-	}
+	};
 
-	function scrollPage() {
+	scrollPage = function() {
 		var sy = scrollY();
 		if ( sy >= changeHeaderOn ) {
 			classie.add( header, 'cbp-af-header-shrink' );
@@ -33,11 +33,11 @@ var cbpAnimatedHeader = (function() {
 			classie.remove( header, 'cbp-af-header-shrink' );
 		}
 		didScroll = false;
-	}
+	};
 
-	function scrollY() {
+	scrollY = function() {
 		return window.pageYOffset || docElem.scrollTop;
-	}
+	};
 
 	init();
 

@@ -11,6 +11,8 @@ var clientSessions = require("client-sessions");
 var mongoose = require("mongoose");
 var app = express();
 var ninetyDaysInMilliseconds = 7776000000;
+app.locals.title = "FlarDescriptor";
+app.locals.email = "";
 app.use(helmet.frameguard());
 app.use(helmet.ieNoOpen());
 app.use(helmet.noSniff());
@@ -134,18 +136,15 @@ app.post('/data/:id', function (req, res) {
     flat.update({_id:indice}, flatMAJ, {upsert: true}, function(err){
       if(err){
         logger.error("erreur lors de la m-a-j de l'annonce "+indice);
-        res.status(424);
-        res.send("Erreur : mise à jour ");
+        res.status(424).send("Erreur : mise à jour ");
       }else{
         logger.debug("mise a jour de l'annonce "+indice);
-        res.status(200);
-        res.send("mise à jour");
+        res.status(200).send("mise à jour");
       }
     });
   }else{
-    res.status(401);
     logger.debug("m-a-j annonce non permise");
-    res.send("Erreur : mise à jour non permise");
+    res.status(401).send("Erreur : mise à jour non permise");
   }
 });
 
@@ -163,19 +162,16 @@ app.post('/AddData/:id', function (req, res) {
     newAppart.save(function(err){
       if(err){
         logger.error("erreur lors de la m-a-j de l'annonce "+indice);
-        res.status(424);
-        res.send("Erreur : add annonce ");
+        res.status(424).send("Erreur : add annonce ");
       }else{
         logger.debug("ajout d'une annonce ");
-        res.status(200);
-        res.send("add annonce");
+        res.status(200).send("add annonce");
       }
     });
 
   }else{
-    res.status(401);
     logger.debug("add annonce non permise");
-    res.send("Erreur : add non permise");
+    res.status(401).send("Erreur : add non permise");
   }
 });
 
@@ -271,14 +267,12 @@ app.get('/Alldata/:id', function (req, res) {
       }else{
         logger.debug("Envoi des données sur les annonces");
         //on envoie les données aux clients
-        res.status(200);
-        res.send(flats);
+        res.status(200).send(flats);
       }
     });
   }else{
     logger.debug("Recherche annonce non permise (pas d'identification)");
-    res.status(401);
-    res.send('Hého !! :@');
+    res.status(401).send('Hého !! :@');
   }
 });
 
@@ -309,8 +303,7 @@ app.get('/', function(req, res){
 
 //route vers la page 404 not found (toujours placer cette routea la fin)
 app.get('*', function(req, res){
-  res.status(404);
-  res.sendFile(__dirname+'/html/404.html');
+  res.status(404).sendFile(__dirname+'/html/404.html');
 });
 
 
@@ -335,8 +328,8 @@ var server = app.listen(app.get('port'), function () {
 /**********************************/
 
 //Fonction qui vérifie si les informations de connexion
-//données par l'utilisateur son valide
-function _testingLogin(goToInSucess, req, res){
+// données par l'utilisateur son valide
+_testingLogin = function(goToInSucess, req, res){
   ///console.info('POST id %s mdp %s',req.body.login, req.body.password);
   var id = req.body.login;
   var mdp = req.body.password;
@@ -356,13 +349,13 @@ function _testingLogin(goToInSucess, req, res){
       }
     });
   }
-}
+};
+_testingLogin.description = "Fonction qui vérifie si les informations de connexion données par l'utilisateur son valide";
 
-
-//Fonction qui crypte la chaine passè en parametre
-//et retourne son hash.
-function _hashPassword(stringForHash){
+//Fonction qui crypte la chaine passè en parametre et retourne son hash.
+_hashPassword = function(stringForHash){
   var shasum = crypto.createHash('sha1');
   shasum.update(stringForHash);
   return shasum.digest('base64');
-}
+};
+_hashPassword.description = "Fonction qui crypte la chaine passè en parametre et retourne son hash.";

@@ -56,14 +56,14 @@ FlatApp.controller('FlatFrontOfficeCtrl',function($browser ,$scope, $http, $loca
 /**
 * Fonction que vérifie si la variable passé en parametres est de type numérique
 **/
-function isNumeric(obj) {
+isNumeric = function(obj) {
     return !isNaN(parseFloat(obj)) && isFinite(obj);
-}
+};
 
 /**
 *Initilisation de la cartographie et du carousel
 **/
-function initialize() {
+initialize = function() {
 
   /**
   * CONFIGURATION GOOGLE MAP
@@ -117,29 +117,29 @@ function initialize() {
       loading_img: "Chargement de l'image"
     });
   }
-}
+};
 
 
 /**
 * Fonction de chargement de l'api Google Map
 **/
-function loadScript() {
+loadScript = function() {
     var script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
     'callback=initialize';
     document.body.appendChild(script);
     setUpCheet();
-}
+};
 
 /**
 * Fonction d'initialisation des cheets ;-)
 **/
-function setUpCheet(){
+setUpCheet = function(){
   cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
     document.location.href='https://www.youtube.com/v/gr4IxMgHdDY';
   });
   cheet('g r o s n o u n o u r s', function () {
     alert('Gloire à Gros Nounours');
   });
-}
+};
