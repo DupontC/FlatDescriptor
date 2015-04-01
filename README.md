@@ -26,7 +26,7 @@ DEPLOYEMENT
 2) Dans un terminal
 
 ```
-$ sudo npm install
+$ sudo npm scrollPage
 
 $ node serveurNodeJS.js
 ```

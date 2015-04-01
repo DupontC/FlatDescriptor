@@ -1,6 +1,4 @@
-var FlatAppBack = angular.module('immoApp', []);
-
-FlatAppBack.controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
+var FlatAppBack = angular.module('immoApp', []).controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
 
   //on recupére l'id de l'annonce
   var url = $location.absUrl();

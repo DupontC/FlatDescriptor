@@ -1,6 +1,4 @@
-var ListAppBack = angular.module('immoAppList', [ ]);
-
-ListAppBack.controller('FlatBackOfficeListCtrl',function($scope, $http, $location) {
+var ListAppBack = angular.module('immoAppList', [ ]).controller('FlatBackOfficeListCtrl',function($scope, $http, $location) {
 
   var webS = window.location.protocol + "//" + window.location.host ;
   var urlInfo =  webS+'/Alldata/0';

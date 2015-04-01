@@ -1,11 +1,9 @@
-var FlatApp = angular.module('immoApp', []);
 var longitude = null;
 var latitude = null;
 var urlAlbum = null;
 var photosphere = null;
 var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i};
-
-FlatApp.controller('FlatFrontOfficeCtrl',function($browser ,$scope, $http, $location, $window) {
+var FlatApp = angular.module('immoApp', []).controller('FlatFrontOfficeCtrl',function($scope, $http, $location, $window) {
 
   //on recupére l'id de l'annonce
   var url = $location.absUrl();
