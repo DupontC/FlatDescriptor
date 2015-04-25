@@ -1,4 +1,10 @@
 mongoose = require("mongoose");
+
+
+var SGBD = "mongodb";
+var key = "qx1L3V6QpV8Xtt1BDdn_CcHMFGkF3iMUhUXUm3x_7S37DqK7HjZVfTRB4rjiTXdehHdWeuBlNym5oMmHG2VKEg";
+var MONGOHQ_URL= SGBD+"://heroku:"+key+"@linus.mongohq.com:10085/app30838243";
+
 db = mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
 
@@ -37,12 +43,19 @@ var userSchema = new Schema({
   mpd : String
 });
 // Use the schema to register a model with MongoDb
-mongoose.model('flat', flatSchema);
-var flat = mongoose.model('flat');
+//mongoose.model('flat', flatSchema);
+//var flat = mongoose.model('flat');
 
 mongoose.model('user', userSchema);
 var flat = mongoose.model('user');
+var user1 = new flat({
+  "id" :"admin",
+  "nom" :"admin lastname",
+  "prenom" :"admin name",
+  "mpd" : "password"
+});
 
+user1.save();
 /*
 flat.find({'id_annonce':0}, function (err, flats) {
  if(err){
@@ -79,16 +92,9 @@ var appart1 = new flat({
     "contacts":"Cake cotton candy lollipop. Cake croissant cheesecake candy sugar plum icing apple pie wafer. Pie sugar plum tiramisu tiramisu pie fruitcake candy icing. Candy icing gummies gummies cheesecake brownie lemon drops chocolate gingerbread.",
     "color": "ici la couleur"
   });
-var user1 = new flat({
-  "id" :"",
-  "nom" :"",
-  "prenom" :"",
-  "mpd" : ""
-});
+  */
 
-user1.save();
-
-
+/*
 appart1.save();
 
 var appart2 = new flat({
@@ -133,4 +139,7 @@ var appart3 = flat.findOne({'id_annonce': 0} ,function(err,docs){
 });
 console.log(appart3.collections);
 */
-console.log("fin");
+console.info("insertion de l'utilisateur admin");
+console.info("id : admin");
+console.info("mdp : password");
+console.info("back-office : localhost:3000/listFlats/1");

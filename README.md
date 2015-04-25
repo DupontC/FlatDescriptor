@@ -23,13 +23,18 @@ DEPLOYEMENT
 
 1) [Installer NodeJS](https://nodejs.org/)
 
-2) Dans un terminal
+2) Fixer la variable MONGOHQ_URL pour faire le lien avec BDD, dans les fichiers insertMongodb.js &  serveurNodeJS.js
+
+3) Dans un terminal
 
 ```
-$ sudo npm scrollPage
+$ sudo npm install
+
+$ node js/tools/insertMongodb.js
 
 $ node serveurNodeJS.js
 ```
+
 
 POUR DOCKER
 --------------
