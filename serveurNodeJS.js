@@ -2,6 +2,8 @@
 /***      DECLARATION LIBRAIRIES      ***/
 /****************************************/
 
+//import * as data from 'js/database';
+
 var bodyParser = require('body-parser');
 var express = require('express');
 var crypto = require('crypto');
