@@ -63,7 +63,6 @@ var userSchema = new Schema({
 
 
 var mdp  = _hashPassword("a6818b8188b36c44d17784c5551f63accc5deaf8786f9d0ad1ae3cd8d887cbab4f777286dbb315fb14854c8774dc0d10b5567e4a705536cc2a1d61ec0a16a7a6","ASIN", 3);
-console.log("mdp "+mdp);
 mongoose.model('user', userSchema);
 var flat = mongoose.model('user');
 var user1 = new flat({

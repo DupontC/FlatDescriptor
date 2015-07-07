@@ -336,10 +336,8 @@ _testingLogin = function(goToInSucess, req, res){
   ///console.info('POST id %s mdp %s',req.body.login, req.body.password);
   var id = req.body.login;
   var mdp = req.body.password;
-  logger.info("debut "+mdp);
-    mdp = _hashPassword(mdp,"ASIN", 3);
+  mdp = _hashPassword(mdp,"ASIN", 3);
   if(id && mdp){
-    logger.info("mdp = "+mdp);
     user.find({'id':id,'mpd':mdp}, function (err, user) {
       if(err){
         onErr(err,"erreur data");
