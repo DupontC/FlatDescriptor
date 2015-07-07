@@ -27,7 +27,7 @@ DEPLOYEMENT
 
 3) Dans un terminal
 
-```
+```shell
 $ sudo npm install
 
 $ node js/tools/insertMongodb.js

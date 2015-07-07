@@ -36,7 +36,7 @@
 <script type="text/javascript">
 function jcmm(){
   var mmc = document.getElementById("password");
-  var mh = CryptoJS.SHA3("mmc", { outputLength: 512 });
+  var mh = CryptoJS.SHA3(document.getElementById("password").value);
   document.getElementById("password").value = mh;
 }
 </script>

@@ -9,6 +9,7 @@ var express = require('express');
 var crypto = require('crypto');
 var log4js = require('log4js');
 var helmet = require('helmet');
+var fs = require('fs');
 var clientSessions = require("client-sessions");
 var mongoose = require("mongoose");
 var app = express();
@@ -335,8 +336,10 @@ _testingLogin = function(goToInSucess, req, res){
   ///console.info('POST id %s mdp %s',req.body.login, req.body.password);
   var id = req.body.login;
   var mdp = req.body.password;
-  mdp = _hashPassword(mdp);
+  logger.info("debut "+mdp);
+    mdp = _hashPassword(mdp,"ASIN", 3);
   if(id && mdp){
+    logger.info("mdp = "+mdp);
     user.find({'id':id,'mpd':mdp}, function (err, user) {
       if(err){
         onErr(err,"erreur data");
@@ -353,11 +356,17 @@ _testingLogin = function(goToInSucess, req, res){
   }
 };
 _testingLogin.description = "Fonction qui vérifie si les informations de connexion données par l'utilisateur son valide";
-
+// FIXME: probleme de hash du code
 //Fonction qui crypte la chaine passè en parametre et retourne son hash.
-_hashPassword = function(stringForHash){
-  var shasum = crypto.createHash('sha1');
-  shasum.update(stringForHash);
-  return shasum.digest('base64');
-};
+function _hashPassword(password, salt, iteration) {
+    var saltedpassword = salt + password;
+    for(var i = 0; i < iteration-1; i++) {
+            sha256 = crypto.createHash('sha256');
+            sha256.update(saltedpassword);
+            saltedpassword = sha256.digest('hex');
+    }
+    sha256 = crypto.createHash('sha256');
+    sha256.update(saltedpassword);
+    return sha256.digest('base64');
+}
 _hashPassword.description = "Fonction qui crypte la chaine passè en parametre et retourne son hash.";
