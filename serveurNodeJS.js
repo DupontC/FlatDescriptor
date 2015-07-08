@@ -9,6 +9,7 @@ var express = require('express');
 var crypto = require('crypto');
 var log4js = require('log4js');
 var helmet = require('helmet');
+var util = require('util');
 var fs = require('fs');
 var clientSessions = require("client-sessions");
 var mongoose = require("mongoose");
@@ -284,6 +285,7 @@ app.get('/Alldata/:id', function (req, res) {
 *de tout les appartements lors des appels ajax
 **/
 app.get('/AllDataOnLigne/:id', function (req, res) {
+  logger.info("Memory usage "+util.inspect(process.memoryUsage()));
   logger.info("Demande de recherche des logements en ligne");
   //on recherche l'annonce en ligne
   flat.find({"_id":{$ne:null},"enLigne":true},function (err, flats) {

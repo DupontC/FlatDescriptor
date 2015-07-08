@@ -1,7 +1,11 @@
 #!/usr/bin/env node
+
 mongoose = require("mongoose");
 crypto = require('crypto');
+util = require('util');
 
+console.info("start test script");
+console.log("Memory usage "+util.inspect(process.memoryUsage()));
 //Fonction qui crypte la chaine passè en parametre et retourne son hash.
 function _hashPassword(password, salt, iteration) {
     var saltedpassword = salt + password;
@@ -14,13 +18,19 @@ function _hashPassword(password, salt, iteration) {
     sha256.update(saltedpassword);
     return sha256.digest('base64');
 }
+
+function sleep(delay) {
+   var start = new Date().getTime();
+   while (new Date().getTime() < start + delay);
+ }
+
 _hashPassword.description = "Fonction qui crypte la chaine passè en parametre et retourne son hash.";
 
 var SGBD = "mongodb";
 var key = "qx1L3V6QpV8Xtt1BDdn_CcHMFGkF3iMUhUXUm3x_7S37DqK7HjZVfTRB4rjiTXdehHdWeuBlNym5oMmHG2VKEg";
 var MONGOHQ_URL= SGBD+"://heroku:"+key+"@linus.mongohq.com:10085/app30838243";
 
-db = mongoose.connect(MONGOHQ_URL);
+mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
 
 // Create a schema for our data
@@ -63,12 +73,12 @@ var userSchema = new Schema({
 
 
 var mdp  = _hashPassword("a6818b8188b36c44d17784c5551f63accc5deaf8786f9d0ad1ae3cd8d887cbab4f777286dbb315fb14854c8774dc0d10b5567e4a705536cc2a1d61ec0a16a7a6","ASIN", 3);
-mongoose.model('user', userSchema);
+db =mongoose.model('user', userSchema);
 var flat = mongoose.model('user');
 var user1 = new flat({
   "id" :"admin",
-  "nom" :"admin",
-  "prenom" :"admin",
+  "nom" :"adminitrateur_name",
+  "prenom" :"adminitrateur_fistname",
   "mpd" : mdp
 });
 
@@ -156,7 +166,11 @@ var appart3 = flat.findOne({'id_annonce': 0} ,function(err,docs){
 });
 console.log(appart3.collections);
 */
+console.info("waiting inserting...");
+console.info("waiting disconnect...");
+mongoose.disconnect();
 console.info("insertion de l'utilisateur admin");
 console.info("id : admin");
 console.info("mdp : password");
 console.info("back-office : localhost:3000/listFlats/1");
+console.info("fin script test");

@@ -8,7 +8,7 @@
   "web": "node serveurNodeJS.js",
   "homepage": "https://github.com/exponentiel/FlatDescriptor",
   "scripts": {
-    "test": "echo \"Lancement du script pré-install\" && node ./js/tools/insertMongodb.js && exit 0",
+    "test": "node ./js/tools/insertMongodb.js",
     "start": "node serveurNodeJS.js"
   },
   "repository": {
@@ -37,6 +37,7 @@
     "mongoose": "*",
     "log4js": "*",
     "helmet":"*",
-    "fs":"*"
+    "fs":"*",
+    "util":"*"
   }
 }
