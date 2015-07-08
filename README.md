@@ -30,9 +30,9 @@ DEPLOYEMENT
 ```shell
 $ sudo npm install
 
-$ node js/tools/insertMongodb.js
+$ npm test
 
-$ node serveurNodeJS.js
+$ npm start
 ```
 
 
