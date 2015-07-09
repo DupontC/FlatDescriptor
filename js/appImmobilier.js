@@ -112,6 +112,15 @@ initialize = function() {
       panorama: photosphere,
       container: divPS,
       anim_speed: '1rpm',
+      // Deactivate the animation
+			time_anim: false,
+      // Display the navigation bar
+			navbar: true,
+      // Resize the panorama
+			size: {
+					width: '60%',
+					height: '500px'
+			},
       loading_img: "Chargement de l'image"
     });
   }
@@ -140,4 +149,10 @@ setUpCheet = function(){
   cheet('g r o s n o u n o u r s', function () {
     alert('Gloire à Gros Nounours');
   });
+};
+
+window.onload = function() {
+	document.getElementById('go').addEventListener('click', loadPredefinedPanorama, false);
+
+	document.getElementById('pano').addEventListener('change', upload, false);
 };
