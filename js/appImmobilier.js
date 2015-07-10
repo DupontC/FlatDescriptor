@@ -150,9 +150,3 @@ setUpCheet = function(){
     alert('Gloire à Gros Nounours');
   });
 };
-
-window.onload = function() {
-	document.getElementById('go').addEventListener('click', loadPredefinedPanorama, false);
-
-	document.getElementById('pano').addEventListener('change', upload, false);
-};

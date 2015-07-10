@@ -159,6 +159,8 @@ a:hover {
 }
 .photosphere{
 	text-align: center;
+	margin-left: 20%;
+	margin-top: -15%;
 }
 .cbp-af-header {
 	position: fixed;
