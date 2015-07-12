@@ -3,3 +3,5 @@ install:
   - npm install
 after_deploy:
   - npm start
+notifications:
+  slack: cydupont:c3gRznpNjhcgqnW0YeaNj5fB
