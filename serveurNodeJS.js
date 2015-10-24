@@ -282,7 +282,7 @@ app.get('/Alldata/:id', function (req, res) {
 
 /**
 * web service qui retourne les informations
-*de tout les appartements lors des appels ajax
+*de tout les appartements en ligne lors des appels ajax
 **/
 app.get('/AllDataOnLigne/:id', function (req, res) {
   logger.info("Memory usage "+util.inspect(process.memoryUsage()));
