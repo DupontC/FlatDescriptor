@@ -2,7 +2,7 @@ var longitude = null;
 var latitude = null;
 var urlAlbum = null;
 var photosphere = null;
-var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i};
+
 var FlatApp = angular.module('immoApp', []).controller('FlatFrontOfficeCtrl',function($scope, $http, $location, $window) {
 
   //on recupére l'id de l'annonce
@@ -26,17 +26,7 @@ var FlatApp = angular.module('immoApp', []).controller('FlatFrontOfficeCtrl',fun
 
               //on maj les info sur la photosphere si present
               if(urlPS !== null && urlPS !== ""){
-                navigateur = null;
-                userAgent = $window.navigator.userAgent;
-
-                for(var key in browsers) {
-                    if (browsers[key].test(userAgent)){
-                      navigateur = key;
-                    }
-                 }
-                if(navigateur != "chrome"){
                   photosphere = urlPS;
-                }
               }
               //on recharge la page avec les données  pour la map et flirk
               loadScript();
