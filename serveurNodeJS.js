@@ -11,6 +11,7 @@ var log4js = require('log4js');
 var helmet = require('helmet');
 var util = require('util');
 var fs = require('fs');
+var ip = require("ip");
 var clientSessions = require("client-sessions");
 var mongoose = require("mongoose");
 var app = express();
@@ -319,7 +320,8 @@ app.get('*', function(req, res){
 app.set('port', (process.env.PORT || 3000));
 //on mettre notre serveur en ecoute
 var server = app.listen(app.get('port'), function () {
-  logger.info("Starting NodeJS serveur ");
+  logger.info("Starting NodeJS serveur "+ip.address());
+  logger.info("Port DataBase "+process.env.DB_PORT);
 
   var hostInformation = JSON.stringify(server.address());
   logger.info('Information for connexion on : '+ hostInformation);

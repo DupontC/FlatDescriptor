@@ -38,6 +38,7 @@ $ npm start
 
 POUR DOCKER
 --------------
+ ### Lancer juste le serveur node ###
 
 ```
 $ boot2docker start //lancement de la VM docker
@@ -60,3 +61,5 @@ $ docker rm conteneurdockerflatdescriptor //supprime le conteneur
 
 $ boot2docker stop //arrete la VM
 ```
+
+  ### Lancer le serveur + base de donnée ###
