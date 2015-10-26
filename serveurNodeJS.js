@@ -52,10 +52,13 @@ logger.setLevel('DEBUG');
 /***      DATA MODEL      ***/
 /****************************/
 
-var SGBD = "mongodb";
-var key = "qx1L3V6QpV8Xtt1BDdn_CcHMFGkF3iMUhUXUm3x_7S37DqK7HjZVfTRB4rjiTXdehHdWeuBlNym5oMmHG2VKEg";
-var MONGOHQ_URL= SGBD+"://heroku:"+key+"@linus.mongohq.com:10085/app30838243";
-
+var MONGOHQ_URL;
+var DOCKER_DB = process.env.DB_1_PORT;
+if ( DOCKER_DB ) {
+  MONGOHQ_URL = DOCKER_DB.replace( "tcp", "mongodb" ) + "/flatdescriptor";
+} else {
+  MONGOHQ_URL = process.env.MONGODB;
+}
 mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
 
@@ -321,7 +324,7 @@ app.set('port', (process.env.PORT || 3000));
 //on mettre notre serveur en ecoute
 var server = app.listen(app.get('port'), function () {
   logger.info("Starting NodeJS serveur "+ip.address());
-  logger.info("Port DataBase "+process.env.DB_PORT);
+  logger.info("Liens DataBase "+MONGOHQ_URL);
 
   var hostInformation = JSON.stringify(server.address());
   logger.info('Information for connexion on : '+ hostInformation);

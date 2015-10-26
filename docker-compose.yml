@@ -11,18 +11,18 @@ node1:
   ports:
     - "3000"
   links:
-    - "db:mongo"
-  command: node serveurNodeJS
+    - db
 
 node2:
   build: .
   ports:
     - "3000"
   links:
-    - "db:mongo"
-  command: node serveurNodeJS
+    - db
 
 db:
   image: mongo
   ports:
     - "27017"
+  environment:
+    - MONGOHQ_URL=""
