@@ -76,7 +76,7 @@ var userSchema = new Schema({
 
 
 var mdp  = _hashPassword("a6818b8188b36c44d17784c5551f63accc5deaf8786f9d0ad1ae3cd8d887cbab4f777286dbb315fb14854c8774dc0d10b5567e4a705536cc2a1d61ec0a16a7a6","ASIN", 3);
-db =mongoose.model('user', userSchema);
+mongoose.model('user', userSchema);
 var user = mongoose.model('user');
 
 //définition de notre utilisateur générique
@@ -89,7 +89,7 @@ var user1 = new user({
 
 user.find({'id':'admin'}, function (err, user) {
   if(err){
-    onErr(err,"erreur data");
+    console.info("erreur data");
   }else if(user.length > 0) {
     console.info("insertion de l'utilisateur générique.");
     user1.save();
