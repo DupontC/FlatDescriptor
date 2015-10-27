@@ -80,7 +80,7 @@ db =mongoose.model('user', userSchema);
 var user = mongoose.model('user');
 
 //définition de notre utilisateur générique
-var user1 = new flat({
+var user1 = new user({
   "id" :"admin",
   "nom" :"adminitrateur_name",
   "prenom" :"adminitrateur_fistname",
