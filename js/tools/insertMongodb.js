@@ -78,6 +78,8 @@ var userSchema = new Schema({
 var mdp  = _hashPassword("a6818b8188b36c44d17784c5551f63accc5deaf8786f9d0ad1ae3cd8d887cbab4f777286dbb315fb14854c8774dc0d10b5567e4a705536cc2a1d61ec0a16a7a6","ASIN", 3);
 db =mongoose.model('user', userSchema);
 var flat = mongoose.model('user');
+
+//définition de notre utilisateur générique
 var user1 = new flat({
   "id" :"admin",
   "nom" :"adminitrateur_name",
@@ -85,7 +87,20 @@ var user1 = new flat({
   "mpd" : mdp
 });
 
-user1.save();
+user.find({'id':'admin'}, function (err, user) {
+  if(err){
+    onErr(err,"erreur data");
+  }else if(user.length > 0) {
+    console.info("insertion de l'utilisateur générique.");
+    user1.save();
+    console.info("id : admin");
+    console.info("mdp : password");
+  }
+  else{
+    logger.info("Utilisateur générique déja présent.");
+  }
+});
+
 /*
 flat.find({'id_annonce':0}, function (err, flats) {
  if(err){
@@ -169,11 +184,8 @@ var appart3 = flat.findOne({'id_annonce': 0} ,function(err,docs){
 });
 console.log(appart3.collections);
 */
-console.info("waiting inserting...");
 console.info("waiting disconnect...");
 mongoose.disconnect();
-console.info("insertion de l'utilisateur admin");
-console.info("id : admin");
-console.info("mdp : password");
+
 console.info("back-office : localhost:3000/listFlats/1");
 console.info("fin script test");
