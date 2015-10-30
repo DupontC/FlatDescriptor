@@ -59,6 +59,7 @@ if ( DOCKER_DB ) {
 } else {
   MONGOHQ_URL = process.env.MONGODB;
 }
+console.info("DATABASE "+MONGOHQ_URL);
 mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
 
@@ -330,8 +331,6 @@ var server = app.listen(app.get('port'), function () {
   logger.info('Information for connexion on : '+ hostInformation);
 
 });
-
-
 
 /**********************************/
 /***      FONCTIONS UTILES      ***/

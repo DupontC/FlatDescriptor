@@ -33,6 +33,7 @@ if ( DOCKER_DB ) {
 } else {
   MONGOHQ_URL = process.env.MONGODB;
 }
+console.info("MONGOHQ_URL "+MONGOHQ_URL);
 mongoose.connect(MONGOHQ_URL);
 Schema = mongoose.Schema;
 
@@ -68,6 +69,7 @@ var userSchema = new Schema({
   id :String,
   nom :String,
   prenom :String,
+  niveauDroit: Number,
   mpd : String
 });
 // Use the schema to register a model with MongoDb
@@ -75,11 +77,11 @@ var userSchema = new Schema({
 //var flat = mongoose.model('flat');
 
 
-var mdp  = _hashPassword("a6818b8188b36c44d17784c5551f63accc5deaf8786f9d0ad1ae3cd8d887cbab4f777286dbb315fb14854c8774dc0d10b5567e4a705536cc2a1d61ec0a16a7a6","ASIN", 3);
 mongoose.model('user', userSchema);
 var user = mongoose.model('user');
 
 //définition de notre utilisateur générique
+var mdp  = _hashPassword("a6818b8188b36c44d17784c5551f63accc5deaf8786f9d0ad1ae3cd8d887cbab4f777286dbb315fb14854c8774dc0d10b5567e4a705536cc2a1d61ec0a16a7a6","ASIN", 3);
 var user1 = new user({
   "id" :"admin",
   "nom" :"adminitrateur_name",
@@ -87,9 +89,13 @@ var user1 = new user({
   "mpd" : mdp
 });
 
-user.find({'id':'admin'}, function (err, user) {
+user.find({'id':"admin"}, function (err, user) {
   if(err){
     console.info("erreur data");
+    console.info("insertion de l'utilisateur générique.");
+    user1.save();
+    console.info("id : admin");
+    console.info("mdp : password");
   }else if(user.length > 0) {
     console.info("insertion de l'utilisateur générique.");
     user1.save();
