@@ -1,3 +1,4 @@
+
 nginx:
   build: ./nginx
   links:
@@ -5,7 +6,11 @@ nginx:
     - node2:node2
   ports:
     - "80:80"
-
+db:
+  image: mongo
+  ports:
+    - "27017"
+    
 node1:
   build: .
   ports:
@@ -19,10 +24,3 @@ node2:
     - "3000"
   links:
     - db
-
-db:
-  image: mongo
-  ports:
-    - "27017"
-  environment:
-    - MONGOHQ_URL=""
