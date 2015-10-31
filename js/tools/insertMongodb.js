@@ -54,6 +54,8 @@ var flatSchema = new Schema({
   titre4  : String,
   texte4  : String,
   image4  : String,
+  nbPiece : Number,
+  surface : Number,
   photosphere : String,
   emplacement :String,
   latitude : String,
