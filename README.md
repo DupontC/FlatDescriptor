@@ -39,21 +39,22 @@ $ npm start
 POUR DOCKER
 --------------
 
-1. Lancer le serveur avec la base de donnée
+1) Lancer le serveur avec la base de donnée
 
 
 ```shell
 $ docker-compose build
+
 $ docker-compose up
 ```
 
-Puis depuis un conteneur Node lancer la commande :
+Puis depuis dans un des conteneurs Node lancer la commande :
 ```shell
-node /usr/src/app/js/tools/insertMongodb.js
+$ npm test
 ```
 
 
-2. Lancer juste le serveur node
+2) Lancer juste le serveur node
 
 
 ```
