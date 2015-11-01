@@ -12,12 +12,17 @@ var helmet = require('helmet');
 var util = require('util');
 var fs = require('fs');
 var ip = require("ip");
+var busboy = require('connect-busboy');		//middleware for form/file upload
+var path = require('path');					//used for file path
+var fs = require('fs-extra');				//File System - for file manipulation
+var util = require('util');
 var clientSessions = require("client-sessions");
 var mongoose = require("mongoose");
 var app = express();
 var ninetyDaysInMilliseconds = 7776000000;
 app.locals.title = "FlarDescriptor";
 app.locals.email = "";
+app.use(busboy());
 app.use(helmet.frameguard());
 app.use(helmet.ieNoOpen());
 app.use(helmet.noSniff());
@@ -128,6 +133,7 @@ app.use(bodyParser.json());
 /***      POST ROUTE      ***/
 /****************************/
 
+
 //on teste la connexion au BackOffice
 app.post('/listFlats/:id', function (req, res) {
   _testingLogin("listFlats.html", req, res);
@@ -183,6 +189,59 @@ app.post('/AddData/:id', function (req, res) {
     res.status(401).send("Erreur : add non permise");
   }
 });
+
+//service qui gére l'upload des document sur le serveur node
+app.route('/upload').post(function (req, res, next) {
+
+  var arr;
+  var fstream;
+  var filesize = 0;
+  req.pipe(req.busboy);
+  req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
+
+    //uploaded file name, encoding, MIME type
+    console.info('File [' + fieldname +']: filename:' + filename + ', encoding:' + encoding + ', MIME type:'+ mimetype);
+
+    //uploaded file size
+    file.on('data', function(data) {
+      console.info('File [' + fieldname + '] got ' + data.length + ' bytes');
+      fileSize = data.length;
+      console.info("fileSize= " + fileSize);
+    });
+
+    file.on('end', function() {
+      console.debug('File [' + fieldname + '] ENDed');
+    });
+
+    arr= [{fieldname: fieldname, filename: filename, encoding: encoding, MIMEtype: mimetype}];
+    //chemin ou seront deposé les fichiers
+    fstream = fs.createWriteStream(__dirname + '/img/' + filename);	//create a writable stream
+    file.pipe(fstream);		//pipe the post data to the file
+
+    //stream Ended - (data written) send the post response
+    req.on('end', function () {
+      res.writeHead(200, {"content-type":"text/html"});		//http response header
+    });
+
+    //Finished writing to stream
+    fstream.on('finish', function () {
+      console.debug('Finished writing!');
+      //Get file stats (including size) for file saved to server
+      fs.stat(__dirname + '/img/' + filename, function(err, stats) {
+        if(err)
+        throw err;
+        //if a file
+        if (stats.isFile()) {
+          console.info("File size saved to server: " + stats.size);
+        }
+      });
+    });
+    // error de lecture du stream
+    fstream.on('error', function (err) {
+      console.error(err);
+    });
+  });  //	@END/ .req.busboy
+});//END UPLOAD ROUTE
 
 /****************************/
 /***      GET ROUTE       ***/
@@ -363,14 +422,14 @@ _testingLogin.description = "Fonction qui vérifie si les informations de connex
 // FIXME: probleme de hash du code
 //Fonction qui crypte la chaine passè en parametre et retourne son hash.
 function _hashPassword(password, salt, iteration) {
-    var saltedpassword = salt + password;
-    for(var i = 0; i < iteration-1; i++) {
-            sha256 = crypto.createHash('sha256');
-            sha256.update(saltedpassword);
-            saltedpassword = sha256.digest('hex');
-    }
+  var saltedpassword = salt + password;
+  for(var i = 0; i < iteration-1; i++) {
     sha256 = crypto.createHash('sha256');
     sha256.update(saltedpassword);
-    return sha256.digest('base64');
+    saltedpassword = sha256.digest('hex');
+  }
+  sha256 = crypto.createHash('sha256');
+  sha256.update(saltedpassword);
+  return sha256.digest('base64');
 }
 _hashPassword.description = "Fonction qui crypte la chaine passè en parametre et retourne son hash.";

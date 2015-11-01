@@ -53,6 +53,8 @@ var FlatAppBack = angular.module('immoApp', []).controller('FlatBackOfficeCtrl',
     }
   };//END MAJDATA FUNCTION
 
+
+
 });//END CONTROLER
 
 
