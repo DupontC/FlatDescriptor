@@ -192,37 +192,30 @@ app.post('/AddData/:id', function (req, res) {
 
 //service qui gére l'upload des document sur le serveur node
 app.route('/upload').post(function (req, res, next) {
-
   var arr;
   var fstream;
   var filesize = 0;
   req.pipe(req.busboy);
   req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-
     //uploaded file name, encoding, MIME type
     console.info('File [' + fieldname +']: filename:' + filename + ', encoding:' + encoding + ', MIME type:'+ mimetype);
-
     //uploaded file size
     file.on('data', function(data) {
       console.info('File [' + fieldname + '] got ' + data.length + ' bytes');
       fileSize = data.length;
       console.info("fileSize= " + fileSize);
     });
-
     file.on('end', function() {
       console.debug('File [' + fieldname + '] ENDed');
     });
-
     arr= [{fieldname: fieldname, filename: filename, encoding: encoding, MIMEtype: mimetype}];
     //chemin ou seront deposé les fichiers
     fstream = fs.createWriteStream(__dirname + '/img/' + filename);	//create a writable stream
     file.pipe(fstream);		//pipe the post data to the file
-
     //stream Ended - (data written) send the post response
     req.on('end', function () {
       res.writeHead(200, {"content-type":"text/html"});		//http response header
     });
-
     //Finished writing to stream
     fstream.on('finish', function () {
       console.debug('Finished writing!');
@@ -390,7 +383,6 @@ var server = app.listen(app.get('port'), function () {
   logger.info('Information for connexion on : '+ hostInformation);
 
 });
-
 /**********************************/
 /***      FONCTIONS UTILES      ***/
 /**********************************/

@@ -1,4 +1,4 @@
-var FlatAppBack = angular.module('immoApp', []).controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
+var FlatAppBack = angular.module('immoApp', [ 'angularFileUpload' ]).controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
 
   //on recupére l'id de l'annonce
   var url = $location.absUrl();
@@ -11,20 +11,20 @@ var FlatAppBack = angular.module('immoApp', []).controller('FlatBackOfficeCtrl',
   if(isNumeric(indiceID) && null !== webS) {
     //on demande au serveur les informations sur l'annonce en ajax
     $http({method: 'GET', url: urlInfo}).
-      success(function(data, status, headers, config) {
-        //si les données sont retourée au match avec notre object Angular
-        if(null !== data && null !== indiceID){
+    success(function(data, status, headers, config) {
+      //si les données sont retourée au match avec notre object Angular
+      if(null !== data && null !== indiceID){
         if(isNumeric(indiceID) && null !== data){
-            $scope.appartement = data[0];
-            $scope.linkAnnonce = webS+"/"+indiceID;
-            $scope.linkLogout  = webS+"/logout/0";
-          }else{
-            alert("Désolé ,annonce non disponible");
-          }
+          $scope.appartement = data[0];
+          $scope.linkAnnonce = webS+"/"+indiceID;
+          $scope.linkLogout  = webS+"/logout/0";
+        }else{
+          alert("Désolé ,annonce non disponible");
         }
-      }).
-      error(function(data, status, headers, config) {
-        alert("Bada Bom !"+status[0]+" "+headers[0]);
+      }
+    }).
+    error(function(data, status, headers, config) {
+      alert("Bada Bom !"+status[0]+" "+headers[0]);
     });
   }//END ISNUMERIC
 
@@ -33,31 +33,101 @@ var FlatAppBack = angular.module('immoApp', []).controller('FlatBackOfficeCtrl',
   $scope.majData = function() {
     if($scope.myForm.$valid){//on verifie que le formulaire est valide
       console.log("mise à jour des données");
-     	var jdata = 'majData='+JSON.stringify($scope.appartement); // The data is to be string.
+      var jdata = 'majData='+JSON.stringify($scope.appartement); // The data is to be string.
       $http({ // Accessing the Angular $http Service to send data via REST Communication to Node Server.
-              method: "post",
-              url: urlInfo,
-              headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-              data:  jdata
+        method: "post",
+        url: urlInfo,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        data:  jdata
       }).success(function(response) {
-          console.log("success"); // Getting Success Response in Callback
-                   console.log("maj ok");
-                   toastr.success('Données mise à jour !');
+        console.log("success"); // Getting Success Response in Callback
+        console.log("maj ok");
+        toastr.success('Données mise à jour !');
 
-          }).error(function(response) {
-                   console.log("maj ko "+$scope.codeStatus);
-                   toastr.error('Erreur de mise à jour !');
+      }).error(function(response) {
+        console.log("maj ko "+$scope.codeStatus);
+        toastr.error('Erreur de mise à jour !');
       });//END HTTP
     }else{
       toastr.warning('Formulaire invalide');
     }
   };//END MAJDATA FUNCTION
 
+  $scope.onFileSelect = function($files) {
+    $scope.selectedFiles = [];
+    $scope.progress = [];
+    if ($scope.upload && $scope.upload.length > 0) {
+      for (var i = 0; i < $scope.upload.length; i++) {
+        if ($scope.upload[i] !== null) {
+          $scope.upload[i].abort();
+        }
+      }
+    }
+    $scope.upload = [];
+    $scope.uploadResult = [];
+    $scope.selectedFiles = $files;
+    $scope.dataUrls = [];
+    for ( var k = 0; k < $files.length; k++) {
+      var $file = $files[k];
+      if (window.FileReader && $file.type.indexOf('image') > -1) {
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL($files[k]);
+        var loadFile = function(fileReader, index) {
+          fileReader.onload = function(e) {
+            $timeout(function() {
+              $scope.dataUrls[index] = e.target.result;
+            });
+          };
+        }(fileReader, k);
+      }
+      $scope.progress[k] = -1;
+      if ($scope.uploadRightAway) {
+        $scope.start(k);
+      }
+    }
+  };
 
+  $scope.start = function(index) {
+    $scope.progress[index] = 0;
+    $scope.upload[index] = $upload.upload({
+      url : 'upload',
+      method: $scope.httpMethod,
+      headers: {'my-header': 'my-header-value'},
+      data : {
+        myModel : $scope.myModel
+      },
+      file: $scope.selectedFiles[index],
+      fileFormDataName: 'myFile'
+    })
+    //==================================================================
+    /* CALLBACK FUNCTIONS*/
+    //Success with POST - file uploaded ok
+    .success(function(data, status, headers,config) {
+      $scope.cbStatus = status;
+      $scope.cbData = data;
+      $scope.cbHeaders = header;
+      $scope.cbConfig = config;
+    })
+    //Error with POST
+    .error(function(data, status, headers,config) {
+      $scope.data = cbData || "Request failed";
+      $scope.status = cbStatus;
+    })
+    //==================================================================
+    .then(function(response) {
+      $scope.uploadResult.push(response.data);
+    },
+    null, function(evt) {
+      $scope.progress[index] = parseInt(100.0 * evt.loaded / evt.total);
+    })
+    .xhr(function(xhr){
+      xhr.upload.addEventListener('abort', function(){console.info('aborted complete');}, false);
+    });
+  };
 
 });//END CONTROLER
 
 
 isNumeric = function(obj) {
-    return !isNaN(parseFloat(obj)) && isFinite(obj);
+  return !isNaN(parseFloat(obj)) && isFinite(obj);
 };

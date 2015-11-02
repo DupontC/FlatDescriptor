@@ -31,7 +31,10 @@
   },
   "dependencies": {
     "express": ">=3.0.0rc1",
-    "crypto":"*",
+    "connect-busboy": "0.0.1",
+    "util": "~0.10.3",
+    "fs-extra": "0.8.1",
+    "crypto": "*",
     "client-sessions": "*",
     "body-parser": "*",
     "mongoose": "*",

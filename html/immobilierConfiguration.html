@@ -105,6 +105,9 @@
         <div class="af-inner">
           <label for="image1">Image 1</label>
           <input name="image1" type="text" ng-model="appartement.image1">
+          <input type="file" ng-file-select="onFileSelect($files)" multiple>
+
+
         </div>
       </div>
       <hr>
@@ -221,6 +224,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+<script src="lib/fileUpload/angular-file-upload-html5-shim.js"></script>	<!-- needed for progress bar -->
+<script src="../js/lib/Angular-FileUpload/angular-file-upload.js"></script>
 <script src="../js/appImmobilierConfiguration.js"></script>
 <script src="../js/toastr.js"></script>
 
