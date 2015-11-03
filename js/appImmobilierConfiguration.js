@@ -1,4 +1,4 @@
-var FlatAppBack = angular.module('immoApp', [ 'angularFileUpload' ]).controller('FlatBackOfficeCtrl',function($scope, $http, $location) {
+var FlatAppBack = angular.module('immoApp', ['angularFileUpload']).controller('FlatBackOfficeCtrl',function($scope, $http, $location,$timeout, $upload) {
 
   //on recupére l'id de l'annonce
   var url = $location.absUrl();
@@ -53,7 +53,7 @@ var FlatAppBack = angular.module('immoApp', [ 'angularFileUpload' ]).controller(
     }
   };//END MAJDATA FUNCTION
 
-  $scope.onFileSelect = function($files) {
+  $scope.onFileSelect = function($files,image) {
     $scope.selectedFiles = [];
     $scope.progress = [];
     if ($scope.upload && $scope.upload.length > 0) {
@@ -69,6 +69,7 @@ var FlatAppBack = angular.module('immoApp', [ 'angularFileUpload' ]).controller(
     $scope.dataUrls = [];
     for ( var k = 0; k < $files.length; k++) {
       var $file = $files[k];
+      $scope.appartement[image] = "../img/upload/"+$file.name;
       if (window.FileReader && $file.type.indexOf('image') > -1) {
         var fileReader = new FileReader();
         fileReader.readAsDataURL($files[k]);
@@ -80,14 +81,13 @@ var FlatAppBack = angular.module('immoApp', [ 'angularFileUpload' ]).controller(
           };
         }(fileReader, k);
       }
-      $scope.progress[k] = -1;
-      if ($scope.uploadRightAway) {
-        $scope.start(k);
-      }
+      $scope.start(k);
     }
   };
 
   $scope.start = function(index) {
+
+    console.log("dans start");
     $scope.progress[index] = 0;
     $scope.upload[index] = $upload.upload({
       url : 'upload',
@@ -99,10 +99,9 @@ var FlatAppBack = angular.module('immoApp', [ 'angularFileUpload' ]).controller(
       file: $scope.selectedFiles[index],
       fileFormDataName: 'myFile'
     })
-    //==================================================================
-    /* CALLBACK FUNCTIONS*/
-    //Success with POST - file uploaded ok
     .success(function(data, status, headers,config) {
+
+      console.log("success");
       $scope.cbStatus = status;
       $scope.cbData = data;
       $scope.cbHeaders = header;
@@ -110,11 +109,13 @@ var FlatAppBack = angular.module('immoApp', [ 'angularFileUpload' ]).controller(
     })
     //Error with POST
     .error(function(data, status, headers,config) {
+
+      console.log("errror");
       $scope.data = cbData || "Request failed";
       $scope.status = cbStatus;
     })
-    //==================================================================
     .then(function(response) {
+      console.log("push data");
       $scope.uploadResult.push(response.data);
     },
     null, function(evt) {
