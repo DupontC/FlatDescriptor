@@ -190,7 +190,7 @@ app.post('/AddData/:id', function (req, res) {
   }
 });
 
-//service qui gére l'upload des document sur le serveur node
+//service qui gére l'upload des documents sur le serveur
 app.post('/ImmoConfig/upload',function (req, res, next) {
   if(req.session_state.username){
     var arr;
