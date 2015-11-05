@@ -53,8 +53,6 @@ var FlatAppBack = angular.module('immoApp', ['angularFileUpload']).controller('F
     }
   };//END MAJDATA FUNCTION
 
-  //lors de la selection d'un fichiers
-  //on l'envoi au serveur
   $scope.onFileSelect = function($files,image) {
     $scope.selectedFiles = [];
     $scope.progress = [];
@@ -71,7 +69,6 @@ var FlatAppBack = angular.module('immoApp', ['angularFileUpload']).controller('F
     $scope.dataUrls = [];
     for ( var k = 0; k < $files.length; k++) {
       var $file = $files[k];
-      //on fixe l'endroit au l'on souhaite uploader notre fichier
       $scope.appartement[image] = "../img/upload/"+$file.name;
       if (window.FileReader && $file.type.indexOf('image') > -1) {
         var fileReader = new FileReader();
@@ -128,6 +125,7 @@ var FlatAppBack = angular.module('immoApp', ['angularFileUpload']).controller('F
       xhr.upload.addEventListener('abort', function(){console.info('aborted complete');}, false);
     });
   };
+
 });//END CONTROLER
 
 
