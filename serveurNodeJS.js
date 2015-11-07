@@ -192,6 +192,7 @@ app.post('/AddData/:id', function (req, res) {
 
 //service qui gére l'upload des document sur le serveur node
 app.post('/ImmoConfig/upload',function (req, res, next) {
+  //verification de l'utilisateur est bien connecté
   if(req.session_state.username){
     var arr;
     var fstream;
@@ -226,7 +227,7 @@ app.post('/ImmoConfig/upload',function (req, res, next) {
           throw err;
           //if a file
           if (stats.isFile()) {
-            console.info("File size saved to server: " + stats.size);
+            console.error("File size saved to server: " + stats.size);
           }
         });
       });

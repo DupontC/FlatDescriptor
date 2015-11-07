@@ -53,9 +53,11 @@ var FlatAppBack = angular.module('immoApp', ['angularFileUpload']).controller('F
     }
   };//END MAJDATA FUNCTION
 
+  //pour chaque fichier selection on les push sur le serveur
   $scope.onFileSelect = function($files,image) {
     $scope.selectedFiles = [];
     $scope.progress = [];
+    //on boucle pour chaque fichier selectioné
     if ($scope.upload && $scope.upload.length > 0) {
       for (var i = 0; i < $scope.upload.length; i++) {
         if ($scope.upload[i] !== null) {
@@ -69,6 +71,7 @@ var FlatAppBack = angular.module('immoApp', ['angularFileUpload']).controller('F
     $scope.dataUrls = [];
     for ( var k = 0; k < $files.length; k++) {
       var $file = $files[k];
+      //on fixe l'endroit ou l'on souhaite depose le fichier
       $scope.appartement[image] = "../img/upload/"+$file.name;
       if (window.FileReader && $file.type.indexOf('image') > -1) {
         var fileReader = new FileReader();
@@ -86,8 +89,6 @@ var FlatAppBack = angular.module('immoApp', ['angularFileUpload']).controller('F
   };
 
   $scope.start = function(index) {
-
-    console.log("dans start");
     $scope.progress[index] = 0;
     $scope.upload[index] = $upload.upload({
       url : 'upload',
@@ -100,8 +101,7 @@ var FlatAppBack = angular.module('immoApp', ['angularFileUpload']).controller('F
       fileFormDataName: 'myFile'
     })
     .success(function(data, status, headers,config) {
-
-      console.log("success");
+      toastr.info("Fichier téléversé");
       $scope.cbStatus = status;
       $scope.cbData = data;
       $scope.cbHeaders = header;
@@ -109,8 +109,7 @@ var FlatAppBack = angular.module('immoApp', ['angularFileUpload']).controller('F
     })
     //Error with POST
     .error(function(data, status, headers,config) {
-
-      console.log("errror");
+      toastr.error("Imposible de téléversé le fichier sur le serveur");
       $scope.data = cbData || "Request failed";
       $scope.status = cbStatus;
     })
