@@ -17,6 +17,8 @@ node1:
     - "3000"
   links:
     - db
+  volumes:
+    - /img/upload
 
 node2:
   build: .
@@ -24,3 +26,5 @@ node2:
     - "3000"
   links:
     - db
+  volumes_from:
+    - node1
