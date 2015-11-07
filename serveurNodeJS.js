@@ -211,7 +211,7 @@ app.post('/ImmoConfig/upload',function (req, res, next) {
       });
       arr= [{fieldname: fieldname, filename: filename, encoding: encoding, MIMEtype: mimetype}];
       //chemin ou seront deposé les fichiers
-      fstream = fs.createWriteStream(__dirname + '/img/' + filename);	//create a writable stream
+      fstream = fs.createWriteStream(__dirname + '/img/upload/' + filename);	//create a writable stream
       file.pipe(fstream);		//pipe the post data to the file
       //stream Ended - (data written) send the post response
       req.on('end', function () {
@@ -232,7 +232,7 @@ app.post('/ImmoConfig/upload',function (req, res, next) {
       });
       // error de lecture du stream
       fstream.on('error', function (err) {
-        console.error(err);
+        console.debug(err);
       });
     });  //	@END/ .req.busboy
   }else{

@@ -10,7 +10,7 @@ db:
   image: mongo
   ports:
     - "27017"
-    
+
 node1:
   build: .
   ports:

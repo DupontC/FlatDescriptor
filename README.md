@@ -58,7 +58,7 @@ $ npm test
 
 
 ```
-$ boot2docker start //lancement de la VM docker
+$ boot2docker up //lancement de la VM docker
 
 $ export ...;export ...;export //on fixe les variables d'environnment
 
