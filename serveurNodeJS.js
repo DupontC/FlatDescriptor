@@ -425,10 +425,7 @@ _saveFiles = function(req, res, next){
     res.sendFile(__dirname+'/html/login.html');
   }
 };
-_hashPassword.description = "Fonction qui recupere le flux en provenant du navigateur et enregistre les données dans le repertoire upload";
 
-_testingLogin.description = "Fonction qui vérifie si les informations de connexion données par l'utilisateur son valide";
-// FIXME: probleme de hash du code
 //Fonction qui crypte la chaine passè en parametre et retourne son hash.
 _hashPassword = function(password, salt, iteration) {
   var saltedpassword = salt + password;
@@ -441,4 +438,3 @@ _hashPassword = function(password, salt, iteration) {
   sha256.update(saltedpassword);
   return sha256.digest('base64');
 };
-_hashPassword.description = "Fonction qui crypte la chaine passè en parametre et retourne son hash.";
