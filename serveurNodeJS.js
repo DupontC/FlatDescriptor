@@ -192,54 +192,12 @@ app.post('/AddData/:id', function (req, res) {
 
 //service qui gére l'upload des document sur le serveur node
 app.post('/ImmoConfig/upload',function (req, res, next) {
-  //verification de l'utilisateur est bien connecté
-  if(req.session_state.username){
-    var arr;
-    var fstream;
-    var filesize = 0;
-    req.pipe(req.busboy);
-    req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-      //uploaded file name, encoding, MIME type
-      console.info('File [' + fieldname +']: filename:' + filename + ', encoding:' + encoding + ', MIME type:'+ mimetype);
-      //uploaded file size
-      file.on('data', function(data) {
-        console.info('File [' + fieldname + '] got ' + data.length + ' bytes');
-        fileSize = data.length;
-        console.info("fileSize= " + fileSize);
-      });
-      file.on('end', function() {
-        console.info('File [' + fieldname + '] ENDed');
-      });
-      arr= [{fieldname: fieldname, filename: filename, encoding: encoding, MIMEtype: mimetype}];
-      //chemin ou seront deposé les fichiers
-      fstream = fs.createWriteStream(__dirname + '/img/upload/' + filename);	//create a writable stream
-      file.pipe(fstream);		//pipe the post data to the file
-      //stream Ended - (data written) send the post response
-      req.on('end', function () {
-        res.writeHead(200, {"content-type":"text/html"});		//http response header
-      });
-      //Finished writing to stream
-      fstream.on('finish', function () {
-        console.info('Finished writing!');
-        //Get file stats (including size) for file saved to server
-        fs.stat(__dirname + '/img/upload/' + filename, function(err, stats) {
-          if(err)
-          throw err;
-          //if a file
-          if (stats.isFile()) {
-            console.error("File size saved to server: " + stats.size);
-          }
-        });
-      });
-      // error de lecture du stream
-      fstream.on('error', function (err) {
-        console.debug(err);
-      });
-    });  //	@END/ .req.busboy
-  }else{
-    logger.info("GET login");
-    res.sendFile(__dirname+'/html/login.html');
-  }
+  _saveFiles(req, res, next);
+});//END UPLOAD ROUTE
+
+//service qui gére l'upload des document sur le serveur node
+app.post('/addAnnonce/upload',function (req, res, next) {
+  _saveFiles(req, res, next);
 });//END UPLOAD ROUTE
 
 /****************************/
@@ -416,10 +374,63 @@ _testingLogin = function(goToInSucess, req, res){
     });
   }
 };
+
+_saveFiles = function(req, res, next){
+  //verification de l'utilisateur est bien connecté
+  if(req.session_state.username){
+    var arr;
+    var fstream;
+    var filesize = 0;
+    req.pipe(req.busboy);
+    req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
+      //uploaded file name, encoding, MIME type
+      console.info('File [' + fieldname +']: filename:' + filename + ', encoding:' + encoding + ', MIME type:'+ mimetype);
+      //uploaded file size
+      file.on('data', function(data) {
+        console.info('File [' + fieldname + '] got ' + data.length + ' bytes');
+        fileSize = data.length;
+        console.info("fileSize= " + fileSize);
+      });
+      file.on('end', function() {
+        console.info('File [' + fieldname + '] ENDed');
+      });
+      arr= [{fieldname: fieldname, filename: filename, encoding: encoding, MIMEtype: mimetype}];
+      //chemin ou seront deposé les fichiers
+      fstream = fs.createWriteStream(__dirname + '/img/upload/' + filename);	//create a writable stream
+      file.pipe(fstream);		//pipe the post data to the file
+      //stream Ended - (data written) send the post response
+      req.on('end', function () {
+        res.writeHead(200, {"content-type":"text/html"});		//http response header
+      });
+      //Finished writing to stream
+      fstream.on('finish', function () {
+        console.info('Finished writing!');
+        //Get file stats (including size) for file saved to server
+        fs.stat(__dirname + '/img/upload/' + filename, function(err, stats) {
+          if(err)
+          throw err;
+          //if a file
+          if (stats.isFile()) {
+            console.error("File size saved to server: " + stats.size);
+          }
+        });
+      });
+      // error de lecture du stream
+      fstream.on('error', function (err) {
+        console.debug(err);
+      });
+    });  //	@END/ .req.busboy
+  }else{
+    logger.info("GET login");
+    res.sendFile(__dirname+'/html/login.html');
+  }
+};
+_hashPassword.description = "Fonction qui recupere le flux en provenant du navigateur et enregistre les données dans le repertoire upload";
+
 _testingLogin.description = "Fonction qui vérifie si les informations de connexion données par l'utilisateur son valide";
 // FIXME: probleme de hash du code
 //Fonction qui crypte la chaine passè en parametre et retourne son hash.
-function _hashPassword(password, salt, iteration) {
+_hashPassword = function(password, salt, iteration) {
   var saltedpassword = salt + password;
   for(var i = 0; i < iteration-1; i++) {
     sha256 = crypto.createHash('sha256');
@@ -429,5 +440,5 @@ function _hashPassword(password, salt, iteration) {
   sha256 = crypto.createHash('sha256');
   sha256.update(saltedpassword);
   return sha256.digest('base64');
-}
+};
 _hashPassword.description = "Fonction qui crypte la chaine passè en parametre et retourne son hash.";

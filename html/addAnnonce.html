@@ -104,7 +104,8 @@
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="image1">Image 1</label>
-          <input name="image1" type="text" ng-model="appartement.image1">
+          <input name="image1" type="text" ng-model="appartement.image1" ng-readonly="true">
+          <input type="file" ng-file-select="onFileSelect($files,'image1')" multiple>
         </div>
       </div>
       <hr>
@@ -124,7 +125,8 @@
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="image2">Image 2</label>
-          <input name="image2" type="text" ng-model="appartement.image2">
+          <input name="image2" type="text" ng-model="appartement.image2" ng-readonly="true">
+          <input type="file" ng-file-select="onFileSelect($files,'image2')" multiple>
         </div>
       </div>
       <hr>
@@ -147,7 +149,8 @@
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="image3">Image 3</label>
-          <input name="image3" type="text" ng-model="appartement.image3">
+          <input name="image3" type="text" ng-model="appartement.image3" ng-readonly="true">
+          <input type="file" ng-file-select="onFileSelect($files,'image3')" multiple>
         </div>
       </div>
       <hr>
@@ -168,7 +171,8 @@
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="image4">Image 4</label>
-          <input name="image4" type="text" ng-model="appartement.image4">
+          <input name="image4" type="text" ng-model="appartement.image4" ng-readonly="true">
+          <input type="file" ng-file-select="onFileSelect($files,'image4')" multiple>
         </div>
       </div>
 
@@ -190,7 +194,8 @@
       <div class="af-outer af-required">
         <div class="af-inner">
           <label for="photosphere">Liens vers une photo sphére</label>
-          <input name="photosphere" type="text" ng-model="appartement.photosphere">
+          <input name="photosphere" type="text" ng-model="appartement.photosphere" ng-readonly="true">
+          <input type="file" ng-file-select="onFileSelect($files,'photosphere')" multiple>
         </div>
       </div>
 
