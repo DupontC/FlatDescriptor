@@ -48,7 +48,7 @@ $ docker-compose build
 $ docker-compose up
 ```
 
-Puis depuis dans un des conteneurs Node lancer la commande :
+Puis depuis un des conteneurs Node lancer la commande :
 ```shell
 $ npm test
 ```

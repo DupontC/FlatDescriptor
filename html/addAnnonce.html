@@ -12,6 +12,7 @@
   <link rel="stylesheet" type="text/css" href="../css/config_css/demo.css" />
   <link rel="stylesheet" type="text/css" href="../css/config_css/style.css" />
   <link href="../css/toastr.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
   <script type="text/javascript" src="../js/config_js/modernizr.custom.04022.js"></script>
   <!--[if lt IE 8]>
   <style>
@@ -22,9 +23,23 @@
 </head>
 <body ng-controller="FlatBackOfficeCtrl">
 
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a class="glyphicon glyphicon-plus" aria-hidden="true" href="/addAnnonce/1"> Annonce</a></li>
+            <!--<li><a class="glyphicon glyphicon-plus" aria-hidden="true" href="#">  Utilisateur</a></li>-->
+            <li role="separator" class="divider"></li>
+            <li><a class="glyphicon glyphicon-log-out" aria-hidden="true" href="{{linkLogout}}">  Déconnexion</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
   <section class="af-wrapper">
-
-
     <form class="af-form" name="myForm" id="af-form" method="POST">
       <h1>Description de l'appartement</h1>
       <div class="af-outer">
@@ -219,9 +234,9 @@
 
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
 <script src="../js/appImmobilierAdd.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 <script src="../js/toastr.js"></script>
-
 </html>
