@@ -6,10 +6,12 @@ nginx:
     - node2:node2
   ports:
     - "80:80"
+    
 db:
   image: mongo
   ports:
     - "27017"
+
 node1:
   build: .
   ports:
@@ -18,6 +20,7 @@ node1:
     - db
   volumes:
     - /img/upload
+
 node2:
   build: .
   ports:

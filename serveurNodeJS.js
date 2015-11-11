@@ -30,7 +30,7 @@ app.use(helmet.xssFilter());
 app.use(helmet.hidePoweredBy());
 app.use(helmet.hsts({maxAge: ninetyDaysInMilliseconds,includeSubdomains: true}));
 app.use(helmet.publicKeyPins({maxAge: ninetyDaysInMilliseconds,sha256s: ['AbCdEf123=', 'ZyXwVu456='],includeSubdomains: true }));
-//app.use(helmet.noCache());
+app.use(helmet.noCache());
 
 /************************/
 /***      LOGGER      ***/
