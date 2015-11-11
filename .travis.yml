@@ -5,3 +5,7 @@ after_deploy:
   - npm start
 notifications:
   slack: cydupont:c3gRznpNjhcgqnW0YeaNj5fB
+
+addons:
+    code_climate:
+        repo_token: 27204509cac505632b8a7fefd7468b6d88d36d69770564a3c4e9f4bb9966e2bc
