@@ -66,7 +66,7 @@ if ( DOCKER_DB ) {
 }
 console.info("DATABASE "+MONGOHQ_URL);
 mongoose.connect(MONGOHQ_URL);
-Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
 // Create a schema for our database
 flatSchema = new Schema({
@@ -225,11 +225,22 @@ app.post('/ImmoConfig/:id', function (req, res) {
   _testingLogin("immobilierConfiguration.html", req, res);
 });
 
-//route pas défaut qui redirige vers l'annonce si user logger
+//route pas défaut qui redirige vers les annonces si user logger
 app.get('/listFlats/:id', function (req, res) {
   if(req.session_state.username){
     logger.info("GET listeFlats");
     res.sendFile(__dirname+'/html/listFlats.html');
+  }else{
+    logger.info("GET login");
+    res.sendFile(__dirname+'/html/login.html');
+  }
+});
+
+//route pas défaut qui redirige vers les users si user logger
+app.get('/users/:id', function (req, res) {
+  if(req.session_state.username){
+    logger.info("GET listeUsers");
+    res.sendFile(__dirname+'/html/users.html');
   }else{
     logger.info("GET login");
     res.sendFile(__dirname+'/html/login.html');
@@ -297,6 +308,32 @@ app.get('/Alldata/:id', function (req, res) {
     });
   }else{
     logger.debug("Recherche annonce non permise (pas d'identification)");
+    res.status(401).send('Hého !! :@');
+  }
+});
+
+/**
+* web service qui retourne les informations
+*de tout les utilisateurs lors des appels ajax
+**/
+app.get('/AllUsers/:id', function (req, res) {
+  //on vérifie si l'utilisateur a un droit
+  //d'accée sur ces fonctions
+  if(req.session_state.username){
+    logger.info("Demande de recherche des utilisateurs ");
+    //on recherche l'annonce demander par le client
+    user.find({"_id":{$ne:null}}, function (err, users) {
+      if(err){
+        logger.error("erreur lors de la recherche des utilisateurs");
+        onErr(err,"erreur data");
+      }else{
+        logger.debug("Envoi des données sur les utilisateurs");
+        //on envoie les données aux clients
+        res.status(200).send(users);
+      }
+    });
+  }else{
+    logger.debug("Recherche utilisateurs non permise (pas d'identification)");
     res.status(401).send('Hého !! :@');
   }
 });
@@ -429,6 +466,7 @@ _saveFiles = function(req, res, next){
 //Fonction qui crypte la chaine passè en parametre et retourne son hash.
 _hashPassword = function(password, salt, iteration) {
   var saltedpassword = salt + password;
+  var sha256;
   for(var i = 0; i < iteration-1; i++) {
     sha256 = crypto.createHash('sha256');
     sha256.update(saltedpassword);

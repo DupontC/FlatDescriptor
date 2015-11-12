@@ -15,7 +15,7 @@
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 </head>
-<body ng-controller="FlatBackOfficeListCtrl">
+<body ng-controller="FlatBackOfficeListUsersCtrl">
 
 	<nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -25,8 +25,8 @@
       </div>
 
     	<ul class="nav navbar-nav">
-      	<li class="active"><a href="/listFlats/1">Appartements</a></li>
-      	<li><a href="/users/1">Utilisateurs</a></li>
+      	<li><a href="/listFlats/1">Appartements</a></li>
+      	<li class="active"><a href="/users/1">Utilisateurs</a></li>
     	</ul>
 
       <ul class="nav navbar-nav navbar-right">
@@ -50,20 +50,21 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Ville</th>
-						<th>Adresse</th>
-						<th>En ligne</th>
-						<th>Actions</th>
+						<th>#</th>
+						<th>nom</th>
+						<th>prenom</th>
+						<th>status</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="appartement in appartements" >
-						<td class="user-name">{{appartement.ville}}</td>
-						<td class="user-email">{{appartement.adresse}}</td>
-						<td class="user-phone">{{appartement.enLigne}}</td>
+					<tr ng-repeat="user in users" >
+						<td class="user-name">{{user.id}}</td>
+						<td class="user-name">{{user.nom}}</td>
+						<td class="user-name">{{user.prenom}}</td>
+						<td class="user-name">{{user.status}}</td>
 						<td>
-								<a href="/ImmoConfig/{{appartement.id_annonce}}" class="btn btn-primary glyphicon glyphicon-wrench" role="button">
-									 Configurer
+								<a href="/UserConfig/{{user.id}}" class="btn btn-primary glyphicon glyphicon-wrench" role="button">
+									 Modifier
 								<a>
 						</td>
 					</tr>
@@ -72,7 +73,7 @@
 		</div>
 	</div><!-- /container -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
-	<script src="../js/appListImmobilier.js"></script>
+	<script src="../js/appListUsers.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 </body>
