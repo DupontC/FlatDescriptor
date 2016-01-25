@@ -220,6 +220,17 @@ app.get('/ImmoConfig/:id', function (req, res) {
   }
 });
 
+//route pas défaut qui redirige vers la page de gestion d'un user
+app.get('/UserConfig/:id', function (req, res) {
+  if(req.session_state.username){
+    logger.info("GET user page");
+    res.sendFile(__dirname+'/html/user.html');
+  }else{
+    logger.info("GET login");
+    res.sendFile(__dirname+'/html/login.html');
+  }
+});
+
 //on teste la connexion au BackOffice
 app.post('/ImmoConfig/:id', function (req, res) {
   _testingLogin("immobilierConfiguration.html", req, res);

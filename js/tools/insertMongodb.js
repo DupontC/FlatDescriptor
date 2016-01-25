@@ -71,6 +71,7 @@ var userSchema = new Schema({
   id :String,
   nom :String,
   prenom :String,
+  status :String,
   mpd : String
 });
 // Use the schema to register a model with MongoDb
@@ -83,8 +84,9 @@ mongoose.model('user', userSchema);
 var user = mongoose.model('user');
 var user1 = new user({
   "id" :"admin",
-  "nom" :"adminitrateur_name",
-  "prenom" :"adminitrateur_fistname",
+  "nom" :"Doe",
+  "prenom" :"John",
+  "status":"adminitrateur",
   "mpd" : mdp
 });
 console.info("waiting inserting...");
