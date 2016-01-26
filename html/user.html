@@ -43,35 +43,26 @@
     </div>
   </nav>
 
-	<div class="container">
-		<div class="component">
-			<h2>Liste des utilisateurs</h2>
-			<p>Vous pouvez choisir parmis la liste ci-dessous les utilisateurs que vous voulez consulter ou modifier !</p>
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>nom</th>
-						<th>prenom</th>
-						<th>status</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="user in users" >
-						<td class="user-name">{{user.id}}</td>
-						<td class="user-name">{{user.nom}}</td>
-						<td class="user-name">{{user.prenom}}</td>
-						<td class="user-name">{{user.status}}</td>
-						<td>
-								<a href="/UserConfig/{{user.id}}" class="btn btn-primary glyphicon glyphicon-wrench" role="button">
-									 Modifier
-								<a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+	<form>
+	  <div class="form-group">
+	    <label for="exampleInputID">Identifiant</label>
+	    <input type="text" class="form-control" id="exampleInputID" placeholder="{user.id}">
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputName">Nom</label>
+	    <input type="text" class="form-control" id="exampleInputName" placeholder="{user.nom}">
+	  </div>
+		<div class="form-group">
+			<label for="exampleInputPrenom">Prenom</label>
+			<input type="text" class="form-control" id="exampleInputPrenom" placeholder="{user.prenom}">
 		</div>
-	</div><!-- /container -->
+		<div class="form-group">
+			<label for="exampleInputStatut">Status</label>
+			<input type="text" class="form-control" id="exampleInputStatut" placeholder="{user.status}">
+		</div>
+	  <button type="submit" class="btn btn-default">Submit</button>
+	</form>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
 	<script src="../js/appUser.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
