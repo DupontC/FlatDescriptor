@@ -351,6 +351,32 @@ app.get('/AllUsers/:id', function (req, res) {
 
 /**
 * web service qui retourne les informations
+* un utilisateur lors des appels ajax
+**/
+app.get('/user/:id', function (req, res) {
+  //on vérifie si l'utilisateur a un droit
+  //d'accée sur ces fonctions
+  if(req.session_state.username){
+    logger.info("Demande de recherche d'un utilisateur ");
+    //on recherche l'annonce demander par le client
+    user.find({"_id":{$ne:null}}, function (err, users) {
+      if(err){
+        logger.error("erreur lors de la recherche des utilisateurs");
+        onErr(err,"erreur data");
+      }else{
+        logger.debug("Envoi des données sur les utilisateurs");
+        //on envoie les données aux clients
+        res.status(200).send(users);
+      }
+    });
+  }else{
+    logger.debug("Recherche utilisateurs non permise (pas d'identification)");
+    res.status(401).send('Hého !! :@');
+  }
+});
+
+/**
+* web service qui retourne les informations
 *de tout les appartements en ligne lors des appels ajax
 **/
 app.get('/AllDataOnLigne/:id', function (req, res) {
