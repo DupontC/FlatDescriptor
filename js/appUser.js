@@ -15,7 +15,7 @@ var ListAppBack = angular.module('immoAppList', [ ]).controller('FlatBackOfficeU
     success(function(data, status, headers, config) {
       //si les données sont retourée au match avec notre object Angular
       if(null !== data && data !== ""){
-          $scope.users = data;
+          $scope.user = data[0];
           $scope.linkLogout  = webS+"/logout/0";
       }else{
           alert("Désolé ,utilsateurs non disponible");

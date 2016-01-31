@@ -42,26 +42,27 @@
       </ul>
     </div>
   </nav>
-
-	<form>
-	  <div class="form-group">
-	    <label for="exampleInputID">Identifiant</label>
-	    <input type="text" class="form-control" id="exampleInputID" placeholder="{user.id}">
-	  </div>
-	  <div class="form-group">
-	    <label for="exampleInputName">Nom</label>
-	    <input type="text" class="form-control" id="exampleInputName" placeholder="{user.nom}">
-	  </div>
-		<div class="form-group">
-			<label for="exampleInputPrenom">Prenom</label>
-			<input type="text" class="form-control" id="exampleInputPrenom" placeholder="{user.prenom}">
-		</div>
-		<div class="form-group">
-			<label for="exampleInputStatut">Status</label>
-			<input type="text" class="form-control" id="exampleInputStatut" placeholder="{user.status}">
-		</div>
-	  <button type="submit" class="btn btn-default">Submit</button>
-	</form>
+	<div>
+		<form >
+		  <div class="form-group">
+		    <label for="exampleInputID">Identifiant</label>
+		    <input type="text" class="form-control" id="exampleInputID" placeholder="{{user.id}}">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputName">Nom</label>
+		    <input type="text" class="form-control" id="exampleInputName" placeholder="{{user.nom}}">
+		  </div>
+			<div class="form-group">
+				<label for="exampleInputPrenom">Prenom</label>
+				<input type="text" class="form-control" id="exampleInputPrenom" placeholder="{{user.prenom}}">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputStatut">Status</label>
+				<input type="text" class="form-control" id="exampleInputStatut" placeholder="{{user.status}}">
+			</div>
+		  <button type="submit" class="btn btn-default">Submit</button>
+		</form>
+	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
 	<script src="../js/appUser.js"></script>

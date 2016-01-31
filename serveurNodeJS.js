@@ -356,10 +356,12 @@ app.get('/AllUsers/:id', function (req, res) {
 app.get('/user/:id', function (req, res) {
   //on vérifie si l'utilisateur a un droit
   //d'accée sur ces fonctions
+  var idUser = req.params.id;
+
   if(req.session_state.username){
     logger.info("Demande de recherche d'un utilisateur ");
     //on recherche l'annonce demander par le client
-    user.find({"_id":{$ne:null}}, function (err, users) {
+    user.find({'id':idUser}, function (err, users) {
       if(err){
         logger.error("erreur lors de la recherche des utilisateurs");
         onErr(err,"erreur data");
