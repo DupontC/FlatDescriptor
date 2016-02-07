@@ -386,21 +386,21 @@ app.post('/user/:id', function (req, res) {
     logger.debug(JSON.stringify(userAdd));
 
     // Use the schema to register a model with MongoDb
-    mongoose.model('flat', flatSchema);
-    var flat = mongoose.model('flat');
-    var newAppart = new flat(flatAdd);
-    newAppart.save(function(err){
+    mongoose.model('user', userSchema);
+    var flat = mongoose.model('user');
+    var newUser = new user(userAdd);
+    newUser.save(function(err){
       if(err){
-        logger.error("erreur lors de la m-a-j de l'annonce "+indice);
-        res.status(424).send("Erreur : add annonce ");
+        logger.error("erreur lors de la m-a-j de l'utilisateur "+indice);
+        res.status(424).send("Erreur : add user ");
       }else{
-        logger.debug("ajout d'une annonce ");
-        res.status(200).send("add annonce");
+        logger.debug("ajout d'un utilisateur ");
+        res.status(200).send("add user");
       }
     });
 
   }else{
-    logger.debug("add annonce non permise");
+    logger.debug("add user non permise");
     res.status(401).send("Erreur : add non permise");
   }
 });
