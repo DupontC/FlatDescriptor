@@ -43,7 +43,7 @@
     </div>
   </nav>
 	<div>
-		<form >
+		<form class="af-form" name="myForm" id="af-form" method="POST">
 		  <div class="form-group">
 		    <label for="exampleInputID">Identifiant</label>
 		    <input type="text" class="form-control" id="exampleInputID" value="{{user.id}}">
@@ -60,7 +60,7 @@
 				<label for="exampleInputStatut">Status</label>
 				<input type="text" class="form-control" id="exampleInputStatut" value="{{user.status}}">
 			</div>
-		  <button type="submit" class="btn btn-default">Valider</button>
+			<input ng-click="majData()" type="submit" class="btn btn-default" value="Valider" />
 		</form>
 	</div>
 
