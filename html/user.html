@@ -46,19 +46,19 @@
 		<form class="af-form" name="myForm" id="af-form" method="POST">
 		  <div class="form-group">
 		    <label for="exampleInputID">Identifiant</label>
-		    <input type="text" class="form-control" id="exampleInputID" value="{{user.id}}">
+		    <input type="text" class="form-control" id="exampleInputID" placeholder="{{user.id}}" value="{{user.id}}">
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleInputName">Nom</label>
-		    <input type="text" class="form-control" id="exampleInputName" value="{{user.nom}}">
+		    <input type="text" class="form-control" id="exampleInputName"  placeholder="{{user.nom}}" value="{{user.nom}}">
 		  </div>
 			<div class="form-group">
 				<label for="exampleInputPrenom">Prenom</label>
-				<input type="text" class="form-control" id="exampleInputPrenom" value="{{user.prenom}}">
+				<input type="text" class="form-control" id="exampleInputPrenom" placeholder="{{user.prenom}}" value="{{user.prenom}}">
 			</div>
 			<div class="form-group">
 				<label for="exampleInputStatut">Status</label>
-				<input type="text" class="form-control" id="exampleInputStatut" value="{{user.status}}">
+				<input type="text" class="form-control" id="exampleInputStatut" placeholder="{{user.status}}" value="{{user.status}}">
 			</div>
 			<input ng-click="majData()" type="submit" class="btn btn-default" value="Valider" />
 		</form>
