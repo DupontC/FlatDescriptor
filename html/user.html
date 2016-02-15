@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" class="no-js" ng-app="immoAppList">
+<html lang="fr" ng-app="immoApp">
 <head>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -46,20 +46,20 @@
 		<form class="af-form" name="myForm" id="af-form" method="POST">
 		  <div class="form-group">
 		    <label for="exampleInputID">Identifiant</label>
-				
-		    <input type="text" class="form-control" id="exampleInputID" placeholder="{{user.id}}" value="{{user.id}}">
+
+		    <input type="text" class="form-control" id="exampleInputID" ng-model="user.id" placeholder="{{user.id}}" value="{{user.id}}">
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleInputName">Nom</label>
-		    <input type="text" class="form-control" id="exampleInputName"  placeholder="{{user.nom}}" value="{{user.nom}}">
+		    <input type="text" class="form-control" id="exampleInputName"  ng-model="user.nom" placeholder="{{user.nom}}" value="{{user.nom}}">
 		  </div>
 			<div class="form-group">
 				<label for="exampleInputPrenom">Prenom</label>
-				<input type="text" class="form-control" id="exampleInputPrenom" placeholder="{{user.prenom}}" value="{{user.prenom}}">
+				<input type="text" class="form-control" id="exampleInputPrenom" ng-model="user.prenom" placeholder="{{user.prenom}}" value="{{user.prenom}}">
 			</div>
 			<div class="form-group">
 				<label for="exampleInputStatut">Status</label>
-				<input type="text" class="form-control" id="exampleInputStatut" placeholder="{{user.status}}" value="{{user.status}}">
+				<input type="text" class="form-control" id="exampleInputStatut" ng-model="user.status" placeholder="{{user.status}}" value="{{user.status}}">
 			</div>
 			<input ng-click="majData()" type="submit" class="btn btn-default" value="Valider" />
 		</form>
@@ -69,5 +69,6 @@
 	<script src="../js/appUser.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+	<script src="../js/toastr.js"></script>
 </body>
 </html>

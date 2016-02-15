@@ -1,4 +1,4 @@
-var ListAppBack = angular.module('immoAppList', [ ]).controller('FlatBackOfficeUserCtrl',function($scope, $http, $location) {
+var ListAppBack = angular.module('immoApp', [ ]).controller('FlatBackOfficeUserCtrl',function($scope, $http, $location) {
 
 
   //on recupére l'id de l'annonce
@@ -28,8 +28,8 @@ var ListAppBack = angular.module('immoAppList', [ ]).controller('FlatBackOfficeU
   //function call to update data
   $scope.majData = function() {
     if($scope.myForm.$valid){//on verifie que le formulaire est valide
-      console.log("mise à jour des données");
       var jdata = 'majData='+JSON.stringify($scope.user); // The data is to be string.
+      console.log("mise à jour des données ");
       $http({ // Accessing the Angular $http Service to send data via REST Communication to Node Server.
         method: "post",
         url: urlInfo,
