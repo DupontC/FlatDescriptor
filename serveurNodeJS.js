@@ -380,7 +380,7 @@ app.get('/user/:id', function (req, res) {
 
 //web service qui maj un user lors des appels ajax
 app.post('/user/:id', function (req, res) {
-
+/*
   var userAdd =  JSON.parse(req.body.majData);
   if(req.session_state.username && null !== userAdd){
     logger.debug(JSON.stringify(userAdd));
@@ -402,6 +402,27 @@ app.post('/user/:id', function (req, res) {
   }else{
     logger.debug("add user non permise");
     res.status(401).send("Erreur : add non permise");
+  }
+  */
+  var userMAJ =  JSON.parse(req.body.majData);
+  var indice = userMAJ._id;
+  delete userMAJ._id;
+  delete userMAJ.__v;
+  if(req.session_state.username && null !== userMAJ){
+    logger.debug(JSON.stringify(userMAJ));
+    logger.debug(indice);
+    user.update({_id:indice}, userMAJ, {upsert: true}, function(err){
+      if(err){
+        logger.error("erreur lors de la m-a-j de l'utilisateur "+indice);
+        res.status(424).send("Erreur : mise à jour ");
+      }else{
+        logger.debug("mise a jour de l'utilisateur "+indice);
+        res.status(200).send("mise à jour");
+      }
+    });
+  }else{
+    logger.debug("m-a-j de 'utilisateur' non permise");
+    res.status(401).send("Erreur : mise à jour non permise");
   }
 });
 
