@@ -380,30 +380,7 @@ app.get('/user/:id', function (req, res) {
 
 //web service qui maj un user lors des appels ajax
 app.post('/user/:id', function (req, res) {
-/*
-  var userAdd =  JSON.parse(req.body.majData);
-  if(req.session_state.username && null !== userAdd){
-    logger.debug(JSON.stringify(userAdd));
-
-    // Use the schema to register a model with MongoDb
-    mongoose.model('user', userSchema);
-    var flat = mongoose.model('user');
-    var newUser = new user(userAdd);
-    newUser.save(function(err){
-      if(err){
-        logger.error("erreur lors de la m-a-j de l'utilisateur "+indice);
-        res.status(424).send("Erreur : add user ");
-      }else{
-        logger.debug("ajout d'un utilisateur ");
-        res.status(200).send("add user");
-      }
-    });
-
-  }else{
-    logger.debug("add user non permise");
-    res.status(401).send("Erreur : add non permise");
-  }
-  */
+  
   var userMAJ =  JSON.parse(req.body.majData);
   var indice = userMAJ._id;
   delete userMAJ._id;
