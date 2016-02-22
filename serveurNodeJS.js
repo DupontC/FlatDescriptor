@@ -380,7 +380,7 @@ app.get('/user/:id', function (req, res) {
 
 //web service qui maj un user lors des appels ajax
 app.post('/user/:id', function (req, res) {
-  
+
   var userMAJ =  JSON.parse(req.body.majData);
   var indice = userMAJ._id;
   delete userMAJ._id;
@@ -400,6 +400,33 @@ app.post('/user/:id', function (req, res) {
   }else{
     logger.debug("m-a-j de 'utilisateur' non permise");
     res.status(401).send("Erreur : mise à jour non permise");
+  }
+});
+
+//web service qui ajoute les informations lors des appels ajax
+app.post('/addUser/:id', function (req, res) {
+
+  var userMAJ =  JSON.parse(req.body.majData);
+  if(req.session_state.username && null !== userMAJ){
+    logger.debug(JSON.stringify(userMAJ));
+
+    // Use the schema to register a model with MongoDb
+    mongoose.model('user', userSchema);
+    var flat = mongoose.model('flat');
+    var newUser = new flat(userMAJ);
+    newUser.save(function(err){
+      if(err){
+        logger.error("erreur lors de l'ajout de l'utilisateur "+indice);
+        res.status(424).send("Erreur : add annonce ");
+      }else{
+        logger.debug("ajout d'un user ");
+        res.status(200).send("add user");
+      }
+    });
+
+  }else{
+    logger.debug("add user non permise");
+    res.status(401).send("Erreur : add non permise");
   }
 });
 
