@@ -258,6 +258,19 @@ app.get('/users/:id', function (req, res) {
   }
 });
 
+//route pas défaut qui redirige vers les users si user logger
+app.get('/addUser/:id', function (req, res) {
+  if(req.session_state.username){
+    logger.info("GET listeUsers");
+    res.sendFile(__dirname+'/html/addUser.html');
+  }else{
+    logger.info("GET login");
+    res.sendFile(__dirname+'/html/login.html');
+  }
+});
+
+
+
 //route pas défaut qui redirige la page
 //d'ajout des annonces
 app.get('/addAnnonce/:id', function (req, res) {
@@ -378,6 +391,7 @@ app.get('/user/:id', function (req, res) {
 });
 
 
+
 //web service qui maj un user lors des appels ajax
 app.post('/user/:id', function (req, res) {
 
@@ -412,8 +426,8 @@ app.post('/addUser/:id', function (req, res) {
 
     // Use the schema to register a model with MongoDb
     mongoose.model('user', userSchema);
-    var flat = mongoose.model('flat');
-    var newUser = new flat(userMAJ);
+    var user = mongoose.model('user');
+    var newUser = new user(userMAJ);
     newUser.save(function(err){
       if(err){
         logger.error("erreur lors de l'ajout de l'utilisateur "+indice);

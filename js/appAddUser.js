@@ -10,20 +10,6 @@ var ListAppBack = angular.module('immoApp', [ ]).controller('FlatBackOfficeAddUs
   var urlInfo =  webS+userID;
 
   console.log(urlInfo);
-  //on demande au serveur les informations sur l'annonce en ajax
-  $http({method: 'GET', url: urlInfo}).
-    success(function(data, status, headers, config) {
-      //si les données sont retourée au match avec notre object Angular
-      if(null !== data && data !== ""){
-          $scope.user = data[0];
-          $scope.linkLogout  = webS+"/logout/0";
-      }else{
-          alert("Désolé ,utilsateurs non disponible");
-      }
-    }).
-    error(function(data, status, headers, config) {
-      alert("Bada Bom !"+status[0]+" "+headers[0]);
-  });
 
   //function call to update data
   $scope.majData = function() {
@@ -36,13 +22,12 @@ var ListAppBack = angular.module('immoApp', [ ]).controller('FlatBackOfficeAddUs
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         data:  jdata
       }).success(function(response) {
-        console.log("success"); // Getting Success Response in Callback
-        console.log("maj ok");
-        toastr.success('Données mise à jour !');
+        console.log("success");
+        toastr.success('Utilisateur ajouté !');
 
       }).error(function(response) {
         console.log("maj ko "+$scope.codeStatus);
-        toastr.error('Erreur de mise à jour !');
+        toastr.error("Erreur lors de l'ajout !");
       });//END HTTP
     }else{
       toastr.warning('Formulaire invalide');
