@@ -34,8 +34,8 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a class="glyphicon glyphicon-plus" aria-hidden="true" href="/addAnnonce/1"> Annonce</a></li>
-            <!--<li><a class="glyphicon glyphicon-plus" aria-hidden="true" href="#">  Utilisateur</a></li>-->
+						<li><a class=" glyphicon glyphicon-home" aria-hidden="true" href="/addAnnonce/1"> + Annonce</a></li>
+						<li><a class="glyphicon glyphicon-user" aria-hidden="true" href="/addUser/1"> + Utilisateur</a></li>
             <li role="separator" class="divider"></li>
             <li><a class="glyphicon glyphicon-log-out" aria-hidden="true" href="{{linkLogout}}">  Déconnexion</a></li>
           </ul>
@@ -43,11 +43,10 @@
       </ul>
     </div>
   </nav>
-	<div>
+	<div style="margin-left: 10%; margin-right: 10%">
 		<form class="af-form" name="myForm" id="af-form" method="POST">
 		  <div class="form-group">
 		    <label for="exampleInputID">Identifiant</label>
-
 		    <input type="text" class="form-control" id="exampleInputID" ng-model="user.id" placeholder="{{user.id}}" value="{{user.id}}">
 		  </div>
 		  <div class="form-group">
