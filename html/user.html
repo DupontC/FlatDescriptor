@@ -47,15 +47,15 @@
 		<form class="af-form" name="myForm" id="af-form" method="POST">
 		  <div class="form-group">
 		    <label for="exampleInputID">Identifiant</label>
-		    <input type="text" class="form-control" id="exampleInputID" ng-model="user.id" placeholder="{{user.id}}" value="{{user.id}}">
+		    <input type="text" class="form-control" id="exampleInputID" ng-minlength="5" required="string" ng-model="user.id" placeholder="{{user.id}}" value="{{user.id}}">
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleInputName">Nom</label>
-		    <input type="text" class="form-control" id="exampleInputName"  ng-model="user.nom" placeholder="{{user.nom}}" value="{{user.nom}}">
+		    <input type="text" class="form-control" id="exampleInputName" ng-minlength="5" required="string" ng-model="user.nom" placeholder="{{user.nom}}" value="{{user.nom}}">
 		  </div>
 			<div class="form-group">
 				<label for="exampleInputPrenom">Prenom</label>
-				<input type="text" class="form-control" id="exampleInputPrenom" ng-model="user.prenom" placeholder="{{user.prenom}}" value="{{user.prenom}}">
+				<input type="text" class="form-control" id="exampleInputPrenom"  ng-minlength="5" required="string" ng-model="user.prenom" placeholder="{{user.prenom}}" value="{{user.prenom}}">
 			</div>
 			<div class="form-group">
 				<label for="exampleInputStatut">Status</label>
