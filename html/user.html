@@ -59,7 +59,10 @@
 			</div>
 			<div class="form-group">
 				<label for="exampleInputStatut">Status</label>
-				<input type="text" class="form-control" id="exampleInputStatut" ng-model="user.status" placeholder="{{user.status}}" value="{{user.status}}">
+				<select  class="form-control" id="exampleInputStatut" ng-model="user.status">
+					<option value="admin">Administrateur</option>
+					<option value="guest">Visiteur</option>
+				</select>
 			</div>
 			<input ng-click="majData()" type="submit" class="btn btn-default" value="Valider" />
 		</form>
