@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="immoApp">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Liste des logements</title>
+	<meta name="description" content="Sur cette page, vous trouverez la liste des logements disponible avec une courte description." />
+	<meta name="keywords" content="lite de Logements, Appartements" />
+	<meta name="author" content="Cyril Dupont" />
+	<link rel="shortcut icon" href="../favicon.ico">
+	<link href="../css/toastr.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+	<!--[if IE]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body ng-controller="FlatBackOfficeAddUserCtrl">
+
+	<nav class="navbar navbar-default">
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Administration</a>
+      </div>
+
+    	<ul class="nav navbar-nav">
+      	<li><a href="/listFlats/1">Appartements</a></li>
+      	<li class="active"><a href="/users/1">Utilisateurs</a></li>
+    	</ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+						<li><a class=" glyphicon glyphicon-home" aria-hidden="true" href="/addAnnonce/1"> + Annonce</a></li>
+						<li><a class="glyphicon glyphicon-user" aria-hidden="true" href="/addUser/1"> + Utilisateur</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a class="glyphicon glyphicon-log-out" aria-hidden="true" href="{{linkLogout}}">  Déconnexion</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+	<div style="margin-left: 10%; margin-right: 10%">
+		<form class="af-form" name="myForm" id="af-form" method="POST">
+		  <div class="form-group">
+		    <label for="exampleInputID">Identifiant</label>
+
+		    <input type="text" class="form-control" id="exampleInputID" ng-minlength="5" required="string" ng-model="user.id" placeholder="{{user.id}}" value="{{user.id}}">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputName">Nom</label>
+		    <input type="text" class="form-control" id="exampleInputName"  ng-minlength="5" required="string" ng-model="user.nom" placeholder="{{user.nom}}" value="{{user.nom}}">
+		  </div>
+			<div class="form-group">
+				<label for="exampleInputPrenom">Prenom</label>
+				<input type="text" class="form-control" id="exampleInputPrenom" ng-minlength="5" required="string" ng-model="user.prenom" placeholder="{{user.prenom}}" value="{{user.prenom}}">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputStatut">Status</label>
+				<select  class="form-control" id="exampleInputStatut" ng-model="user.status">
+					<option value="adminitrateur">Administrateur</option>
+					<option value="visiteur">Visiteur</option>
+				</select>
+			</div>
+			<input ng-click="majData()" type="submit" class="btn btn-default" value="Valider" />
+		</form>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+	<script src="../js/appAddUser.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+	<script src="../js/toastr.js"></script>
+</body>
+</html>
