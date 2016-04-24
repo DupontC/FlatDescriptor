@@ -1,19 +1,19 @@
 
 nginx:
-  build: ./nginx
+  build: ./serveur_nginx/
   links:
     - node1:node1
     - node2:node2
   ports:
     - "80:80"
-    
+
 db:
   image: mongo
   ports:
     - "27017"
 
 node1:
-  build: .
+  build: ./serveur_node/
   ports:
     - "3000"
   links:
@@ -22,7 +22,7 @@ node1:
     - /img/upload
 
 node2:
-  build: .
+  build: ./serveur_node/
   ports:
     - "3000"
   links:

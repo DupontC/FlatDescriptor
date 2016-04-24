@@ -9,7 +9,7 @@
   "homepage": "https://github.com/exponentiel/FlatDescriptor",
   "scripts": {
     "test": "node ./js/tools/insertMongodb.js",
-    "start": "node serveurNodeJS.js"
+    "start": "node ./serveur_node/serveurNodeJS.js"
   },
   "repository": {
     "type": "git",
