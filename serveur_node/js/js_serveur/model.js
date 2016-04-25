@@ -1,14 +1,29 @@
 
 var mongoose = require("mongoose");
-var MONGOHQ_URL="mongodb://heroku:qx1L3V6QpV8Xtt1BDdn_CcHMFGkF3iMUhUXUm3x_7S37DqK7HjZVfTRB4rjiTXdehHdWeuBlNym5oMmHG2VKEg@linus.mongohq.com:10085/app30838243";
 
-db = mongoose.connect(MONGOHQ_URL);
-Schema = mongoose.Schema;
 
-// Create a schema for our data
-var flatSchema = new Schema({
+/****************************/
+/***      DATA MODEL      ***/
+/****************************/
+
+
+var MONGOHQ_URL;
+var DOCKER_DB = process.env.DB_1_PORT;
+if ( DOCKER_DB ) {
+  MONGOHQ_URL = DOCKER_DB.replace( "tcp", "mongodb" ) + "/flatdescriptor";
+} else {
+  MONGOHQ_URL = process.env.MONGODB;
+}
+//console.info("DATABASE "+MONGOHQ_URL);
+mongoose.connect(MONGOHQ_URL);
+var Schema = mongoose.Schema;
+
+// Create a schema for our database
+flatSchema = new Schema({
   id_annonce : Number,
   enLigne : Boolean,
+  surface : Number,
+  nbPiece : Number,
   ville   : String,
   titre1  : String,
   texte1  : String,
@@ -22,6 +37,7 @@ var flatSchema = new Schema({
   titre4  : String,
   texte4  : String,
   image4  : String,
+  photosphere  : String,
   emplacement :String,
   latitude : String,
   longitude : String,
@@ -29,6 +45,7 @@ var flatSchema = new Schema({
   photos: String,
   albumPhotos : String,
   contacts :String,
+  niveauDroit: Number,
   color : String
 });
 
@@ -36,6 +53,7 @@ var userSchema = new Schema({
   id :String,
   nom :String,
   prenom :String,
+  niveauDroit: Number,
   mpd : String
 });
 

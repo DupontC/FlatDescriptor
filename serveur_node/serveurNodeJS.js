@@ -18,6 +18,7 @@ var fs = require('fs-extra');				//File System - for file manipulation
 var util = require('util');
 var clientSessions = require("client-sessions");
 var mongoose = require("mongoose");
+var db = require("./js/js_serveur/model.js");
 var app = express();
 var ninetyDaysInMilliseconds = 7776000000;
 app.locals.title = "FlarDescriptor";
@@ -53,67 +54,6 @@ log4js.configure({
 logger.setLevel('DEBUG');
 
 
-/****************************/
-/***      DATA MODEL      ***/
-/****************************/
-
-var MONGOHQ_URL;
-var DOCKER_DB = process.env.DB_1_PORT;
-if ( DOCKER_DB ) {
-  MONGOHQ_URL = DOCKER_DB.replace( "tcp", "mongodb" ) + "/flatdescriptor";
-} else {
-  MONGOHQ_URL = process.env.MONGODB;
-}
-console.info("DATABASE "+MONGOHQ_URL);
-mongoose.connect(MONGOHQ_URL);
-var Schema = mongoose.Schema;
-
-// Create a schema for our database
-flatSchema = new Schema({
-  id_annonce : Number,
-  enLigne : Boolean,
-  surface : Number,
-  nbPiece : Number,
-  ville   : String,
-  titre1  : String,
-  texte1  : String,
-  image1  : String,
-  titre2  : String,
-  texte2  : String,
-  image2  : String,
-  titre3  : String,
-  texte3  : String,
-  image3  : String,
-  titre4  : String,
-  texte4  : String,
-  image4  : String,
-  photosphere  : String,
-  emplacement :String,
-  latitude : String,
-  longitude : String,
-  adresse : String,
-  photos: String,
-  albumPhotos : String,
-  contacts :String,
-  niveauDroit: Number,
-  color : String
-});
-
-var userSchema = new Schema({
-  id :String,
-  nom :String,
-  prenom :String,
-  niveauDroit: Number,
-  mpd : String
-});
-
-// Use the schema to register a model with MongoDb
-mongoose.model('flat', flatSchema);
-var flat = mongoose.model('flat');
-mongoose.model('user', userSchema);
-var user = mongoose.model('user');
-
-
 /***********************************/
 /***      CONFIGURE SESSION      ***/
 /***********************************/
@@ -122,6 +62,7 @@ var user = mongoose.model('user');
 app.use(clientSessions({
   secret: '224c4a16a42716e410fcd78b5564bbc8d7e9c7eea3733a342c4bc100f5ed3b0518f4a0dd132e567af10043281e437bba0acdd792a6c4e45ac319d13999c6b019' // set this to a long random string!
 }));
+
 //utile pour permettre à nos page HTML de
 //charger des ressources (JavaScript, CSS,...)
 app.use(express.static(__dirname + '/'));
@@ -484,7 +425,7 @@ app.set('port', (process.env.PORT || 3000));
 //on mettre notre serveur en ecoute
 var server = app.listen(app.get('port'), function () {
   logger.info("Starting NodeJS serveur "+ip.address());
-  logger.info("Liens DataBase "+MONGOHQ_URL);
+  logger.info("Liens DataBase "+db.MONGOHQ_URL);
 
   var hostInformation = JSON.stringify(server.address());
   logger.info('Information for connexion on : '+ hostInformation);
