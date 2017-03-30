@@ -1,0 +1,34 @@
+{
+  "name"         : "client-sessions",
+  "version"      : "0.7.0",
+  "description"  : "secure sessions stored in cookies",
+  "main"         : "lib/client-sessions",
+  "repository" : {
+    "type" : "git",
+    "url"  : "https://github.com/mozilla/node-client-sessions"
+  },
+  "dependencies" : {
+    "cookies" : "0.5.0"
+  },
+  "devDependencies": {
+    "vows": "0.7.0",
+    "express": "2.5.0",
+    "tobi": "https://github.com/Cowboy-coder/tobi/tarball/fd733a3",
+    "zombie": "1.4.1"
+  },
+  "author" : {
+    "name"  : "Ben Adida",
+    "email" : "ben@adida.net"
+  },
+  "scripts" : {
+    "test": "vows --spec"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "licenses": {
+    "type": "MPL 2.0",
+    "url": "https://raw.github.com/mozilla/node-client-sessions/master/LICENSE"
+  },
+  "bugs": "https://github.com/mozilla/node-client-sessions/issues"
+}

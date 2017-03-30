@@ -1,9 +1,9 @@
 language: node_js
 install:
-  - cd serveur_node
-  - npm install
+  - cd serveur
+  - yarn install
 after_deploy:
-  - npm start
+  - yarn start
 notifications:
   slack: cydupont:c3gRznpNjhcgqnW0YeaNj5fB
 

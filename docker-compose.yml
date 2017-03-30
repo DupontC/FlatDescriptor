@@ -1,31 +1,23 @@
+version: '2'
+services:
+  nginx:
+    build: ./gateway/
+    links:
+      - node:node
+    ports:
+      - "80:80"
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+  node:
+    build: ./serveur/
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+    volumes:
+      - /img/upload
+    environment:
+      DB_CNX: "mongo:27017"
 
-nginx:
-  build: ./serveur_nginx/
-  links:
-    - node1:node1
-    - node2:node2
-  ports:
-    - "80:80"
-
-db:
-  image: mongo
-  ports:
-    - "27017"
-
-node1:
-  build: ./serveur_node/
-  ports:
-    - "3000"
-  links:
-    - db
-  volumes:
-    - /img/upload
-
-node2:
-  build: ./serveur_node/
-  ports:
-    - "3000"
-  links:
-    - db
-  volumes_from:
-    - node1
