@@ -23,14 +23,11 @@
     "logement",
     "meuble"
   ],
-  "engines": {
-    "node": ">=0.12"
-  },
   "bugs": {
     "url": "https://github.com/exponentiel/FlatDescriptor/issues"
   },
   "dependencies": {
-    "express": ">=3.0.0rc1",
+    "express": "4.15.2",
     "connect-busboy": "0.0.1",
     "util": "~0.10.3",
     "fs-extra": "0.8.1",
