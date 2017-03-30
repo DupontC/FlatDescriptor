@@ -1,6 +1,7 @@
 language: node_js
 install:
   - cd serveur
+  - npm install yarn
   - yarn install
 after_deploy:
   - yarn start
